@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<configuration>
+<configSections>
+</configSections>
+<connectionStrings>
+    <add name="nx09SitingTool.Properties.Settings.nX08LDRDConnectionString"
+        connectionString="Data Source=SAGITTARIUS\SAGITTARIUS;Initial Catalog=nX08LDRD;Integrated Security=True"
+        providerName="System.Data.SqlClient" />
+</connectionStrings>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/></startup>
+  <!--<userSettings>
+  <DotSpatial.Plugins.SplashScreenManager.Properties.Settings>
+    <setting name="CustomSplashImagePath" serializeAs="String">
+      <value>LSLogo.PNG</value>
+    </setting>
+  </DotSpatial.Plugins.SplashScreenManager.Properties.Settings>
+  </userSettings>-->
+</configuration>

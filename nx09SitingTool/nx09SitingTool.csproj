@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C41963D-F9B3-4F50-B05B-D056048C26E3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>nx09SitingTool</RootNamespace>
+    <AssemblyName>nx09SitingTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>121</ApplicationRevision>
+    <ApplicationVersion>1.0.7.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>nx09SitingTool.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>CCB36619DAA4BEB28CAF419E2711088A9BFC9152</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>nx09SitingTool_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\DevExpress 2011.2\Components\Bin\Framework\DevExpress.XtraBars.v11.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v11.2.UI, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DotSpatial.Analysis, Version=0.11.9.6, Culture=neutral, PublicKeyToken=df3f45fb0fe4cb0c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Analysis.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Compatibility, Version=0.11.9.6, Culture=neutral, PublicKeyToken=094c8fdea7f4a002, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Compatibility.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Controls, Version=0.11.9.6, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Data, Version=0.11.9.6, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Data.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=53ab5a198378d4c1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Data.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Modeling, Version=0.11.9.6, Culture=neutral, PublicKeyToken=c90293dbec1f136e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Modeling.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Modeling.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=712bef29a31a9354, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Modeling.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Projections, Version=0.11.9.6, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Projections.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Projections.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=52099474f11b7ff0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Projections.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Serialization, Version=0.11.9.6, Culture=neutral, PublicKeyToken=441f200f827611e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Symbology, Version=0.11.9.6, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Symbology.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Symbology.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=0544cdeefb662382, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Symbology.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Topology, Version=0.11.9.6, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Topology.dll</HintPath>
+    </Reference>
+    <Reference Include="GeospatialFiles">
+      <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\GeospatialFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="GISTools">
+      <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\GISTools.dll</HintPath>
+    </Reference>
+    <Reference Include="ILMerge">
+      <HintPath>..\..\..\..\..\Desktop\nuget-07c8f86ec737\Tools\ILMerge\ILMerge.exe</HintPath>
+    </Reference>
+    <Reference Include="Interfaces">
+      <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Core">
+      <HintPath>..\..\..\..\..\Downloads\nugetfiles\NuGet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PercentageProgressBar">
+      <HintPath>..\packages\Percentage_ProgressBar.1.0\lib\PercentageProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="Qios.DevSuite.Components, Version=4.0.0.20, Culture=neutral, PublicKeyToken=3cc53827b79c92fa, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.Ribbon35">
+      <HintPath>..\..\..\Libraries\Office Ribbon DLL Archive\System.Windows.Forms.Ribbon35.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="1121165.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="1121165.Designer.cs">
+      <DependentUpon>1121165.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clsGATGridConversions.cs" />
+    <Compile Include="clsLCPCoords.cs" />
+    <Compile Include="clsMonteCarlo.cs" />
+    <Compile Include="clsRasterOps.cs" />
+    <Compile Include="clsWBHost.cs" />
+    <Compile Include="frmAssignLayerCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAssignLayerCosts.Designer.cs">
+      <DependentUpon>frmAssignLayerCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCreateBoundsRaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateBoundsRaster.Designer.cs">
+      <DependentUpon>frmCreateBoundsRaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCreateUtilityRaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateUtilityRaster.Designer.cs">
+      <DependentUpon>frmCreateUtilityRaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmNewMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNewMain.Designer.cs">
+      <DependentUpon>frmNewMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPointSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPointSave.Designer.cs">
+      <DependentUpon>frmPointSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReclass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReclass.Designer.cs">
+      <DependentUpon>frmReclass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmResults.Designer.cs">
+      <DependentUpon>frmResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectLayers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectLayers.Designer.cs">
+      <DependentUpon>frmSelectLayers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSubtract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSubtract.Designer.cs">
+      <DependentUpon>frmSubtract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTest.Designer.cs">
+      <DependentUpon>frmTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MCTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MCTest.Designer.cs">
+      <DependentUpon>MCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="selectionDiag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="selectionDiag.Designer.cs">
+      <DependentUpon>selectionDiag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAboutTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAboutTool.Designer.cs">
+      <DependentUpon>frmAboutTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmToolExecute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmToolExecute.Designer.cs">
+      <DependentUpon>frmToolExecute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmWeights.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWeights.Designer.cs">
+      <DependentUpon>frmWeights.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LineSiting.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LineSiting.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="1121165.resx">
+      <DependentUpon>1121165.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAboutTool.resx">
+      <DependentUpon>frmAboutTool.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAssignLayerCosts.resx">
+      <DependentUpon>frmAssignLayerCosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateBoundsRaster.resx">
+      <DependentUpon>frmCreateBoundsRaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateUtilityRaster.resx">
+      <DependentUpon>frmCreateUtilityRaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNewMain.resx">
+      <DependentUpon>frmNewMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPointSave.resx">
+      <DependentUpon>frmPointSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReclass.resx">
+      <DependentUpon>frmReclass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmResults.resx">
+      <DependentUpon>frmResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectLayers.resx">
+      <DependentUpon>frmSelectLayers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSubtract.resx">
+      <DependentUpon>frmSubtract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTest.resx">
+      <DependentUpon>frmTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MCTest.resx">
+      <DependentUpon>MCTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="selectionDiag.resx">
+      <DependentUpon>selectionDiag.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="LineSiting.dbml.layout">
+      <DependentUpon>LineSiting.dbml</DependentUpon>
+    </None>
+    <EmbeddedResource Include="frmToolExecute.resx">
+      <DependentUpon>frmToolExecute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWeights.resx">
+      <DependentUpon>frmWeights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="LineSiting.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LineSiting.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="nx09SitingTool_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\applications-internet-5 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\applications-internet-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dialog-accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dialog-cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-new-7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-new-Globe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-open-2 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-open-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-save-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-save-as-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\format-add-node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LCPdollar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MonteCarlo32a.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LSLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
