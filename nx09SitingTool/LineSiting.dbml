@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="nX08LDRD" Class="LineSitingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SAGITTARIUS\SAGITTARIUS;Initial Catalog=nX08LDRD;Integrated Security=True" SettingsObjectName="nx09SitingTool.Properties.Settings" SettingsPropertyName="nX08LDRDConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PredefinedWeight" Member="PredefinedWeights">
+    <Type Name="PredefinedWeight">
+      <Column Name="PWID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ThemeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="predefinedWeight" Member="predefinedWeight1" Type="System.Decimal" DbType="Decimal(8,6) NOT NULL" CanBeNull="false" />
+      <Association Name="Theme_PredefinedWeight" Member="Theme" ThisKey="ThemeID" OtherKey="themeID" Type="Theme" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[R:Theme-Question]" Member="R_Theme_Questions">
+    <Type Name="R_Theme_Question">
+      <Column Name="TQID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="themeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Theme_R_Theme_Question" Member="Theme" ThisKey="themeID" OtherKey="themeID" Type="Theme" IsForeignKey="true" />
+      <Association Name="Question_R_Theme_Question" Member="Question" ThisKey="questionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.raster" Member="rasters">
+    <Type Name="raster">
+      <Column Name="rasterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="themeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fileLocation" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Theme_raster" Member="Theme" ThisKey="themeID" OtherKey="themeID" Type="Theme" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Theme" Member="Themes">
+    <Type Name="Theme">
+      <Column Name="themeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tDescription" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Theme_PredefinedWeight" Member="PredefinedWeights" ThisKey="themeID" OtherKey="ThemeID" Type="PredefinedWeight" />
+      <Association Name="Theme_R_Theme_Question" Member="R_Theme_Questions" ThisKey="themeID" OtherKey="themeID" Type="R_Theme_Question" />
+      <Association Name="Theme_raster" Member="rasters" ThisKey="themeID" OtherKey="themeID" Type="raster" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Choice" Member="Choices">
+    <Type Name="Choice">
+      <Column Name="ChoiceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="cWeight" Type="System.Decimal" DbType="Decimal(18,6)" CanBeNull="true" />
+      <Association Name="Choice_R_Question_Choice_Respondent" Member="R_Question_Choice_Respondents" ThisKey="ChoiceID" OtherKey="ChoiceID" Type="R_Question_Choice_Respondent" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[R:Question-Choice-Respondent]" Member="R_Question_Choice_Respondents">
+    <Type Name="R_Question_Choice_Respondent">
+      <Column Name="RCRID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChoiceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RespondentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Choice_R_Question_Choice_Respondent" Member="Choice" ThisKey="ChoiceID" OtherKey="ChoiceID" Type="Choice" IsForeignKey="true" />
+      <Association Name="respondent_R_Question_Choice_Respondent" Member="respondent" ThisKey="RespondentID" OtherKey="respondentID" Type="respondent" IsForeignKey="true" />
+      <Association Name="Question_R_Question_Choice_Respondent" Member="Question" ThisKey="QuestionID" OtherKey="QuestionID" Type="Question" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.respondent" Member="respondents">
+    <Type Name="respondent">
+      <Column Name="respondentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="rZip" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="rGender" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="respondent_R_Question_Choice_Respondent" Member="R_Question_Choice_Respondents" ThisKey="respondentID" OtherKey="RespondentID" Type="R_Question_Choice_Respondent" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Question" Member="Questions">
+    <Type Name="Question">
+      <Column Name="QuestionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="qText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="qName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="qWeight" Type="System.Decimal" DbType="Decimal(18,6)" CanBeNull="true" />
+      <Association Name="Question_R_Theme_Question" Member="R_Theme_Questions" ThisKey="QuestionID" OtherKey="questionID" Type="R_Theme_Question" />
+      <Association Name="Question_R_Question_Choice_Respondent" Member="R_Question_Choice_Respondents" ThisKey="QuestionID" OtherKey="QuestionID" Type="R_Question_Choice_Respondent" />
+    </Type>
+  </Table>
+</Database>

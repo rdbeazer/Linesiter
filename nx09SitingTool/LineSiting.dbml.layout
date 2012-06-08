@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.875, 9.75" name="LineSiting">
+  <DataContextMoniker Name="/LineSitingDataContext" />
+  <nestedChildShapes>
+    <classShape Id="6f6649de-1431-45df-b2df-f97356734502" absoluteBounds="0.5, 5.25, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/LineSitingDataContext/PredefinedWeight" />
+      <nestedChildShapes>
+        <elementListCompartment Id="13f327e6-15b5-4f55-9d3d-4e6d8d5ca4a7" absoluteBounds="0.51500000000000012, 5.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="10457820-2b06-4585-8671-7e25bb13c7db" absoluteBounds="6.5, 3.25, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/LineSitingDataContext/R_Theme_Question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7f2c825b-dc3e-48ee-9df6-ea85ae29ee8d" absoluteBounds="6.515, 3.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5c4dba7f-1c71-4602-bf63-eaa563f96ca0" absoluteBounds="2.875, 5.25, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/LineSitingDataContext/raster" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1c54cdb3-35e7-4043-b0fb-f312838d81ec" absoluteBounds="2.89, 5.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="75102ec3-dcac-4cfd-bde8-d8bbf07f4209" absoluteBounds="1.625, 3.25, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/LineSitingDataContext/Theme" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4edf9a90-2572-4abf-a804-73c8c382a698" absoluteBounds="1.6400000000000001, 3.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.0625 : 4.44399251302083); (2.0625 : 5.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LineSitingDataContext/Theme/Theme_PredefinedWeight" />
+      <nodes>
+        <classShapeMoniker Id="75102ec3-dcac-4cfd-bde8-d8bbf07f4209" />
+        <classShapeMoniker Id="6f6649de-1431-45df-b2df-f97356734502" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.625 : 3.84699625651042); (6.5 : 3.84699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LineSitingDataContext/Theme/Theme_R_Theme_Question" />
+      <nodes>
+        <classShapeMoniker Id="75102ec3-dcac-4cfd-bde8-d8bbf07f4209" />
+        <classShapeMoniker Id="10457820-2b06-4585-8671-7e25bb13c7db" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.25 : 4.44399251302083); (3.25 : 5.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LineSitingDataContext/Theme/Theme_raster" />
+      <nodes>
+        <classShapeMoniker Id="75102ec3-dcac-4cfd-bde8-d8bbf07f4209" />
+        <classShapeMoniker Id="5c4dba7f-1c71-4602-bf63-eaa563f96ca0" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="52aac576-fb47-4e62-8bf9-38994ffab5a1" absoluteBounds="2.875, 8.125, 2, 1.3862939453125">
+      <DataClassMoniker Name="/LineSitingDataContext/Choice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="abdd3cc1-4045-422c-bfe0-aca46881ac00" absoluteBounds="2.8899999999999997, 8.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ad1fd185-599b-4471-8ff5-2b479f17384b" absoluteBounds="6.125, 7.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/LineSitingDataContext/R_Question_Choice_Respondent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0d5fc69c-ca79-43db-a5c4-7e4d74cbc15f" absoluteBounds="6.14, 8.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.875 : 8.66429768880208); (6.125 : 8.66429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LineSitingDataContext/Choice/Choice_R_Question_Choice_Respondent" />
+      <nodes>
+        <classShapeMoniker Id="52aac576-fb47-4e62-8bf9-38994ffab5a1" />
+        <classShapeMoniker Id="ad1fd185-599b-4471-8ff5-2b479f17384b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="312ab4e1-c9e9-4d45-a190-9b46b6670d3a" absoluteBounds="9.625, 7.625, 2, 1.3862939453125">
+      <DataClassMoniker Name="/LineSitingDataContext/respondent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f7bd5f75-dcae-491a-ba99-d23d97975e39" absoluteBounds="9.64, 8.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.625 : 8.31814697265625); (8.125 : 8.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LineSitingDataContext/respondent/respondent_R_Question_Choice_Respondent" />
+      <nodes>
+        <classShapeMoniker Id="312ab4e1-c9e9-4d45-a190-9b46b6670d3a" />
+        <classShapeMoniker Id="ad1fd185-599b-4471-8ff5-2b479f17384b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2ae1afb8-197c-4fd9-88be-4c6a926e66e2" absoluteBounds="6.5, 5.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/LineSitingDataContext/Question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="338957ad-f6af-47d3-9220-25c69aa55b07" absoluteBounds="6.515, 5.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.5 : 5.375); (7.5 : 4.6362939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LineSitingDataContext/Question/Question_R_Theme_Question" />
+      <nodes>
+        <classShapeMoniker Id="2ae1afb8-197c-4fd9-88be-4c6a926e66e2" />
+        <classShapeMoniker Id="10457820-2b06-4585-8671-7e25bb13c7db" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.3125 : 6.95359537760417); (7.3125 : 7.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LineSitingDataContext/Question/Question_R_Question_Choice_Respondent" />
+      <nodes>
+        <classShapeMoniker Id="2ae1afb8-197c-4fd9-88be-4c6a926e66e2" />
+        <classShapeMoniker Id="ad1fd185-599b-4471-8ff5-2b479f17384b" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
