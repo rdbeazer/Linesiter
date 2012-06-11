@@ -273,6 +273,7 @@ namespace nx09SitingTool
             try
             {
                 tslStatus.Visible = false;
+                string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 MC.NumPasses = (int)numPasses.Value;
                 lcpaShapeName = "Monte Carlo LCPA";
@@ -280,10 +281,15 @@ namespace nx09SitingTool
                 utilityCosts.Bounds = bounds.Bounds;
                 progress = "Creating Weighted Rasters";
                 tracker.ReportProgress(10);
+                //create directory "LSProcessing" for storing and processing temp raster data
+                buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
                 costFileName = saveLocation + @"\costSurfaceRaster.bgd";
                 additveCostsFilePath = saveLocation + @"\additveCostsRaster.bgd";
+                backlinkFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink";
+                outputAccumFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outAccumRaster";
+                outputPathFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
                 rasterToConvert = Raster.CreateRaster(costFileName, null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
                 backlink = Raster.CreateRaster(backlinkFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 backlink.Bounds = bounds.Bounds;
@@ -296,6 +302,7 @@ namespace nx09SitingTool
                 outPathRaster = Raster.CreateRaster(outputPathFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 outPathRaster.Bounds = bounds.Bounds;
                 outPathRaster.Projection = bounds.Projection;
+                //outPathRaster = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputRasternew";
                 outPathRaster.Save();
                 //DataColumn pass = new DataColumn("Pass");
                 //DataColumn weight = new DataColumn("Weight");
@@ -309,9 +316,6 @@ namespace nx09SitingTool
                 additiveCosts.Save();
                 int newQIDValue = 0;
                 double rv = 0;
-                string path = saveLocation + @"\linesiter\LSProcessing";
-                //create directory "LSProcessing" for storing and processing temp raster data
-                buildDirectory(path);
                 progress = "Building Temp Directories";
                 tracker.ReportProgress(20);
           
@@ -554,6 +558,7 @@ namespace nx09SitingTool
                 cp.Execute(costPath, worker);
                 convertCostPathwayToBGD();
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
+                outPath.Save();
                 createPathShapefile(outPath);
                
                
@@ -565,11 +570,11 @@ namespace nx09SitingTool
             }
         }
 
-        //private void bkwork_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    tspProgress.Value = e.ProgressPercentage;
-        
-        // }
+        private void bkwork_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            tspProgress.Value = e.ProgressPercentage;
+
+        }
 
         private void bkwork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -880,6 +885,7 @@ namespace nx09SitingTool
             prepareGATs.convertToGAT();
             outputPathFilename = savePath + @"\outputPathRaster";
             prepareGATs._rasterToConvert = outPathRaster;
+            outPathRaster.Save();
             prepareGATs.convertToGAT();
             Cursor = Cursors.Default;
         }
@@ -1142,6 +1148,7 @@ namespace nx09SitingTool
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             newWork(worker);
+            worker.Dispose();
             
         }
 
