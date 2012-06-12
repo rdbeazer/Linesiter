@@ -382,7 +382,7 @@ namespace nx09SitingTool
                 progress = "Beginning Monte Carlo Process";
                  tracker.ReportProgress(30);
                 //return;
-                 for( int i= 1; i<= MC.NumPasses; i++)
+                 for( int i= 1; i<= MC.NumPasses;)
                  {
                      //perform the Monte Carlo process
                      tslStatus.Visible = false;
@@ -480,7 +480,7 @@ namespace nx09SitingTool
                          }
                      }
 
-                     //combine utility costs and weight rasters
+                     i++;
                      calculate_Cost_Weight(mcRasSavePath);
                      progress = "Pass " + Convert.ToString(i) /*Convert.ToString(currentPass)*/ + " is complete.";
                      tracker.ReportProgress(90);
