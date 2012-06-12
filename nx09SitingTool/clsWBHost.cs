@@ -32,7 +32,7 @@ namespace nx09SitingTool
 
         public void ProgressBarLabel(string label)
         {
-            status.Text = label;
+            //status.Text = label;
         }
 
         public void SetParameters( string[] ParameterArray)
