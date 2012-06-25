@@ -29,14 +29,14 @@ namespace nx09SitingTool
         int currentPass = 1;
         //int currentQuestion = 1;
         clsMonteCarlo MC = new clsMonteCarlo();
+        clsprepgatraster gr = new clsprepgatraster();
         clsRasterOps pa;
-        //clsleastCostPath lcpProc = new clsleastCostPath();
         clsLCPCoords lc = new clsLCPCoords();
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
         double cellSize = 0;
-        string saveLocation = null;
+        string saveLocation;
         int rasterRow = 0;
         int rasterCol = 0;
         IRaster utilityCosts = new Raster();
@@ -72,9 +72,13 @@ namespace nx09SitingTool
         IFeatureSet utilLCPA;
         List<IRaster> mcRasterList = new List<IRaster>();
         string progress = string.Empty;
-
+        BackgroundWorker worker = new BackgroundWorker();
+        Cursor xcurs;
         #endregion
 
+        clsdoTheProcess p1 = new clsdoTheProcess();
+        
+       
         #region Methods
 
         public frmToolExecute(IMap MapLayer, clsLCPCoords _lc, string _projSavePath, string surveyPath)
@@ -97,8 +101,9 @@ namespace nx09SitingTool
                 txtSaveLocation.Text = _projSavePath;
                 saveLocation = _projSavePath;
             }
+            p1.additiveCosts = additiveCosts;
         }
-
+        
 
         private void fillInDataView()
         {
@@ -239,6 +244,8 @@ namespace nx09SitingTool
                     MessageBox.Show("Select the shapefile that has the starting and ending points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                MC.NumPasses = (int)numPasses.Value;
                 utCostLine();
                 this.lblProgress.Text = "Performing Process...Please Wait.";
                 //doTheProcess();
@@ -250,267 +257,27 @@ namespace nx09SitingTool
             }
         }
 
+        
+
+
         private void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
+        { 
             int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
             progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
             Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
-            this.progressbar1.Size = new System.Drawing.Size(670, 21);
-         
+            this.progressbar1.Size = new System.Drawing.Size(224,23);
+
             this.progressbar1.Value = e.ProgressPercentage;
-            //Thread.Sleep(1000);
-            lblProgress.Text = progress;
-        }
+             lblProgress.Text = progress;
+             tracker.WorkerSupportsCancellation = true;
+             tracker.WorkerReportsProgress = true;
+             tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);           
+       }
+        
+        BackgroundWorker tracker = new BackgroundWorker();
 
-        private void doTheProcess()
-        {
 
-            BackgroundWorker tracker = new BackgroundWorker();
-            tracker.WorkerSupportsCancellation = true;
-            tracker.WorkerReportsProgress = true;
-            tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-            
-            try
-            {
-                tslStatus.Visible = false;
-                string path = saveLocation + @"\linesiter\LSProcessing";
-                shapefileSavePath = saveLocation + @"\outputPaths.shp";
-                MC.NumPasses = (int)numPasses.Value;
-                lcpaShapeName = "Monte Carlo LCPA";
-                //tslPass.Text = "Current Monte Carlo Pass: " + Convert.ToString(currentPass);
-                utilityCosts.Bounds = bounds.Bounds;
-                progress = "Creating Weighted Rasters";
-                tracker.ReportProgress(10);
-                //create directory "LSProcessing" for storing and processing temp raster data
-                buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
-                rasterRow = utilityCosts.NumRows;
-                rasterCol = utilityCosts.NumColumns;
-                costFileName = saveLocation + @"\costSurfaceRaster.bgd";
-                additveCostsFilePath = saveLocation + @"\additveCostsRaster.bgd";
-                backlinkFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink";
-                outputAccumFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outAccumRaster";
-                outputPathFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
-                rasterToConvert = Raster.CreateRaster(costFileName, null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
-                backlink = Raster.CreateRaster(backlinkFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                backlink.Bounds = bounds.Bounds;
-                backlink.Projection = bounds.Projection;
-                backlink.Save();
-                outAccumRaster = Raster.CreateRaster(outputAccumFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                outAccumRaster.Bounds = bounds.Bounds;
-                outAccumRaster.Projection = bounds.Projection;
-                outAccumRaster.Save();
-                outPathRaster = Raster.CreateRaster(outputPathFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                outPathRaster.Bounds = bounds.Bounds;
-                outPathRaster.Projection = bounds.Projection;
-                //outPathRaster = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputRasternew";
-                outPathRaster.Save();
-                //DataColumn pass = new DataColumn("Pass");
-                //DataColumn weight = new DataColumn("Weight");
-                pathLines.Projection = _mapLayer.Projection;
-                //pathLines.DataTable.Columns.Add(pass);
-                //pathLines.DataTable.Columns.Add(weight);
-                pathLines.SaveAs(shapefileSavePath, true);
-                additiveCosts = Raster.CreateRaster(additveCostsFilePath, null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                additiveCosts.Bounds = bounds.Bounds;
-                additiveCosts.Projection = _mapLayer.Projection;
-                additiveCosts.Save();
-                int newQIDValue = 0;
-                double rv = 0;
-                progress = "Building Temp Directories";
-                tracker.ReportProgress(20);
-          
-                foreach (DataGridViewRow dx in dgvSelectLayers.Rows)
-                {
-                    newQIDValue++;
-                        dx.Cells[2].Value = newQIDValue;
-                            string convertPath = saveLocation + @"\linesiter\LSProcessing\QuesID_" + Convert.ToString(newQIDValue);
-                    
-                    string cellValue = Convert.ToString(dx.Cells[0].Value);
-                    if (Convert.ToString(dx.Cells[0].Value) != "False")
-                    {
-                    if(dx.Cells[0].Value != null)
-                    {
-
-                         
-                        //get feature layer from map interface
-                                foreach (Layer lay in _mapLayer.Layers)
-                                {
-                          
-                        
-                                    if (dx.Cells[1].Value != null)
-
-                                    {
-                                        if (lay.LegendText == Convert.ToString(dx.Cells[1].Value))
-                                        {
-                                            clsRasterOps paRaster = new clsRasterOps(_mapLayer);
-                                            //check to see if feature layer is shapefile or raster
-                                            if (lay.GetType() == typeof(DotSpatial.Controls.MapPointLayer) || lay.GetType() == typeof(DotSpatial.Controls.MapPolygonLayer) || lay.GetType() == typeof(DotSpatial.Controls.MapLineLayer))
-                                            {
-                                                //if shapefile, convert to raster
-                                                //insert shapefile conversion logic
-                                                IRaster outputRaster = new Raster();
-                                                FeatureSet fs = (FeatureSet)lay.DataSet;
-                                                Extent prjExtent = projectFS.Extent;
-                                                string fNameS = convertPath + lay.LegendText + ".bgd";
-                                                string fNameR = convertPath + lay.LegendText + ".bgd";
-                                                outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
-                                                paRaster.createPA(outputRaster, fNameR, -1);
-                                                //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            }
-                                            else if (lay.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
-                                            {
-                                                //go directly to boolean raster creation logic
-                                                IRaster bRaster = (DotSpatial.Data.Raster)lay.DataSet;
-                                                string fNameR = convertPath + lay.LegendText + "PA.bgd";
-                                                paRaster.createPA(bRaster, fNameR, -1);
-                                                //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            }
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        pathLines.DataTable.Columns.Remove("pass"); 
-                                        return;
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                progress = "Beginning Monte Carlo Process";
-                 tracker.ReportProgress(30);
-                //return;
-                 for( int i= 1; i<= MC.NumPasses;)
-                 {
-                     //perform the Monte Carlo process
-                     tslStatus.Visible = false;
-                     finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(i)); //Convert.ToString(currentPass));
-                     int questNum = 1;
-                     IRaster mcRaster = bounds;
-                     string mcRasSavePath = saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i); //Convert.ToString(currentPass);
-                     Directory.CreateDirectory(mcRasSavePath);
-                     mcRaster.SaveAs(mcRasSavePath + @"\mcRaster.bgd");
-                     mcRaster = null;
-                     mcRaster = Raster.Open(mcRasSavePath + @"\mcRaster.bgd");
-                     double[] AnswerPercents = new double[5];
-                     double[] mcPercents = new double[5];
-                     progress = "Current Pass " + Convert.ToString(i); //Convert.ToString(currentPass);
-                     tracker.ReportProgress(40);
-                     foreach (DataGridViewRow dr in dgvSelectLayers.Rows)
-                     {
-                         if (Convert.ToString(dr.Cells[0].Value) == "True")
-                         {
-                             if (dr.Cells[0].Value != null)
-                             {
-                                 if (/*currentPass*/ i <= MC.NumPasses)
-                                 {
-                                     if (dr.Cells[1].Value == DBNull.Value)
-                                     {
-                                         //write exception
-                                         finalStatOutput.Add("Question: " + Convert.ToString(dr.Cells[3].Value) + " has no associated raster layer.  It will not be considered.");
-                                     }
-                                     else
-                                     {
-                                         //create directory for each question
-                                         string newPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[3].Value);
-                                         string rasterPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[2].Value) + Convert.ToString(dr.Cells[1].Value) + "pa.bgd";
-                                         buildDirectory(newPath);
-                                         //load raster file
-                                         IRaster oRaster = Raster.OpenFile(rasterPath);
-                                         //create weighted rasters for each of the weights stored in the monte carlo class
-                                         createWeightedRasters(newPath, rasterPath, oRaster);
-                                     }
-                                 }
-                             }
-                             rv = 0;
-                             rv = RandomNumber();
-                             finalStatOutput.Add("Question: ");
-                             if (dr.Cells[4].Value != DBNull.Value)
-                             {
-                                 finalStatOutput.Add((string)dr.Cells[4].Value);
-                             }
-                             finalStatOutput.Add("Associated Feature Class: ");
-                             if (dr.Cells[1].Value != DBNull.Value)
-                             {
-                                 finalStatOutput.Add(Convert.ToString(dr.Cells[1].Value));
-                             }
-                             finalStatOutput.Add("Random Variable: " + Convert.ToString(rv));
-
-                             if ((double)dr.Cells[5].Value == 0.0 && (double)dr.Cells[6].Value == 0 && (double)dr.Cells[7].Value == 0 && (double)dr.Cells[8].Value == 0 && (double)dr.Cells[9].Value == 0)
-                             {
-                                 MessageBox.Show("Check the questions you specified.  One or more questions have an invalid response.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                 pathLines.DataTable.Columns.Remove("pass");
-                                 return;
-                             }
-                             if (dr.Cells[5].Value != DBNull.Value)
-                             {
-                                 AnswerPercents[0] = (double)dr.Cells[5].Value;
-                             }
-                             if (dr.Cells[6].Value != DBNull.Value)
-                             {
-                                 AnswerPercents[1] = AnswerPercents[0] + (double)dr.Cells[6].Value;
-                             }
-                             if (dr.Cells[7].Value != DBNull.Value)
-                             {
-                                 AnswerPercents[2] = AnswerPercents[1] + (double)dr.Cells[7].Value;
-                             }
-                             if (dr.Cells[8].Value != DBNull.Value)
-                             {
-                                 AnswerPercents[3] = AnswerPercents[2] + (double)dr.Cells[8].Value;
-                             }
-                             if (dr.Cells[9].Value != DBNull.Value)
-                             {
-                                 AnswerPercents[4] = AnswerPercents[3] + (double)dr.Cells[9].Value;
-                             }
-                             MC.calculateWeight(rv, AnswerPercents);
-                             tracker.ReportProgress(60);
-                             finalStatOutput.Add("LSHigh: " + Convert.ToString(AnswerPercents[0]) + " | LSMedHigh: " + Convert.ToString(AnswerPercents[1]) + " | LSMed: " + Convert.ToString(AnswerPercents[2]) + " | LSMedLow: " + Convert.ToString(AnswerPercents[3]) + " | LSLow: " + Convert.ToString(AnswerPercents[4]));
-                             finalStatOutput.Add("Weight: " + (Convert.ToString(MC.socialWeight)));
-                             finalStatOutput.Add(MC.wRaster);
-                             currentQuesPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[3].Value) + "\\" + MC.wRaster + ".bgd";
-                             IRaster mRaster = Raster.OpenFile(currentQuesPath);
-                             mcRaster = MC._calcRaster(mcRaster, mRaster, saveLocation);
-                             mcRaster.SaveAs(mcRasSavePath + @"\mcRaster.bgd");
-                             mcRasterList.Add(mRaster);
-                             questNum++;
-                             MC.calcRaster2(mcRasterList, mcRaster);
-                             mcRaster.Save();
-                         }
-                     }
-
-                     i++;
-                     calculate_Cost_Weight(mcRasSavePath);
-                     progress = "Pass " + Convert.ToString(i) /*Convert.ToString(currentPass)*/ + " is complete.";
-                     tracker.ReportProgress(90);
-                     prepareGATRasters(mcRasSavePath);
-                     createAccumCostRaster();
-
-                     tslStatus.Visible = true;
-                     tslStatus.Text = "Finishing Up";
-                     tracker.ReportProgress(100);
-                     currentPass = i;
-                     //currentPass++;
-                 }
-
-                 //while (currentPass <= MC.NumPasses);
-                    
-                   
-                
-                    //cleanup
-                //remove all necessary files
-                //removeProcessingFiles();
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               
-            }
-        }
-
-        private void createAccumCostRaster()
+        private void createAccumCostRaster( string outputPathFilename)
         {
             try
             {
@@ -523,7 +290,7 @@ namespace nx09SitingTool
                 bkwork.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bkwork_RunWorkerCompleted);
                 bkwork.RunWorkerAsync();
                 //bkwork.Dispose();
-                
+
             }
 
             catch (Exception ex)
@@ -531,16 +298,16 @@ namespace nx09SitingTool
                 MessageBox.Show("Error: " + ex + "has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        
         private void bkwork_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker);
+            newWork(worker,ref outputPathFilename);
 
        
         }
 
-        private void newWork(BackgroundWorker worker)
+        private void newWork(BackgroundWorker worker, ref string outputPathFilename)
         {
             try
             {
@@ -560,8 +327,8 @@ namespace nx09SitingTool
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
                 outPath.Save();
                 createPathShapefile(outPath);
-               
-               
+             
+                
             }
 
             catch (Exception ex)
@@ -589,6 +356,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        
         }
 
         private void convertCostPathwayToBGD()
@@ -600,56 +368,13 @@ namespace nx09SitingTool
             cpRas._conversionRaster = outputPathFilename;
             cpRas.convertBGD();
             outPath = cpRas.conRaster;
+
         }
 
-        private void createWeightedRasters(string newPath, string rasterPath, IRaster oRaster)
-        {
-            int curWeight = 0;
-            string[] weights = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
-            foreach (double weight in MC.assignedWeights)
-            {
-                IRaster weightedRaster = Raster.CreateRaster(newPath + "\\" + weights[curWeight] + ".bgd", null, oRaster.NumColumns, oRaster.NumRows, 1, typeof(double), null);
-                weightedRaster.Bounds = bounds.Bounds;
-                weightedRaster.NoDataValue = bounds.NoDataValue;
-                weightedRaster.Projection = bounds.Projection;
-                double oValue = 0;
-
-                for (int oRows = 0; oRows < oRaster.NumRows - 1; oRows++)
-                {
-                    for (int oCols = 0; oCols < oRaster.NumColumns - 1; oCols++)
-                    {
-                        oValue = oRaster.Value[oRows, oCols];
-
-                        if (oValue != oRaster.NoDataValue)
-                        {
-                            if (oValue == -1)
-                            {
-                                //weightedRaster.Value[oRows, oCols] = Math.Abs(oValue) * weight;
-                                weightedRaster.Value[oRows, oCols] = weight;
-                            }
-                            else
-                            {
-                                weightedRaster.Value[oRows, oCols] = 1;
-                            }
-                        }
-                        else
-                        {
-                            weightedRaster.Value[oRows, oCols] = 1;
-                        }
-                    }
-                }
-                weightedRaster.Save();
-                curWeight++;
-            }
-        }
-
+        
         Random random = new Random();
 
-        private double RandomNumber()
-        {
-            return random.NextDouble();
-        }
-
+       
 
         private void btnAlterWeights_Click(object sender, EventArgs e)
         {
@@ -722,33 +447,7 @@ namespace nx09SitingTool
             this.Text = "Line Siter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        private void calculate_Cost_Weight(string savePath)
-        {
-            try
-            {
-                clsRasterOps mapAlgCW = new clsRasterOps(_mapLayer);
-                IRaster addUt = additiveCosts;
-                IRaster div1 = utilityCosts;
-                IRaster div2 = Raster.Open(savePath + @"\mcraster.bgd");
-                IRaster costWeightRaster = Raster.CreateRaster(savePath + @"\CostWeightRaster_" + currentPass + ".bgd", null, rasterCol, rasterRow, 1, typeof(double), null);
-                costFileName = savePath + @"\CostWeightRaster_" + currentPass + ".bgd";
-                costWeightRaster.Bounds = bounds.Bounds;
-                costWeightRaster.Projection = _mapLayer.Projection;
-                costWeightRaster.Save();
-                mapAlgCW.rasterDivision(div1, div2, costWeightRaster);
-                rasterToConvert = costWeightRaster;
-                List<IRaster> additive = new List<IRaster>();
-                additive.Add(addUt);
-                additive.Add(costWeightRaster);
-                mapAlgCW.rasterAddition(additive, additiveCosts);
-               }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
+        
 
         private void cboSelectBoundingRaster_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -871,24 +570,6 @@ namespace nx09SitingTool
             }
         }
 
-        private void prepareGATRasters(string savePath)
-        {
-            BackgroundWorker worker = new BackgroundWorker();
-            backlinkFilename = savePath + @"\backlink";
-              clsGATGridConversions prepareGATs = new clsGATGridConversions();
-            prepareGATs._rasterToConvert = backlink;
-            prepareGATs._statusMessage = "Preparing GAT Rasters, Please Wait";
-            Cursor = Cursors.WaitCursor;
-            prepareGATs.convertToGAT();
-            outputAccumFilename = savePath + @"\outputAccumRaster";
-            prepareGATs._rasterToConvert = outAccumRaster;
-            prepareGATs.convertToGAT();
-            outputPathFilename = savePath + @"\outputPathRaster";
-            prepareGATs._rasterToConvert = outPathRaster;
-            outPathRaster.Save();
-            prepareGATs.convertToGAT();
-            Cursor = Cursors.Default;
-        }
 
         private void createPathShapefile(IRaster pathCon)
         { 
@@ -1086,14 +767,14 @@ namespace nx09SitingTool
                 MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-           int temp3=0;
+         
         private void utCostLine()
         {
             try
             {
-               // frmProgMC();
-                temp3 = 0;
+              
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
+                Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
@@ -1101,10 +782,8 @@ namespace nx09SitingTool
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.DataTable.Columns.Add(pass);                       
                 pathLines.SaveAs(shapefileSavePath, true);
-              //currentPass = 1;
                 buildDirectory(saveLocation + @"\UT");
                 IRaster utilsCosts = utilityCosts;
-                //shapeFileName = "Utility Pass";
                 shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
                 costFileName = saveLocation + @"\UT\utilCosts.bgd";
                 backlinkFilename = saveLocation + @"\UT\backlink";
@@ -1112,7 +791,6 @@ namespace nx09SitingTool
                 outputPathFilename = saveLocation + @"\UT\outPath";
                 utilsCosts.SaveAs(saveLocation + @"\UT\utilCosts.bgd");
                 rasterToConvert = Raster.OpenFile(saveLocation + @"\UT\utilCosts.bgd");
-                //rasterToConvert = Raster.CreateRaster(costFileName + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
                 backlink = Raster.CreateRaster(backlinkFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 backlink.Bounds = bounds.Bounds;
                 backlink.Projection = bounds.Projection;
@@ -1125,7 +803,7 @@ namespace nx09SitingTool
                 outPathRaster.Bounds = bounds.Bounds;
                 outPathRaster.Projection = bounds.Projection;
                 outPathRaster.Save();
-                prepareGATRasters(saveLocation + @"\UT");
+                gr.prepareGATRasters(saveLocation + @"\UT", worker, curs,backlink,outAccumRaster,ref outPathRaster, ref outputPathFilename);
                 BackgroundWorker utCosts = new BackgroundWorker();
                 paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outputAccumFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
                 utCosts.WorkerReportsProgress = true;
@@ -1134,12 +812,12 @@ namespace nx09SitingTool
                 utCosts.ProgressChanged += new ProgressChangedEventHandler(utCosts_ProgressChanged);
                 utCosts.RunWorkerCompleted += new RunWorkerCompletedEventHandler(utCosts_RunWorkerCompleted);
                 utCosts.RunWorkerAsync();
-                //utCosts.Dispose();
             }
 
+            
             catch (Exception ex)
             {
-                MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                
             }
         }
@@ -1147,7 +825,7 @@ namespace nx09SitingTool
         private void utCosts_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker);
+            newWork(worker, ref outputPathFilename);
             worker.Dispose();
             
         }
@@ -1161,21 +839,25 @@ namespace nx09SitingTool
         private void utCosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
-            {
+            { 
                 utilLCPA = FeatureSet.OpenFile(saveLocation + @"\UT\utilityCostsLCPA.shp");
-        //        currentPass ++;
-            
                 this.progressbar1.Style = ProgressBarStyle.Continuous;
-                doTheProcess();
+                
+                for (currentPass = 1; currentPass <=numPasses.Value ; currentPass++)
+                {
+                    p1.doTheProcess(tslStatus, tracker,bounds,saveLocation,_mapLayer,currentPass,dgvSelectLayers,utilityCosts, MC,progress,ref outputPathFilename,additiveCosts);
+                    additiveCosts = p1.additiveCosts;
+                    createAccumCostRaster(outputPathFilename);
+                    tslStatus.Visible = true;
+                    tslStatus.Text = "Finishing Up";
+                    tracker.ReportProgress(100);
+                }
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-           
-
-    }
+       }
 }
