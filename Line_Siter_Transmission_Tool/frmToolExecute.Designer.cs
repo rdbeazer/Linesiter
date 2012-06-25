@@ -173,7 +173,6 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Shapefiles/Rasters";
-            //this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // lblProgress
             // 
@@ -320,6 +319,7 @@
             this.txtSaveLocation.Name = "txtSaveLocation";
             this.txtSaveLocation.Size = new System.Drawing.Size(575, 20);
             this.txtSaveLocation.TabIndex = 19;
+            //this.txtSaveLocation.TextChanged += new System.EventHandler(this.txtSaveLocation_TextChanged);
             // 
             // btnBrowse
             // 

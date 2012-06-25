@@ -164,7 +164,7 @@ namespace nx09SitingTool
             Coordinate xy = null;
             int seRow = 0;
             int seCol = 0;
-            double seCellValue = 0;
+          //  double seCellValue = 0;
             string seLayerText;
             if (mouseUPBool == true)
             {
@@ -216,7 +216,7 @@ namespace nx09SitingTool
                             //App.ProgressHandler.Progress(" tsslEnd", 0, "End- Row: " + Convert.ToString(seRow) + " Column: " + Convert.ToString(seCol));
                             lc.EndRow = rasterXY.Row;
                             lc.EndCol = rasterXY.Column;
-                            if (lc.startRow != null & lc.startCol != null & lc.EndRow != null & lc.EndCol != null & seInt == 2)
+                            if (seInt == 2)
                             {
                                 frmPointSave ps = new frmPointSave(lc.startRow, lc.startCol, lc.EndRow, lc.EndCol, mpMain, startXY, endXY, projSavePath, seLayerText);
                                 ps.ShowDialog();
@@ -406,7 +406,7 @@ namespace nx09SitingTool
             dataSetFill.Title = "Select File Name for Project Survey Dataset";
             dataSetFill.ShowDialog();
             bool exists = dataSetFill.CheckFileExists;
-            if (exists = true)
+            if (exists)
             {
                 surveyFile = dataSetFill.FileName;
                 tslSurveyData.Text = "Survey Data File: " + surveyFile;

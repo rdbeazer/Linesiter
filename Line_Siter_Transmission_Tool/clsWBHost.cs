@@ -13,7 +13,7 @@ namespace nx09SitingTool
     {
 
         System.Windows.Forms.ToolStripStatusLabel status = new ToolStripStatusLabel();
-        
+
         public string[] parameters
         {
             get;
@@ -32,10 +32,10 @@ namespace nx09SitingTool
 
         public void ProgressBarLabel(string label)
         {
-            //status.Text = label;
+            // status.Text = label;
         }
 
-        public void SetParameters( string[] ParameterArray)
+        public void SetParameters(string[] ParameterArray)
         {
 
         }
@@ -44,14 +44,14 @@ namespace nx09SitingTool
         {
 
         }
-        
+
         public Boolean RunInSynchronousMode
         {
             get;
             set;
         }
 
-        public string  ApplicationDirectory
+        public string ApplicationDirectory
         {
             get { return Path.GetDirectoryName(Application.ExecutablePath); }
         }
