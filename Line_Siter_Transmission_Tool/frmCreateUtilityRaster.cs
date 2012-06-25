@@ -161,7 +161,7 @@ namespace nx09SitingTool
             }
             catch (Exception ex)
             {
-
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 

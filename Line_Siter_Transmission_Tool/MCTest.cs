@@ -140,7 +140,7 @@ namespace nx09SitingTool
                 dataSetFill.Title = "Open Question Set for Analysis";
                 dataSetFill.ShowDialog();
                 bool exists = dataSetFill.CheckFileExists;
-                if (exists = true)
+                if (exists)
                 {
                     _surveypath = dataSetFill.FileName;
                     FileInfo pathDir = new FileInfo(dataSetFill.FileName);
@@ -270,7 +270,7 @@ namespace nx09SitingTool
             chart1.Invalidate();
             chart1.Series[0].Points.Clear();
             //chart1.ChartAreas.Clear();
-            string seriesName = "Series1";
+           // string seriesName = "Series1";
             chart1.Series[0].ChartType = SeriesChartType.Column;
             chart1.Series[0].Color = System.Drawing.Color.DarkRed;
             chart1.Series[0].Points.AddXY(1, a);

@@ -124,6 +124,9 @@
     <Reference Include="GISTools">
       <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\GISTools.dll</HintPath>
     </Reference>
+    <Reference Include="ILMerge">
+      <HintPath>..\..\..\..\..\Desktop\nuget-07c8f86ec737\Tools\ILMerge\ILMerge.exe</HintPath>
+    </Reference>
     <Reference Include="Interfaces">
       <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\Interfaces.dll</HintPath>
     </Reference>
@@ -157,9 +160,13 @@
     <Compile Include="1121165.Designer.cs">
       <DependentUpon>1121165.cs</DependentUpon>
     </Compile>
+    <Compile Include="clsCostWeight.cs" />
+    <Compile Include="clscreateWeightedRaster.cs" />
+    <Compile Include="clsdoTheProcess.cs" />
     <Compile Include="clsGATGridConversions.cs" />
     <Compile Include="clsLCPCoords.cs" />
     <Compile Include="clsMonteCarlo.cs" />
+    <Compile Include="clsprepgatraster.cs" />
     <Compile Include="clsRasterOps.cs" />
     <Compile Include="clsWBHost.cs" />
     <Compile Include="frmAssignLayerCosts.cs">
@@ -228,6 +235,8 @@
     <Compile Include="MCTest.Designer.cs">
       <DependentUpon>MCTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="clsProcess1.cs" />
+    <Compile Include="Randomnumber.cs" />
     <Compile Include="selectionDiag.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -287,6 +296,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewMain.resx">
       <DependentUpon>frmNewMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPointSave.resx">
       <DependentUpon>frmPointSave.cs</DependentUpon>
