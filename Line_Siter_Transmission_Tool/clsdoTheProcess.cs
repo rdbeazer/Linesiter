@@ -20,7 +20,6 @@ using System.Threading;
 namespace nx09SitingTool
 {
     class clsdoTheProcess
-
     {
 
         private IRaster _additiveCosts;
@@ -29,17 +28,25 @@ namespace nx09SitingTool
             get { return _additiveCosts; }
             set { _additiveCosts = value; }
         }
-         clsMonteCarlo MC = new clsMonteCarlo();
+
+
+        private List<string> _finalStatOutput;
+        public List<string> finalStatOutput
+        {
+            get { return _finalStatOutput; }
+            set { _finalStatOutput = value; }
+        }
+        clsMonteCarlo MC = new clsMonteCarlo();
         clsRasterOps pa;
-         clsLCPCoords lc = new clsLCPCoords();
-         clsprepgatraster gr = new clsprepgatraster();
+        clsLCPCoords lc = new clsLCPCoords();
+        clsprepgatraster gr = new clsprepgatraster();
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
         double cellSize = 0;
         int rasterRow = 0;
         int rasterCol = 0;
-        
+
         //IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
         string startFileName = "";
@@ -66,15 +73,15 @@ namespace nx09SitingTool
         string additveCostsFilePath;
         //IRaster additiveCosts;
         int timesHit2 = 1;
-        List<string> finalStatOutput = new List<string>();
+        //List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
         IFeatureSet utilLCPA;
         List<IRaster> mcRasterList = new List<IRaster>();
         //string progress = string.Empty;
         int temp3 = 0;
-      
-      
+
+
         //private System.Windows.Forms.NumericUpDown numPasses;
         //private System.Windows.Forms.DataGridView dgvSelectLayers;
         private System.Windows.Forms.ProgressBar progressbar1;
@@ -83,21 +90,21 @@ namespace nx09SitingTool
         Randomnumber r1 = new Randomnumber();
         clsProcess1 pr = new clsProcess1();
         clsCostWeight c2 = new clsCostWeight();
-              
-            private void buildDirectory(string dirPath)
+
+        private void buildDirectory(string dirPath)
         {
             if (!Directory.Exists(dirPath))
             {
                 Directory.CreateDirectory(dirPath);
             }
         }
-        
-       public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker,IRaster bounds, string saveLocation, IMap _mapLayer,int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC,string progress, ref string outputPathFilename,IRaster additivecosts)
-       {
-           tracker.WorkerSupportsCancellation = true;
-           tracker.WorkerReportsProgress = true;
-           
-           try
+
+        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts)
+        {
+            tracker.WorkerSupportsCancellation = true;
+            tracker.WorkerReportsProgress = true;
+
+            try
             {
                 MC = _MC;
                 tslStatus.Visible = false;
@@ -109,7 +116,7 @@ namespace nx09SitingTool
                 IRaster utilsCosts = utilityCosts;
                 progress = "Creating Weighted Rasters";
                 tracker.ReportProgress(10);
-               
+
                 buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
@@ -130,9 +137,9 @@ namespace nx09SitingTool
                 outPathRaster = Raster.CreateRaster(outputPathFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 outPathRaster.Bounds = bounds.Bounds;
                 outPathRaster.Projection = bounds.Projection;
-                
+
                 outPathRaster.Save();
-               
+
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.SaveAs(shapefileSavePath, true);
                 additiveCosts = Raster.CreateRaster(additveCostsFilePath, null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
@@ -140,77 +147,78 @@ namespace nx09SitingTool
                 additiveCosts.Projection = _mapLayer.Projection;
                 additiveCosts.Save();
                 pr.additiveCosts = additiveCosts;
+                pr.finalStatOutput = finalStatOutput;
                 int newQIDValue = 0;
                 progress = "Building Temp Directories";
                 tracker.ReportProgress(20);
-          
+
                 foreach (DataGridViewRow dx in dgvSelectLayers.Rows)
                 {
                     newQIDValue++;
-                        dx.Cells[2].Value = newQIDValue;
-                            string convertPath = saveLocation + @"\linesiter\LSProcessing\QuesID_" + Convert.ToString(newQIDValue);
-                    
+                    dx.Cells[2].Value = newQIDValue;
+                    string convertPath = saveLocation + @"\linesiter\LSProcessing\QuesID_" + Convert.ToString(newQIDValue);
+
                     string cellValue = Convert.ToString(dx.Cells[0].Value);
                     if (Convert.ToString(dx.Cells[0].Value) != "False")
                     {
-                    if(dx.Cells[0].Value != null)
-                    {
+                        if (dx.Cells[0].Value != null)
+                        {
 
-                         
-                        //get feature layer from map interface
-                                foreach (Layer lay in _mapLayer.Layers)
+
+                            //get feature layer from map interface
+                            foreach (Layer lay in _mapLayer.Layers)
+                            {
+
+
+                                if (dx.Cells[1].Value != null)
                                 {
-                          
-                        
-                                    if (dx.Cells[1].Value != null)
-
+                                    if (lay.LegendText == Convert.ToString(dx.Cells[1].Value))
                                     {
-                                        if (lay.LegendText == Convert.ToString(dx.Cells[1].Value))
+                                        clsRasterOps paRaster = new clsRasterOps(_mapLayer);
+                                        //check to see if feature layer is shapefile or raster
+                                        if (lay.GetType() == typeof(DotSpatial.Controls.MapPointLayer) || lay.GetType() == typeof(DotSpatial.Controls.MapPolygonLayer) || lay.GetType() == typeof(DotSpatial.Controls.MapLineLayer))
                                         {
-                                            clsRasterOps paRaster = new clsRasterOps(_mapLayer);
-                                            //check to see if feature layer is shapefile or raster
-                                            if (lay.GetType() == typeof(DotSpatial.Controls.MapPointLayer) || lay.GetType() == typeof(DotSpatial.Controls.MapPolygonLayer) || lay.GetType() == typeof(DotSpatial.Controls.MapLineLayer))
-                                            {
-                                                //if shapefile, convert to raster
-                                                //insert shapefile conversion logic
-                                                IRaster outputRaster = new Raster();
-                                                FeatureSet fs = (FeatureSet)lay.DataSet;
-                                                Extent prjExtent = projectFS.Extent;
-                                                string fNameS = convertPath + lay.LegendText + ".bgd";
-                                                string fNameR = convertPath + lay.LegendText + ".bgd";
-                                                outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
-                                                paRaster.createPA(outputRaster, fNameR, -1);
-                                                //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            }
-                                            else if (lay.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
-                                            {
-                                                //go directly to boolean raster creation logic
-                                                IRaster bRaster = (DotSpatial.Data.Raster)lay.DataSet;
-                                                string fNameR = convertPath + lay.LegendText + "PA.bgd";
-                                                paRaster.createPA(bRaster, fNameR, -1);
-                                                //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            }
-                                            break;
+                                            //if shapefile, convert to raster
+                                            //insert shapefile conversion logic
+                                            IRaster outputRaster = new Raster();
+                                            FeatureSet fs = (FeatureSet)lay.DataSet;
+                                            Extent prjExtent = projectFS.Extent;
+                                            string fNameS = convertPath + lay.LegendText + ".bgd";
+                                            string fNameR = convertPath + lay.LegendText + ".bgd";
+                                            outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
+                                            paRaster.createPA(outputRaster, fNameR, -1);
+                                            //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         }
+                                        else if (lay.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
+                                        {
+                                            //go directly to boolean raster creation logic
+                                            IRaster bRaster = (DotSpatial.Data.Raster)lay.DataSet;
+                                            string fNameR = convertPath + lay.LegendText + "PA.bgd";
+                                            paRaster.createPA(bRaster, fNameR, -1);
+                                            //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        break;
                                     }
-                                    else
-                                    {
-                                        MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        pathLines.DataTable.Columns.Remove("pass"); 
-                                        return;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    pathLines.DataTable.Columns.Remove("pass");
+                                    return;
 
-                                    }
                                 }
                             }
                         }
                     }
+                }
 
-          
+
                 progress = "Beginning Monte Carlo Process";
                 tracker.ReportProgress(30);
 
-                pr.clsprocess1(tslStatus, tracker,backlink,outAccumRaster,outPathRaster,currentPass,MC,dgvSelectLayers,bounds,saveLocation,_mapLayer,progress,outputPathFilename,utilityCosts);
+                pr.clsprocess1(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, outputPathFilename, utilityCosts);
                 additivecosts = pr.additiveCosts;
+                finalStatOutput = pr.finalStatOutput;
             }
 
             catch (Exception ex)
