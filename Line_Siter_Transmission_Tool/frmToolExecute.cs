@@ -77,8 +77,8 @@ namespace nx09SitingTool
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
-        
-       
+
+
         #region Methods
 
         public frmToolExecute(IMap MapLayer, clsLCPCoords _lc, string _projSavePath, string surveyPath)
@@ -103,7 +103,8 @@ namespace nx09SitingTool
             }
             p1.additiveCosts = additiveCosts;
         }
-        
+
+
 
         private void fillInDataView()
         {
@@ -239,6 +240,7 @@ namespace nx09SitingTool
         {
             try
             {
+
                 if (cboStartEndPoints.Text == "Select Shapefile for Start and End Points")
                 {
                     MessageBox.Show("Select the shapefile that has the starting and ending points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -247,6 +249,7 @@ namespace nx09SitingTool
 
                 MC.NumPasses = (int)numPasses.Value;
                 utCostLine();
+                shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 this.lblProgress.Text = "Performing Process...Please Wait.";
                 //doTheProcess();
             }
@@ -257,27 +260,27 @@ namespace nx09SitingTool
             }
         }
 
-        
+
 
 
         private void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        { 
+        {
             int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
             progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
             Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
-            this.progressbar1.Size = new System.Drawing.Size(224,23);
+            this.progressbar1.Size = new System.Drawing.Size(224, 23);
 
             this.progressbar1.Value = e.ProgressPercentage;
-             lblProgress.Text = progress;
-             tracker.WorkerSupportsCancellation = true;
-             tracker.WorkerReportsProgress = true;
-             tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);           
-       }
-        
+            lblProgress.Text = progress;
+            tracker.WorkerSupportsCancellation = true;
+            tracker.WorkerReportsProgress = true;
+            tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
+        }
+
         BackgroundWorker tracker = new BackgroundWorker();
 
 
-        private void createAccumCostRaster( string outputPathFilename)
+        private void createAccumCostRaster(string outputPathFilename)
         {
             try
             {
@@ -298,13 +301,13 @@ namespace nx09SitingTool
                 MessageBox.Show("Error: " + ex + "has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         private void bkwork_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker,ref outputPathFilename);
+            newWork(worker, ref outputPathFilename);
 
-       
+
         }
 
         private void newWork(BackgroundWorker worker, ref string outputPathFilename)
@@ -317,18 +320,18 @@ namespace nx09SitingTool
                 clsGATGridConversions utConvert = new clsGATGridConversions();
                 utConvert._rasterToConvert = rasterToConvert;
                 utConvert._statusMessage = "Converting cost raster. ";
-                utConvert.convertToGAT();                
+                utConvert.convertToGAT();
                 ac.Initialize(wbHost);
                 ac.Execute(paraString, worker);
                 string[] costPath = new string[3] { endFileName + ".dep", backlinkFilename + ".dep", outputPathFilename + ".dep" };
-                cp.Initialize(wbHost);                   
+                cp.Initialize(wbHost);
                 cp.Execute(costPath, worker);
                 convertCostPathwayToBGD();
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
                 outPath.Save();
                 createPathShapefile(outPath);
-             
-                
+
+
             }
 
             catch (Exception ex)
@@ -345,18 +348,18 @@ namespace nx09SitingTool
 
         private void bkwork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
+
             try
             {
                 finishingUp();
-            
+
             }
 
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        
+
         }
 
         private void convertCostPathwayToBGD()
@@ -371,10 +374,10 @@ namespace nx09SitingTool
 
         }
 
-        
+
         Random random = new Random();
 
-       
+
 
         private void btnAlterWeights_Click(object sender, EventArgs e)
         {
@@ -403,6 +406,7 @@ namespace nx09SitingTool
                 finalStatOutput.Add(Convert.ToString(awTitles[awT]) + ": " + Convert.ToString(a));
                 awT++;
             }
+            p1.finalStatOutput = finalStatOutput;
         }
 
         private void removeProcessingFiles()
@@ -447,7 +451,7 @@ namespace nx09SitingTool
             this.Text = "Line Siter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        
+
 
         private void cboSelectBoundingRaster_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -572,35 +576,35 @@ namespace nx09SitingTool
 
 
         private void createPathShapefile(IRaster pathCon)
-        { 
+        {
             List<Coordinate> pthXYs = new List<Coordinate>();
-          
-                for (int nRows = 0; nRows < pathCon.NumRows; nRows++)
-                {
-                    for (int nCols = 0; nCols < pathCon.NumColumns; nCols++)
-                    {
-                        if (pathCon.Value[nRows, nCols] == 1)
-                        {
-                            Coordinate xy = new Coordinate();
-                            xy = pathCon.CellToProj(nRows, nCols);
-                            pthXYs.Add(xy);
-                        }
 
+            for (int nRows = 0; nRows < pathCon.NumRows; nRows++)
+            {
+                for (int nCols = 0; nCols < pathCon.NumColumns; nCols++)
+                {
+                    if (pathCon.Value[nRows, nCols] == 1)
+                    {
+                        Coordinate xy = new Coordinate();
+                        xy = pathCon.CellToProj(nRows, nCols);
+                        pthXYs.Add(xy);
                     }
 
                 }
-                 
-             
-                LineString pathString = new LineString(pthXYs);
-                IFeature pathLine = pathLines.AddFeature(pathString);
-                pathLine.DataRow["Pass"] = Convert.ToString(currentPass);
-                //pathLine.DataRow["Weight"] = Convert.ToString(MC.socialWeight);
-                pathLines.Name = lcpaShapeName;
-                pathLines.Extent = outPath.Extent;
-                pathLines.Projection = _mapLayer.Projection;
-                pathLines.SaveAs(shapefileSavePath, true);
-       
-          }
+
+            }
+
+
+            LineString pathString = new LineString(pthXYs);
+            IFeature pathLine = pathLines.AddFeature(pathString);
+            pathLine.DataRow["Pass"] = Convert.ToString(currentPass);
+            //pathLine.DataRow["Weight"] = Convert.ToString(MC.socialWeight);
+            pathLines.Name = lcpaShapeName;
+            pathLines.Extent = outPath.Extent;
+            pathLines.Projection = _mapLayer.Projection;
+            pathLines.SaveAs(shapefileSavePath, true);
+
+        }
 
         private void finishingUp()
         {
@@ -611,6 +615,8 @@ namespace nx09SitingTool
                 IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
                 this.progressbar1.Value = 0;
                 this.progressbar1.Style = ProgressBarStyle.Blocks;
+                finalStatOutput = p1.finalStatOutput;
+
                 frmResults result = new frmResults(utLCPA, additiveCosts, utilityCosts, mcLCPA, fst, MC.NumPasses, finalStatOutput, saveLocation);
                 result.ShowDialog();
                 _mapLayer.Layers.Add(pathLines);
@@ -767,12 +773,12 @@ namespace nx09SitingTool
                 MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-         
+
         private void utCostLine()
         {
             try
             {
-              
+
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;
@@ -780,7 +786,7 @@ namespace nx09SitingTool
                 lcpaShapeName = "Utility Costs LCPA";
                 DataColumn pass = new DataColumn("Pass");
                 pathLines.Projection = _mapLayer.Projection;
-                pathLines.DataTable.Columns.Add(pass);                       
+                pathLines.DataTable.Columns.Add(pass);
                 pathLines.SaveAs(shapefileSavePath, true);
                 buildDirectory(saveLocation + @"\UT");
                 IRaster utilsCosts = utilityCosts;
@@ -803,7 +809,7 @@ namespace nx09SitingTool
                 outPathRaster.Bounds = bounds.Bounds;
                 outPathRaster.Projection = bounds.Projection;
                 outPathRaster.Save();
-                gr.prepareGATRasters(saveLocation + @"\UT", worker, curs,backlink,outAccumRaster,ref outPathRaster, ref outputPathFilename);
+                gr.prepareGATRasters(saveLocation + @"\UT", worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
                 BackgroundWorker utCosts = new BackgroundWorker();
                 paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outputAccumFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
                 utCosts.WorkerReportsProgress = true;
@@ -814,11 +820,11 @@ namespace nx09SitingTool
                 utCosts.RunWorkerAsync();
             }
 
-            
+
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               
+
             }
         }
 
@@ -827,25 +833,25 @@ namespace nx09SitingTool
             BackgroundWorker worker = sender as BackgroundWorker;
             newWork(worker, ref outputPathFilename);
             worker.Dispose();
-            
+
         }
 
         private void utCosts_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             tspProgress.Value = e.ProgressPercentage;
-           
+
         }
 
         private void utCosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
-            { 
+            {
                 utilLCPA = FeatureSet.OpenFile(saveLocation + @"\UT\utilityCostsLCPA.shp");
                 this.progressbar1.Style = ProgressBarStyle.Continuous;
-                
-                for (currentPass = 1; currentPass <=numPasses.Value ; currentPass++)
+
+                for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
-                    p1.doTheProcess(tslStatus, tracker,bounds,saveLocation,_mapLayer,currentPass,dgvSelectLayers,utilityCosts, MC,progress,ref outputPathFilename,additiveCosts);
+                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts);
                     additiveCosts = p1.additiveCosts;
                     createAccumCostRaster(outputPathFilename);
                     tslStatus.Visible = true;
@@ -859,5 +865,5 @@ namespace nx09SitingTool
             }
         }
 
-       }
+    }
 }
