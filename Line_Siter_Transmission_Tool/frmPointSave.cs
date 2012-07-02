@@ -151,7 +151,7 @@ namespace nx09SitingTool
             {
                 IRaster newRast = new Raster();
                 string[] rasOps = new string[1];
-                //int progress = 0;
+             int progress = 0;
                 foreach (Layer lay in _MW.GetLayers())
                 {
                     if (lay.LegendText == cboLayers.SelectedItem)

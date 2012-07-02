@@ -194,7 +194,7 @@ namespace nx09SitingTool
                 MessageBox.Show("Raster conversion and reclassification complete.  \n\n Add to display?", "Raster Operations", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
 
-            catch (System.InvalidCastException )
+            catch (System.InvalidCastException ic)
             {
                 MessageBox.Show("Error 100: Wrong layer type selected. \r\n \r\nPlease choose a raster layer to convert.", "Error 100: Invalid Cast Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
