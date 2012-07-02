@@ -80,32 +80,23 @@ namespace nx09SitingTool
         List<IRaster> mcRasterList = new List<IRaster>();
         //string progress = string.Empty;
         int temp3 = 0;
-
-
-        //private System.Windows.Forms.NumericUpDown numPasses;
-        //private System.Windows.Forms.DataGridView dgvSelectLayers;
+             
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
         clscreateWeightedRaster c1 = new clscreateWeightedRaster();
         Randomnumber r1 = new Randomnumber();
         clsProcess1 pr = new clsProcess1();
         clsCostWeight c2 = new clsCostWeight();
-
-        private void buildDirectory(string dirPath)
-        {
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-        }
-
-        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts)
+        ClsBldDirectory b1 = new ClsBldDirectory();
+        
+        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, clsBldDirectory _b1)
         {
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
-
+           
             try
             {
+                b1 = _b1;
                 MC = _MC;
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
@@ -117,7 +108,7 @@ namespace nx09SitingTool
                 progress = "Creating Weighted Rasters";
                 tracker.ReportProgress(10);
 
-                buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
+                b1.buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
                 costFileName = saveLocation + @"\costSurfaceRaster.bgd";
