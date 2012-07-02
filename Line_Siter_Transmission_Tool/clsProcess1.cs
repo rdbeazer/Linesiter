@@ -60,19 +60,13 @@ namespace nx09SitingTool
         clsprepgatraster gr = new clsprepgatraster();
         Cursor xcurs;
         BackgroundWorker worker = new BackgroundWorker();
-        private void buildDirectory(string dirPath)
-        {
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-        }
+        ClsBldDirectory b1 = new ClsBldDirectory();
 
 
-        public void clsprocess1(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, string outputPathFilename, IRaster utilityCosts)
+        public void clsprocess1(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts, ClsBldDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
         {
             MC = _mc;
-
+            b1 = _b1;
 
             tslStatus.Visible = false;
             finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(currentPass));
@@ -105,7 +99,7 @@ namespace nx09SitingTool
                                 //create directory for each question
                                 string newPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[3].Value);
                                 string rasterPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[2].Value) + Convert.ToString(dr.Cells[1].Value) + "pa.bgd";
-                                buildDirectory(newPath);
+                                b1.buildDirectory(newPath);
                                 //load raster file
                                 IRaster oRaster = Raster.OpenFile(rasterPath);
                                 c1.createWeightedRasters(newPath, rasterPath, oRaster, bounds, _mc, currentPass);
@@ -174,6 +168,7 @@ namespace nx09SitingTool
 
             progress = "Pass " + Convert.ToString(currentPass) + " is complete.";
             tracker.ReportProgress(90);
+
             gr.prepareGATRasters(mcRasSavePath, worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
 
 
