@@ -67,6 +67,7 @@ namespace nx09SitingTool
             newRaster.InitializeGrid(rasterToConvert.NumColumns, rasterToConvert.NumRows);
             newRaster.WriteHeaderFile();
             newRaster.SetBlockData();
+            MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
             for (int nRow = 0; nRow < rasterToConvert.NumRows - 1; nRow++)
             {
                 for (int nCol = 0; nCol < rasterToConvert.NumColumns - 1; nCol++)
@@ -90,7 +91,7 @@ namespace nx09SitingTool
                 conRaster.Bounds = bnds.Bounds;
                 conRaster.NoDataValue = -32768;
                 //conRaster.Save();
-
+                MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
                 for (int nCol = 0; nCol < gt.NumberColumns - 1; nCol++)
                 {
                     for (int nRow = 0; nRow < gt.NumberRows - 1; nRow++)
