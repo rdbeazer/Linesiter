@@ -62,7 +62,7 @@ namespace nx09SitingTool
         IRaster outPathRaster = new Raster();
         GATGrid outPathGATRaster = new GATGrid();
         string[] paraString;
-        IRaster rasterToConvert;
+        //IRaster rasterToConvert;
         string costFileName = "";
         string currentQuesPath = "";
         IRaster outPath;
@@ -80,7 +80,10 @@ namespace nx09SitingTool
         List<IRaster> mcRasterList = new List<IRaster>();
         //string progress = string.Empty;
         int temp3 = 0;
-             
+
+
+        //private System.Windows.Forms.NumericUpDown numPasses;
+        //private System.Windows.Forms.DataGridView dgvSelectLayers;
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
         clscreateWeightedRaster c1 = new clscreateWeightedRaster();
@@ -88,16 +91,20 @@ namespace nx09SitingTool
         clsProcess1 pr = new clsProcess1();
         clsCostWeight c2 = new clsCostWeight();
         ClsBldDirectory b1 = new ClsBldDirectory();
-        
-        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, clsBldDirectory _b1)
+        string progress = string.Empty;
+
+
+        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, ClsBldDirectory _b1, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
         {
+
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
-           
+            tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
+            ClsBldDirectory b1 = new ClsBldDirectory();
             try
             {
-                b1 = _b1;
                 MC = _MC;
+                b1 = _b1;
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
@@ -207,7 +214,7 @@ namespace nx09SitingTool
                 progress = "Beginning Monte Carlo Process";
                 tracker.ReportProgress(30);
 
-                pr.clsprocess1(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, outputPathFilename, utilityCosts);
+                pr.clsprocess1(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref outputPathFilename, utilityCosts, _b1, ref rasterToConvert, ref costFileName);
                 additivecosts = pr.additiveCosts;
                 finalStatOutput = pr.finalStatOutput;
             }
