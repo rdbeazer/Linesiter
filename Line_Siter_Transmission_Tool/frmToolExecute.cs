@@ -32,6 +32,7 @@ namespace nx09SitingTool
         clsprepgatraster gr = new clsprepgatraster();
         clsRasterOps pa;
         clsLCPCoords lc = new clsLCPCoords();
+        ClsBldDirectory b1 = new ClsBldDirectory();
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
@@ -77,7 +78,7 @@ namespace nx09SitingTool
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
-
+        ClsBldDirectory _b1 = new ClsBldDirectory();
 
         #region Methods
 
@@ -195,13 +196,13 @@ namespace nx09SitingTool
             }
         }
 
-        private void buildDirectory(string dirPath)
-        {
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-        }
+        //  private void buildDirectory(string dirPath)
+        // {
+        //     if (!Directory.Exists(dirPath))
+        //    {
+        //         Directory.CreateDirectory(dirPath);
+        //   }
+        //}
 
         private void fillStartCombo()
         {
@@ -238,6 +239,7 @@ namespace nx09SitingTool
 
         private void btnBegin_Click(object sender, EventArgs e)
         {
+
             try
             {
 
@@ -263,12 +265,12 @@ namespace nx09SitingTool
 
 
 
-        private void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
             progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
             Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
-            this.progressbar1.Size = new System.Drawing.Size(224, 23);
+            this.progressbar1.Size = new System.Drawing.Size(670, 21);
 
             this.progressbar1.Value = e.ProgressPercentage;
             lblProgress.Text = progress;
@@ -315,12 +317,18 @@ namespace nx09SitingTool
             try
             {
                 clsWBHost wbHost = new clsWBHost(tslStatus);
+
                 GISTools.CostAccumulation ac = new GISTools.CostAccumulation();
                 GISTools.CostPathway cp = new GISTools.CostPathway();
                 clsGATGridConversions utConvert = new clsGATGridConversions();
+
                 utConvert._rasterToConvert = rasterToConvert;
+
                 utConvert._statusMessage = "Converting cost raster. ";
+
                 utConvert.convertToGAT();
+
+
                 ac.Initialize(wbHost);
                 ac.Execute(paraString, worker);
                 string[] costPath = new string[3] { endFileName + ".dep", backlinkFilename + ".dep", outputPathFilename + ".dep" };
@@ -788,7 +796,7 @@ namespace nx09SitingTool
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.DataTable.Columns.Add(pass);
                 pathLines.SaveAs(shapefileSavePath, true);
-                buildDirectory(saveLocation + @"\UT");
+                b1.buildDirectory(saveLocation + @"\UT");
                 IRaster utilsCosts = utilityCosts;
                 shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
                 costFileName = saveLocation + @"\UT\utilCosts.bgd";
@@ -851,7 +859,7 @@ namespace nx09SitingTool
 
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
-                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts);
+                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
                     additiveCosts = p1.additiveCosts;
                     createAccumCostRaster(outputPathFilename);
                     tslStatus.Visible = true;
