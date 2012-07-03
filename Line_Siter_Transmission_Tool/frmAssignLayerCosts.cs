@@ -15,6 +15,13 @@ namespace nx09SitingTool
 {
     public partial class frmAssignLayerCosts : Form
     {
+        private bool _okToProceed;
+        public bool okToProceed
+        {
+            get { return _okToProceed; }
+            set { _okToProceed = value; }
+        }
+
         IMap mapLayers = null;
         public Dictionary <string, string> layerList = new Dictionary<string, string>();
 
@@ -118,6 +125,7 @@ namespace nx09SitingTool
                         layerList.Add((string)rw.Cells[1].Value, (string)rw.Cells[2].Value);
                     }
                 }
+                okToProceed = true;
             }
 
             catch (Exception ex)
@@ -125,6 +133,11 @@ namespace nx09SitingTool
                 MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            okToProceed = false;
         }
 
 
