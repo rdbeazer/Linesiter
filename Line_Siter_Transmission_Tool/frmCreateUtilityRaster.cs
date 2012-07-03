@@ -77,7 +77,7 @@ namespace nx09SitingTool
 
         private void btnBegin_Click(object sender, EventArgs e)
         {
-
+            bool okToProceed = false;
             BackgroundWorker tracker = new BackgroundWorker();
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
@@ -99,6 +99,12 @@ namespace nx09SitingTool
                 int rasterCol = boundingRaster.NumColumns, rasterRow = boundingRaster.NumRows;
                 frmAssignLayerCosts frmalc = new frmAssignLayerCosts(_MW);
                 frmalc.ShowDialog();
+                okToProceed = frmalc.okToProceed;
+                if (okToProceed == false)
+                {
+                    this.Close();
+                    return;
+                }
                 List<IRaster> lRaster = new List<IRaster>();
                 clsRasterOps rasterMA = new clsRasterOps(_MW);
                 string[] ras1 = new string[1];
