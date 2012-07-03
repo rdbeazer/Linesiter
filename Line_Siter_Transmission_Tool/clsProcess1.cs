@@ -170,7 +170,7 @@ namespace nx09SitingTool
             tracker.ReportProgress(90);
 
             gr.prepareGATRasters(mcRasSavePath, worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
-
+        
 
 
         }
