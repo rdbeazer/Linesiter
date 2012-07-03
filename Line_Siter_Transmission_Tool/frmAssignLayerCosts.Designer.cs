@@ -31,10 +31,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.rtbHelpBox = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnFinish = new System.Windows.Forms.Button();
             this.gbSelectLayerCosts = new System.Windows.Forms.GroupBox();
             this.dgvSelectLayers = new System.Windows.Forms.DataGridView();
-            this.btnFinish = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.gbSelectLayerCosts.SuspendLayout();
@@ -70,6 +70,28 @@
             this.panel2.Size = new System.Drawing.Size(425, 340);
             this.panel2.TabIndex = 1;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(262, 305);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnFinish
+            // 
+            this.btnFinish.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnFinish.Location = new System.Drawing.Point(343, 305);
+            this.btnFinish.Name = "btnFinish";
+            this.btnFinish.Size = new System.Drawing.Size(75, 23);
+            this.btnFinish.TabIndex = 2;
+            this.btnFinish.Text = "Finish";
+            this.btnFinish.UseVisualStyleBackColor = true;
+            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
+            // 
             // gbSelectLayerCosts
             // 
             this.gbSelectLayerCosts.Controls.Add(this.dgvSelectLayers);
@@ -87,27 +109,6 @@
             this.dgvSelectLayers.Name = "dgvSelectLayers";
             this.dgvSelectLayers.Size = new System.Drawing.Size(394, 223);
             this.dgvSelectLayers.TabIndex = 0;
-            // 
-            // btnFinish
-            // 
-            this.btnFinish.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnFinish.Location = new System.Drawing.Point(343, 305);
-            this.btnFinish.Name = "btnFinish";
-            this.btnFinish.Size = new System.Drawing.Size(75, 23);
-            this.btnFinish.TabIndex = 2;
-            this.btnFinish.Text = "Finish";
-            this.btnFinish.UseVisualStyleBackColor = true;
-            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(262, 305);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // frmAssignLayerCosts
             // 
