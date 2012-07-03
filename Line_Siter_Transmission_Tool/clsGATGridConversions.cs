@@ -76,8 +76,10 @@ namespace nx09SitingTool
                 }
             }
             newRaster.WriteDataInMemoryToFile();
-            newRaster.ReleaseMemoryResources();
+          //  newRaster.ReleaseMemoryResources();
+            return;
         }
+
 
         public void convertBGD()
         {
