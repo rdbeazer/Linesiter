@@ -321,12 +321,9 @@ namespace nx09SitingTool
                 GISTools.CostAccumulation ac = new GISTools.CostAccumulation();
                 GISTools.CostPathway cp = new GISTools.CostPathway();
                 clsGATGridConversions utConvert = new clsGATGridConversions();
-
                 utConvert._rasterToConvert = rasterToConvert;
-
                 utConvert._statusMessage = "Converting cost raster. ";
-
-                utConvert.convertToGAT();
+                 utConvert.convertToGAT();
 
 
                 ac.Initialize(wbHost);
