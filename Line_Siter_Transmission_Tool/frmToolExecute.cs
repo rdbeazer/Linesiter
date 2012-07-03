@@ -324,9 +324,7 @@ namespace nx09SitingTool
                 utConvert._rasterToConvert = rasterToConvert;
                 utConvert._statusMessage = "Converting cost raster. ";
                  utConvert.convertToGAT();
-
-
-                ac.Initialize(wbHost);
+                 ac.Initialize(wbHost);
                 ac.Execute(paraString, worker);
                 string[] costPath = new string[3] { endFileName + ".dep", backlinkFilename + ".dep", outputPathFilename + ".dep" };
                 cp.Initialize(wbHost);
