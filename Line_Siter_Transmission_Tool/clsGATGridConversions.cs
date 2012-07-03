@@ -67,7 +67,7 @@ namespace nx09SitingTool
             newRaster.InitializeGrid(rasterToConvert.NumColumns, rasterToConvert.NumRows);
             newRaster.WriteHeaderFile();
             newRaster.SetBlockData();
-            MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
+     //       MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
             for (int nRow = 0; nRow < rasterToConvert.NumRows - 1; nRow++)
             {
                 for (int nCol = 0; nCol < rasterToConvert.NumColumns - 1; nCol++)
@@ -76,7 +76,7 @@ namespace nx09SitingTool
                 }
             }
             newRaster.WriteDataInMemoryToFile();
-          //  newRaster.ReleaseMemoryResources();
+            newRaster.ReleaseMemoryResources();
             return;
         }
 
