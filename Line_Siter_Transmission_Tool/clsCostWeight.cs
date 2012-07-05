@@ -24,7 +24,6 @@ namespace nx09SitingTool
         //IMap _mapLayer = null;
         //int currentPass = 1;
         clsMonteCarlo MC = new clsMonteCarlo();
-        clsRasterOps pa;
         clsLCPCoords lc = new clsLCPCoords();
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
