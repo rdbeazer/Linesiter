@@ -32,7 +32,7 @@ namespace nx09SitingTool
         clsprepgatraster gr = new clsprepgatraster();
         clsRasterOps pa;
         clsLCPCoords lc = new clsLCPCoords();
-        ClsBldDirectory b1 = new ClsBldDirectory();
+        clsBuildDirectory b1 = new clsBuildDirectory();
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
@@ -78,7 +78,7 @@ namespace nx09SitingTool
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
-        ClsBldDirectory _b1 = new ClsBldDirectory();
+        clsBuildDirectory _b1 = new clsBuildDirectory();
 
         #region Methods
 

@@ -90,17 +90,17 @@ namespace nx09SitingTool
         Randomnumber r1 = new Randomnumber();
         clsProcess1 pr = new clsProcess1();
         clsCostWeight c2 = new clsCostWeight();
-        ClsBldDirectory b1 = new ClsBldDirectory();
+        clsBuildDirectory b1 = new clsBuildDirectory();
         string progress = string.Empty;
 
 
-        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, ClsBldDirectory _b1, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
+        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, clsBuildDirectory _b1, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
         {
 
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
             tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-            ClsBldDirectory b1 = new ClsBldDirectory();
+            clsBuildDirectory b1 = new clsBuildDirectory();
             try
             {
                 MC = _MC;

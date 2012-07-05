@@ -60,14 +60,13 @@ namespace nx09SitingTool
         clsprepgatraster gr = new clsprepgatraster();
         Cursor xcurs;
         BackgroundWorker worker = new BackgroundWorker();
-        ClsBldDirectory b1 = new ClsBldDirectory();
+        clsBuildDirectory b1 = new clsBuildDirectory();
 
 
-        public void clsprocess1(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts, ClsBldDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
+        public void clsprocess1(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts,clsBuildDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
         {
             MC = _mc;
             b1 = _b1;
-
             tslStatus.Visible = false;
             finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(currentPass));
             int questNum = 1;
