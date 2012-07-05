@@ -160,6 +160,7 @@
     <Compile Include="1121165.Designer.cs">
       <DependentUpon>1121165.cs</DependentUpon>
     </Compile>
+    <Compile Include="clsBuildDirectory.cs" />
     <Compile Include="clsCostWeight.cs" />
     <Compile Include="clscreateWeightedRaster.cs" />
     <Compile Include="clsdoTheProcess.cs" />
