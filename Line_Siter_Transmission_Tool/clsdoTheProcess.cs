@@ -37,7 +37,6 @@ namespace nx09SitingTool
             set { _finalStatOutput = value; }
         }
         clsMonteCarlo MC = new clsMonteCarlo();
-        clsRasterOps pa;
         clsLCPCoords lc = new clsLCPCoords();
         clsprepgatraster gr = new clsprepgatraster();
         FeatureSet projectFS = new FeatureSet();
@@ -105,6 +104,7 @@ namespace nx09SitingTool
             {
                 MC = _MC;
                 b1 = _b1;
+                clsCreateBackgroundRasters cbrDP = new clsCreateBackgroundRasters();
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
@@ -119,31 +119,35 @@ namespace nx09SitingTool
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
                 costFileName = saveLocation + @"\costSurfaceRaster.bgd";
-                additveCostsFilePath = saveLocation + @"\additveCostsRaster.bgd";
-                backlinkFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink";
+                //additveCostsFilePath = saveLocation + @"\additveCostsRaster.bgd";
+                /*backlinkFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink";
                 outputAccumFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outAccumRaster";
-                outputPathFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
+                outputPathFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";*/
                 rasterToConvert = Raster.CreateRaster(costFileName, null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
-                backlink = Raster.CreateRaster(backlinkFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
+                backlink = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
+                /*backlink = Raster.CreateRaster(backlinkFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 backlink.Bounds = bounds.Bounds;
                 backlink.Projection = bounds.Projection;
-                backlink.Save();
-                outAccumRaster = Raster.CreateRaster(outputAccumFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
+                backlink.Save();*/
+                outAccumRaster = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
+                /*outAccumRaster = Raster.CreateRaster(outputAccumFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 outAccumRaster.Bounds = bounds.Bounds;
                 outAccumRaster.Projection = bounds.Projection;
-                outAccumRaster.Save();
-                outPathRaster = Raster.CreateRaster(outputPathFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
+                outAccumRaster.Save();*/
+                outPathRaster = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
+                /*outPathRaster = Raster.CreateRaster(outputPathFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 outPathRaster.Bounds = bounds.Bounds;
                 outPathRaster.Projection = bounds.Projection;
 
-                outPathRaster.Save();
+                outPathRaster.Save();*/
 
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.SaveAs(shapefileSavePath, true);
-                additiveCosts = Raster.CreateRaster(additveCostsFilePath, null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
+                additiveCosts = cbrDP.saveRaster(saveLocation, @"\additiveCostsRaster", bounds);
+                /*additiveCosts = Raster.CreateRaster(additveCostsFilePath, null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 additiveCosts.Bounds = bounds.Bounds;
                 additiveCosts.Projection = _mapLayer.Projection;
-                additiveCosts.Save();
+                additiveCosts.Save();*/
                 pr.additiveCosts = additiveCosts;
                 pr.finalStatOutput = finalStatOutput;
                 int newQIDValue = 0;
