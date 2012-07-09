@@ -163,7 +163,7 @@
     <Compile Include="clsBuildDirectory.cs" />
     <Compile Include="clsCostWeight.cs" />
     <Compile Include="clsCreateBackgroundRasters.cs" />
-    <Compile Include="clscreateWeightedRaster.cs" />
+    <Compile Include="clsCreateWeightedRasters.cs" />
     <Compile Include="clsdoTheProcess.cs" />
     <Compile Include="clsGATGridConversions.cs" />
     <Compile Include="clsLCPCoords.cs" />
@@ -172,6 +172,7 @@
     <Compile Include="clsRasterOps.cs" />
     <Compile Include="clsUtilityCosts.cs" />
     <Compile Include="clsWBHost.cs" />
+    <Compile Include="clsCreateLineShapeFileFromRaster.cs" />
     <Compile Include="frmAssignLayerCosts.cs">
       <SubType>Form</SubType>
     </Compile>

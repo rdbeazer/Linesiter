@@ -72,6 +72,8 @@ namespace nx09SitingTool
         string lcpaShapeName = string.Empty;
         IFeatureSet utilLCPA;
         List<IRaster> mcRasterList = new List<IRaster>();
+        List<string> headers = new List<string>();
+        List<string> attributes = new List<string>();
         string progress = string.Empty;
         BackgroundWorker worker = new BackgroundWorker();
         Cursor xcurs;
@@ -174,6 +176,7 @@ namespace nx09SitingTool
             myConnection.Close();
         }
 
+        #region fillCombos
         private void fillBoundCombo()
         {
             foreach (Layer lay in _mapLayer.Layers)
@@ -195,14 +198,6 @@ namespace nx09SitingTool
                 }
             }
         }
-
-        //  private void buildDirectory(string dirPath)
-        // {
-        //     if (!Directory.Exists(dirPath))
-        //    {
-        //         Directory.CreateDirectory(dirPath);
-        //   }
-        //}
 
         private void fillStartCombo()
         {
@@ -236,6 +231,9 @@ namespace nx09SitingTool
                 }
             }
         }
+        #endregion
+
+
 
         private void btnBegin_Click(object sender, EventArgs e)
         {
@@ -317,7 +315,6 @@ namespace nx09SitingTool
             try
             {
                 clsWBHost wbHost = new clsWBHost(tslStatus);
-
                 GISTools.CostAccumulation ac = new GISTools.CostAccumulation();
                 GISTools.CostPathway cp = new GISTools.CostPathway();
                 clsGATGridConversions utConvert = new clsGATGridConversions();
@@ -331,8 +328,12 @@ namespace nx09SitingTool
                 cp.Execute(costPath, worker);
                 convertCostPathwayToBGD();
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
-                outPath.Save();
-                createPathShapefile(outPath);
+                //outPath.Save();
+                headers.Add("Pass");
+                attributes.Add(Convert.ToString(currentPass));
+                clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
+                clsf.createShapefile(outPath, 1, saveLocation, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                //createPathShapefile(outPath);
                 
             }
 
@@ -591,12 +592,8 @@ namespace nx09SitingTool
                         xy = pathCon.CellToProj(nRows, nCols);
                         pthXYs.Add(xy);
                     }
-
                 }
-
             }
-
-
             LineString pathString = new LineString(pthXYs);
             IFeature pathLine = pathLines.AddFeature(pathString);
             pathLine.DataRow["Pass"] = Convert.ToString(currentPass);
@@ -605,7 +602,6 @@ namespace nx09SitingTool
             pathLines.Extent = outPath.Extent;
             pathLines.Projection = _mapLayer.Projection;
             pathLines.SaveAs(shapefileSavePath, true);
-
         }
 
         private void finishingUp()
