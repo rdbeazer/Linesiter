@@ -51,7 +51,7 @@ namespace nx09SitingTool
         //string progress = string.Empty;
         // List<string> finalStatOutput = new List<string>();
         clsMonteCarlo MC = new clsMonteCarlo();
-        clscreateWeightedRasters c1 = new clscreateWeightedRasters();
+        clsCreateWeightedRasters c1 = new clsCreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
         double rv = 0;
         string currentQuesPath = "";
