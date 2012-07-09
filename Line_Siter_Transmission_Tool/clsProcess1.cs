@@ -51,7 +51,7 @@ namespace nx09SitingTool
         //string progress = string.Empty;
         // List<string> finalStatOutput = new List<string>();
         clsMonteCarlo MC = new clsMonteCarlo();
-        clscreateWeightedRaster c1 = new clscreateWeightedRaster();
+        clscreateWeightedRasters c1 = new clscreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
         double rv = 0;
         string currentQuesPath = "";
@@ -101,7 +101,8 @@ namespace nx09SitingTool
                                 b1.buildDirectory(newPath);
                                 //load raster file
                                 IRaster oRaster = Raster.OpenFile(rasterPath);
-                                c1.createWeightedRasters(newPath, rasterPath, oRaster, bounds, _mc, currentPass);
+                                c1.createWeightedRasters(newPath, rasterPath, oRaster);
+                                //c1.createWeightedRasters(newPath, rasterPath, oRaster, bounds, _mc, currentPass);
                             }
                         }
                     }

@@ -65,7 +65,7 @@ namespace nx09SitingTool
         string costFileName = "";
         string currentQuesPath = "";
         IRaster outPath;
-        FeatureSet pathLines = new FeatureSet(FeatureType.Line);
+       // FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath;
@@ -85,7 +85,7 @@ namespace nx09SitingTool
         //private System.Windows.Forms.DataGridView dgvSelectLayers;
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
-        clscreateWeightedRaster c1 = new clscreateWeightedRaster();
+        clscreateWeightedRasters c1 = new clscreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
         clsProcess1 pr = new clsProcess1();
         clsCostWeight c2 = new clsCostWeight();
@@ -108,7 +108,7 @@ namespace nx09SitingTool
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
-                lcpaShapeName = "Monte Carlo LCPA";
+                //lcpaShapeName = "Monte Carlo LCPA";
                 //tslPass.Text = "Current Monte Carlo Pass: " + Convert.ToString(currentPass);
                 utilityCosts.Bounds = bounds.Bounds;
                 IRaster utilsCosts = utilityCosts;
@@ -141,8 +141,8 @@ namespace nx09SitingTool
 
                 outPathRaster.Save();*/
 
-                pathLines.Projection = _mapLayer.Projection;
-                pathLines.SaveAs(shapefileSavePath, true);
+                /*pathLines.Projection = _mapLayer.Projection;
+                pathLines.SaveAs(shapefileSavePath, true);*/
                 additiveCosts = cbrDP.saveRaster(saveLocation, @"\additiveCostsRaster", bounds);
                 /*additiveCosts = Raster.CreateRaster(additveCostsFilePath, null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
                 additiveCosts.Bounds = bounds.Bounds;
@@ -205,7 +205,7 @@ namespace nx09SitingTool
                                 else
                                 {
                                     MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    pathLines.DataTable.Columns.Remove("pass");
+                                    //pathLines.DataTable.Columns.Remove("pass");
                                     return;
 
                                 }
