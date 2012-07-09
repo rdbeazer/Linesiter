@@ -93,7 +93,7 @@ namespace nx09SitingTool
                 conRaster.Bounds = bnds.Bounds;
                 conRaster.NoDataValue = -32768;
                 //conRaster.Save();
-                MessageBox.Show(Convert.ToString(gt.NumberRows - 1));
+                //MessageBox.Show(Convert.ToString(gt.NumberRows - 1));
                 for (int nCol = 0; nCol < gt.NumberColumns - 1; nCol++)
                 {
                     for (int nRow = 0; nRow < gt.NumberRows - 1; nRow++)
