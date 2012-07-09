@@ -56,7 +56,7 @@ namespace nx09SitingTool
 
             catch (System.ArgumentException ag)
             {
-                MessageBox.Show("Shapefile addition does not have the required number of points. /n Please check the input parameters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Shapefile input does not have the required number of points. \n Please check the input parameters. \n" + ag, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
