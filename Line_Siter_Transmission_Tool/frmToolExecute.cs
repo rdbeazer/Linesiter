@@ -323,7 +323,7 @@ namespace nx09SitingTool
                 utConvert.convertToGAT();
                 ac.Initialize(wbHost);
                 ac.Execute(paraString, worker);
-                string[] costPath = new string[3] { endFileName + ".dep", backlinkFilename + ".dep", outputPathFilename + ".dep" };
+                string[] costPath = new string[3] { endFileName + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length -4) + ".dep", outputPathFilename + ".dep" };
                 cp.Initialize(wbHost);
                 cp.Execute(costPath, worker);
                 convertCostPathwayToBGD();
@@ -332,7 +332,7 @@ namespace nx09SitingTool
                 headers.Add("Pass");
                 attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, saveLocation, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                clsf.createShapefile(outPath, 1, saveLocation, headers, attributes, _mapLayer, "MCLCPA.shp", pathLines);
                 //createPathShapefile(outPath);
                 
             }
@@ -798,7 +798,7 @@ namespace nx09SitingTool
                 outPathRaster = cbr.saveRaster(saveLocation + @"\UT\", "outPath", bounds);
                 gr.prepareGATRasters(saveLocation + @"\UT", worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
                 BackgroundWorker utCosts = new BackgroundWorker();
-                paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outputAccumFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
+                paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
                 utCosts.WorkerReportsProgress = true;
                 utCosts.WorkerSupportsCancellation = false;
                 utCosts.DoWork += new DoWorkEventHandler(utCosts_DoWork);
