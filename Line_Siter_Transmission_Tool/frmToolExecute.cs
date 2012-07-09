@@ -444,7 +444,7 @@ namespace nx09SitingTool
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.RootFolder = Environment.SpecialFolder.MyDocuments;
+            fbd.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             fbd.ShowDialog();
             txtSaveLocation.Text = fbd.SelectedPath;
             saveLocation = fbd.SelectedPath;
