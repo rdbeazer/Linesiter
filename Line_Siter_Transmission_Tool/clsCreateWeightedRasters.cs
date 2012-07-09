@@ -21,10 +21,10 @@ namespace nx09SitingTool
 {
     class clsCreateWeightedRasters
     {
-        clsMonteCarlo MC = new clsMonteCarlo();
+        //clsMonteCarlo MC = new clsMonteCarlo();
         IRaster bounds = new Raster();
         
-        public void createWeightedRasters(string newPath, string rasterPath, IRaster oRaster)
+        public void createWeightedRasters(string newPath, string rasterPath, IRaster oRaster, clsMonteCarlo MC)
         {
             int curWeight = 0;
             string[] weights = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
