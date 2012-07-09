@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace nx09SitingTool
 {
-    class clscreateWeightedRasters
+    class clsCreateWeightedRasters
     {
         clsMonteCarlo MC = new clsMonteCarlo();
         IRaster bounds = new Raster();
