@@ -46,8 +46,8 @@ namespace nx09SitingTool
                 lineFS.Name = name;
                 lineFS.Extent = rastConvert.Extent;
                 lineFS.Projection = mw.Projection;
-                lineFS.Save();
-                //lineFS.SaveAs(saveLocation, true);
+                //lineFS.Save();
+                lineFS.SaveAs(saveLocation, true);
             }
             /*catch (Exception ex)
             {

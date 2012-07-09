@@ -63,7 +63,7 @@ namespace nx09SitingTool
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
-        string shapefileSavePath;
+        string shapefileSavePath = string.Empty;
         string additveCostsFilePath;
         IRaster additiveCosts;
         int timesHit2 = 1;
@@ -250,6 +250,7 @@ namespace nx09SitingTool
                 MC.NumPasses = (int)numPasses.Value;
                 utCostLine();
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
+                pathLines.SaveAs(shapefileSavePath, true);
                 this.lblProgress.Text = "Performing Process...Please Wait.";
                 //doTheProcess();
             }
@@ -332,7 +333,7 @@ namespace nx09SitingTool
                 headers.Add("Pass");
                 attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, saveLocation, headers, attributes, _mapLayer, "MCLCPA.shp", pathLines);
+                clsf.createShapefile(outPath, 1, saveLocation + @"\MCLCPA.shp", headers, attributes, _mapLayer, "MCLCPA", pathLines);
                 //createPathShapefile(outPath);
                 
             }
@@ -783,13 +784,13 @@ namespace nx09SitingTool
                 clsCreateBackgroundRasters cbr = new clsCreateBackgroundRasters();
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
+                shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
                 DataColumn pass = new DataColumn("Pass");
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.DataTable.Columns.Add(pass);
                 pathLines.SaveAs(shapefileSavePath, true);
                 b1.buildDirectory(saveLocation + @"\UT");
                 IRaster utilsCosts = utilityCosts;
-                shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
                 costFileName = saveLocation + @"\UT\utilCosts.bgd";
                 utilsCosts.SaveAs(saveLocation + @"\UT\utilCosts.bgd");
                 rasterToConvert = Raster.OpenFile(saveLocation + @"\UT\utilCosts.bgd");
