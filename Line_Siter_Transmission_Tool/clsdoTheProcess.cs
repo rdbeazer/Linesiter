@@ -85,7 +85,7 @@ namespace nx09SitingTool
         //private System.Windows.Forms.DataGridView dgvSelectLayers;
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
-        clscreateWeightedRasters c1 = new clscreateWeightedRasters();
+        clsCreateWeightedRasters c1 = new clsCreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
         clsProcess1 pr = new clsProcess1();
         clsCostWeight c2 = new clsCostWeight();
