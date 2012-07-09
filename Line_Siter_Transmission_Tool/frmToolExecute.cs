@@ -249,8 +249,8 @@ namespace nx09SitingTool
 
                 MC.NumPasses = (int)numPasses.Value;
                 utCostLine();
-                shapefileSavePath = saveLocation + @"\outputPaths.shp";
-                pathLines.SaveAs(shapefileSavePath, true);
+                //shapefileSavePath = saveLocation + @"\outputPaths.shp";
+                //pathLines.SaveAs(shapefileSavePath, true);
                 this.lblProgress.Text = "Performing Process...Please Wait.";
                 //doTheProcess();
             }
@@ -333,7 +333,8 @@ namespace nx09SitingTool
                 headers.Add("Pass");
                 attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, saveLocation + @"\MCLCPA.shp", headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                shapefileSavePath = saveLocation + @"\MCLCPA.shp";
                 //createPathShapefile(outPath);
                 
             }
@@ -784,7 +785,7 @@ namespace nx09SitingTool
                 clsCreateBackgroundRasters cbr = new clsCreateBackgroundRasters();
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
-                shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
+                //shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
                 DataColumn pass = new DataColumn("Pass");
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.DataTable.Columns.Add(pass);
