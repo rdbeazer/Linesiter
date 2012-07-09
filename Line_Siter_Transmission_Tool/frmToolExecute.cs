@@ -266,7 +266,7 @@ namespace nx09SitingTool
 
         public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
+            /*int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
             //progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
            // Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
             this.progressbar1.Size = new System.Drawing.Size(670, 21);
@@ -275,7 +275,7 @@ namespace nx09SitingTool
             lblProgress.Text = progress;
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
-            tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
+            tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);*/
         }
 
         BackgroundWorker tracker = new BackgroundWorker();
@@ -610,7 +610,7 @@ namespace nx09SitingTool
             timesHit2++;
             if (timesHit2 == (int)(numPasses.Value))
             {
-                IFeatureSet mcLCPA = FeatureSet.OpenFile(saveLocation + @"\outputPaths.shp");
+                IFeatureSet mcLCPA = FeatureSet.OpenFile(saveLocation + @"\MCLCPA.shp");
                 IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
                 this.progressbar1.Value = 0;
                 this.progressbar1.Style = ProgressBarStyle.Blocks;
