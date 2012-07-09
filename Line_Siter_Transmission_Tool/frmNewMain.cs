@@ -335,7 +335,7 @@ namespace nx09SitingTool
         private void qButSetPath_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.RootFolder = Environment.SpecialFolder.MyDocuments;
+            fbd.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             fbd.ShowDialog();
             projSavePath  = fbd.SelectedPath;
         }
