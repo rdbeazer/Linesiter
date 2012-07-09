@@ -51,7 +51,7 @@ namespace nx09SitingTool
 
         private void qButAddLayer_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            mpMain.AddLayer();
+            mpMain.AddLayers();
         }
 
         private void qButZoomIn_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
