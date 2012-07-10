@@ -184,7 +184,7 @@
             // 
             // picStartEnd
             // 
-            this.picStartEnd.Image = global::nx09SitingTool.Properties.Resources.dialog_accept;
+            this.picStartEnd.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
             this.picStartEnd.Location = new System.Drawing.Point(646, 58);
             this.picStartEnd.Name = "picStartEnd";
             this.picStartEnd.Size = new System.Drawing.Size(28, 21);
@@ -205,7 +205,7 @@
             // 
             // picEnd
             // 
-            this.picEnd.Image = global::nx09SitingTool.Properties.Resources.dialog_accept;
+            this.picEnd.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
             this.picEnd.Location = new System.Drawing.Point(646, 58);
             this.picEnd.Name = "picEnd";
             this.picEnd.Size = new System.Drawing.Size(28, 21);
@@ -224,7 +224,7 @@
             // 
             // picStart
             // 
-            this.picStart.Image = global::nx09SitingTool.Properties.Resources.dialog_accept;
+            this.picStart.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
             this.picStart.Location = new System.Drawing.Point(646, 58);
             this.picStart.Name = "picStart";
             this.picStart.Size = new System.Drawing.Size(28, 21);
@@ -254,7 +254,7 @@
             // 
             // pictRej2
             // 
-            this.pictRej2.Image = global::nx09SitingTool.Properties.Resources.dialog_cancel;
+            this.pictRej2.Image = global::LineSiterSitingTool.Properties.Resources.dialog_cancel;
             this.pictRej2.Location = new System.Drawing.Point(437, 58);
             this.pictRej2.Name = "pictRej2";
             this.pictRej2.Size = new System.Drawing.Size(28, 21);
@@ -264,7 +264,7 @@
             // 
             // pictRej1
             // 
-            this.pictRej1.Image = global::nx09SitingTool.Properties.Resources.dialog_cancel;
+            this.pictRej1.Image = global::LineSiterSitingTool.Properties.Resources.dialog_cancel;
             this.pictRej1.Location = new System.Drawing.Point(205, 58);
             this.pictRej1.Name = "pictRej1";
             this.pictRej1.Size = new System.Drawing.Size(28, 21);
@@ -274,7 +274,7 @@
             // 
             // picAcpt2
             // 
-            this.picAcpt2.Image = global::nx09SitingTool.Properties.Resources.dialog_accept;
+            this.picAcpt2.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
             this.picAcpt2.Location = new System.Drawing.Point(437, 58);
             this.picAcpt2.Name = "picAcpt2";
             this.picAcpt2.Size = new System.Drawing.Size(28, 21);
@@ -284,7 +284,7 @@
             // 
             // picAcpt1
             // 
-            this.picAcpt1.Image = global::nx09SitingTool.Properties.Resources.dialog_accept;
+            this.picAcpt1.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
             this.picAcpt1.Location = new System.Drawing.Point(205, 58);
             this.picAcpt1.Name = "picAcpt1";
             this.picAcpt1.Size = new System.Drawing.Size(28, 21);
@@ -323,7 +323,7 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Image = global::nx09SitingTool.Properties.Resources.document_open_2__1_;
+            this.btnBrowse.Image = global::LineSiterSitingTool.Properties.Resources.document_open_2__1_;
             this.btnBrowse.Location = new System.Drawing.Point(587, 29);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(31, 23);
