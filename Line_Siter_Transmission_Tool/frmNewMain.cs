@@ -402,14 +402,25 @@ namespace nx09SitingTool
 
         private void qButSurFile_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            OpenFileDialog dataSetFill = new OpenFileDialog();
-            dataSetFill.Title = "Select File Name for Project Survey Dataset";
-            dataSetFill.ShowDialog();
-            bool exists = dataSetFill.CheckFileExists;
-            if (exists)
+            try
             {
-                surveyFile = dataSetFill.FileName;
-                tslSurveyData.Text = "Survey Data File: " + surveyFile;
+                OpenFileDialog dataSetFill = new OpenFileDialog();
+                dataSetFill.Title = "Select File Name for Project Survey Dataset";
+                /*Nullable <bool> result = dataSetFill.ShowDialog();*/
+                bool exists = dataSetFill.CheckFileExists;
+                if (dataSetFill.ShowDialog() == DialogResult.OK)
+                {
+                    if (exists)
+                    {
+                        surveyFile = dataSetFill.FileName;
+                        tslSurveyData.Text = "Survey Data File: " + surveyFile;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
