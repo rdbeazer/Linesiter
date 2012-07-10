@@ -134,10 +134,23 @@ namespace nx09SitingTool
                 dgvSelectLayers.AutoResizeColumns();
             }
 
-            catch (Exception ex)
+            /*catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }*/
+
+            catch (System.Data.OleDb.OleDbException oledb)
+            {
+                MessageBox.Show("An error has occurred with the survey dataset.  It appears to be in an incompatible format.  Please choose a correctly formatted dataset."/* + "\n" + oledb*/, "Survey Data Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                //this.Close();
+                this.Shown += new EventHandler (closeOnStart);
+                //return;
             }
+        }
+
+        private void closeOnStart(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void fillDataSet(System.Data.DataSet dgvDSet)
