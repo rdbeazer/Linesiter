@@ -741,6 +741,7 @@
             this.qButPrint.Configuration.MinimumSize = new System.Drawing.Size(72, 22);
             this.qButPrint.Icon = ((System.Drawing.Icon)(resources.GetObject("qButPrint.Icon")));
             this.qButPrint.Title = "Print Layout";
+            this.qButPrint.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButPrint_ItemActivated_1);
             // 
             // frmNewMain
             // 

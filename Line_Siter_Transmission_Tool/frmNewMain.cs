@@ -440,7 +440,7 @@ namespace nx09SitingTool
             appManager1.SerializationManager.New();
         }
 
-        private void qButPrint_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
+        private void qButPrint_ItemActivated_1(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
             DotSpatial.Controls.LayoutForm pp = new LayoutForm();
             pp.MapControl = mpMain;
