@@ -92,7 +92,8 @@ namespace nx09SitingTool
         clsBuildDirectory b1 = new clsBuildDirectory();
         string progress = string.Empty;
 
-
+        public bool erroroc { get; set; }
+        
         public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, clsBuildDirectory _b1, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
         {
 
@@ -102,6 +103,7 @@ namespace nx09SitingTool
             clsBuildDirectory b1 = new clsBuildDirectory();
             try
             {
+               
                 MC = _MC;
                 b1 = _b1;
                 clsCreateBackgroundRasters cbrDP = new clsCreateBackgroundRasters();
@@ -206,6 +208,7 @@ namespace nx09SitingTool
                                 {
                                     MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     //pathLines.DataTable.Columns.Remove("pass");
+                                    
                                     return;
 
                                 }
@@ -226,8 +229,9 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                erroroc = true;
             }
         }
     }
+    
 }
