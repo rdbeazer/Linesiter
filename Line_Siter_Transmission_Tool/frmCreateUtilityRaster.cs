@@ -44,6 +44,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+                
             }
         }
 
