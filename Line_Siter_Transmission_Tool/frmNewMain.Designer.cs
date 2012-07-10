@@ -92,6 +92,7 @@
             this.tsslXCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslYCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.appManager1 = new DotSpatial.Controls.AppManager();
+            this.qButPrint = new Qios.DevSuite.Components.QCompositeButton();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).BeginInit();
             this.qRibbon1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qRibHome)).BeginInit();
@@ -418,6 +419,7 @@
             this.qRbPnFile.Items.Add(this.qButOpen);
             this.qRbPnFile.Items.Add(this.qButSave);
             this.qRbPnFile.Items.Add(this.qButSaveAs);
+            this.qRbPnFile.Items.Add(this.qButPrint);
             this.qRbPnFile.Title = "File Operations";
             // 
             // qButNew
@@ -429,6 +431,7 @@
             this.qButNew.Configuration.TitleConfiguration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
             this.qButNew.Icon = ((System.Drawing.Icon)(resources.GetObject("qButNew.Icon")));
             this.qButNew.Title = "New";
+            this.qButNew.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButNew_ItemActivated);
             // 
             // qButOpen
             // 
@@ -731,6 +734,14 @@
             this.appManager1.ProgressHandler = null;
             this.appManager1.ShowExtensionsDialog = DotSpatial.Controls.ShowExtensionsDialog.Default;
             // 
+            // qButPrint
+            // 
+            this.qButPrint.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
+            this.qButPrint.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
+            this.qButPrint.Configuration.MinimumSize = new System.Drawing.Size(72, 22);
+            this.qButPrint.Icon = ((System.Drawing.Icon)(resources.GetObject("qButPrint.Icon")));
+            this.qButPrint.Title = "Print Layout";
+            // 
             // frmNewMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -833,6 +844,7 @@
         private Qios.DevSuite.Components.QCompositeButton qButSurFile;
         private System.Windows.Forms.ToolStripStatusLabel tslSurveyData;
         private Qios.DevSuite.Components.QCompositeButton qButSubtract1;
+        private Qios.DevSuite.Components.QCompositeButton qButPrint;
 
     }
 }

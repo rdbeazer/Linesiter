@@ -434,5 +434,17 @@ namespace nx09SitingTool
         {
 
         }
+
+        private void qButNew_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
+        {
+            appManager1.SerializationManager.New();
+        }
+
+        private void qButPrint_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
+        {
+            DotSpatial.Controls.LayoutForm pp = new LayoutForm();
+            pp.MapControl = mpMain;
+            pp.ShowDialog();
+        }
     }
 }
