@@ -101,7 +101,7 @@
             // 
             // btnBegin
             // 
-            this.btnBegin.Image = global::nx09SitingTool.Properties.Resources.MonteCarlo32a;
+            this.btnBegin.Image = global::LineSiterSitingTool.Properties.Resources.MonteCarlo32a;
             this.btnBegin.Location = new System.Drawing.Point(130, 23);
             this.btnBegin.Name = "btnBegin";
             this.btnBegin.Size = new System.Drawing.Size(55, 37);

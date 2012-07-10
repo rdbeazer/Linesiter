@@ -166,7 +166,7 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Image = global::nx09SitingTool.Properties.Resources.document_open_2__1_;
+            this.btnBrowse.Image = global::LineSiterSitingTool.Properties.Resources.document_open_2__1_;
             this.btnBrowse.Location = new System.Drawing.Point(268, 205);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(32, 23);

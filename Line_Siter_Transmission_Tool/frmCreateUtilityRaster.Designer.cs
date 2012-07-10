@@ -101,7 +101,7 @@
             // 
             // btnOpenBounds
             // 
-            this.btnOpenBounds.Image = global::nx09SitingTool.Properties.Resources.document_open_2__1_;
+            this.btnOpenBounds.Image = global::LineSiterSitingTool.Properties.Resources.document_open_2__1_;
             this.btnOpenBounds.Location = new System.Drawing.Point(257, 35);
             this.btnOpenBounds.Name = "btnOpenBounds";
             this.btnOpenBounds.Size = new System.Drawing.Size(25, 23);
@@ -163,7 +163,7 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Image = global::nx09SitingTool.Properties.Resources.document_open_2__1_;
+            this.btnBrowse.Image = global::LineSiterSitingTool.Properties.Resources.document_open_2__1_;
             this.btnBrowse.Location = new System.Drawing.Point(257, 179);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(25, 23);
