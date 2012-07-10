@@ -178,6 +178,7 @@ namespace nx09SitingTool
                 else
                 {
                     MessageBox.Show("A proper questionset file needs to be selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    this.Close();
                 }
             }
             ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + pathLoc + @"; Extended Properties=""text;HDR=YES;FMT=Delimited;"";";
@@ -272,6 +273,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
 
@@ -314,6 +316,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
 
@@ -356,6 +359,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error :" + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
 
@@ -377,6 +381,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
 
         }
@@ -447,6 +452,7 @@ namespace nx09SitingTool
             catch (Exception)
             {
                 MessageBox.Show("Error: " + "has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Close();
             }
         }
 
@@ -553,6 +559,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Close();
             }
         }
 
@@ -580,7 +587,9 @@ namespace nx09SitingTool
                         else
                         {
                             MessageBox.Show("Destination raster bounds do not match the project bounds raster.  \nPlease select a destination point raster with bounds identical to the project bounds raster.", "Bounds Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                            this.Close();
                         }
+
                     }
                 }
                 //lbxProgress.Items.Add("End: " + Convert.ToString(ers.NumRows) + ", " + Convert.ToString(ers.NumColumns));
@@ -590,6 +599,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Close();
             }
         }
 
@@ -732,6 +742,9 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + Convert.ToString(ex) + " /n has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                this.Close();
+
             }
         }
 
@@ -757,7 +770,9 @@ namespace nx09SitingTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+         
+               MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               this.Close();
             }
         }
 
@@ -785,6 +800,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
 
@@ -792,7 +808,7 @@ namespace nx09SitingTool
         {
             try
             {
-                
+                int currentPass = 0;
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;
@@ -827,7 +843,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                this.Close();  
             }
         }
 
@@ -855,6 +871,10 @@ namespace nx09SitingTool
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
                     p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
+                    if (p1.erroroc == true)
+                    {
+                        this.Close();
+                    }
                     additiveCosts = p1.additiveCosts;
                     createAccumCostRaster(outputPathFilename);
                     tslStatus.Visible = true;
@@ -866,6 +886,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
 
