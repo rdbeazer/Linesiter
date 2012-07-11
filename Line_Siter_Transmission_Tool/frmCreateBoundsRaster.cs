@@ -36,10 +36,10 @@ namespace nx09SitingTool
                 rtbHelpBox.AppendText("Create A Bounds Raster \n \n");
                 rtbHelpBox.SelectionFont = new Font("Arial", 10f, FontStyle.Regular);
                 rtbHelpBox.AppendText("This dialog provides the ability to create a bounding raster  ");
-                rtbHelpBox.AppendText("for a project boundry from a shapefile. Two rasters are created");
-                rtbHelpBox.AppendText("the first is a preliminary raster and the second is a boolean");
+                rtbHelpBox.AppendText("for a project boundry from a shapefile. Two rasters are created ");
+                rtbHelpBox.AppendText("the first is a preliminary raster and the second is a boolean ");
                 rtbHelpBox.AppendText("raster that is the actual raster used in the calculations.  The ");
-                rtbHelpBox.AppendText("second raster carries a 'pa' appended to the name assigned");
+                rtbHelpBox.AppendText("second raster carries a 'pa' appended to the name assigned ");
                 rtbHelpBox.AppendText("in the save dialog.  Load only this file for the caculations.");
             }
 
@@ -108,7 +108,7 @@ namespace nx09SitingTool
                 }
                 IRaster nPrjOutRS = Raster.Open(txtSaveLocation.Text.Substring(0, txtSaveLocation.Text.Length - 4) + "pa.bgd");
                 _MW.Layers.Add(nPrjOutRS);              
-                MessageBox.Show("Process Complete.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Process Complete. \n Bounding Raster has been added to map frame.", "Bounding Raster Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
 
                 

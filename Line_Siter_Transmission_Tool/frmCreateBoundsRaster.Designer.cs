@@ -138,11 +138,11 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(225, 153);
+            this.btnBrowse.Image = global::LineSiterSitingTool.Properties.Resources.document_open_2__1_;
+            this.btnBrowse.Location = new System.Drawing.Point(285, 180);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.Size = new System.Drawing.Size(31, 23);
             this.btnBrowse.TabIndex = 33;
-            this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
@@ -150,7 +150,7 @@
             // 
             this.txtSaveLocation.Location = new System.Drawing.Point(27, 182);
             this.txtSaveLocation.Name = "txtSaveLocation";
-            this.txtSaveLocation.Size = new System.Drawing.Size(273, 20);
+            this.txtSaveLocation.Size = new System.Drawing.Size(252, 20);
             this.txtSaveLocation.TabIndex = 32;
             this.txtSaveLocation.Text = "Please Select a Location and Filename";
             // 
