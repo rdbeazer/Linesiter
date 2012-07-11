@@ -129,6 +129,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -208,6 +209,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -233,6 +235,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
     }
