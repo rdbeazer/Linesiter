@@ -68,6 +68,7 @@
             this.qButOpen = new Qios.DevSuite.Components.QCompositeButton();
             this.qButSave = new Qios.DevSuite.Components.QCompositeButton();
             this.qButSaveAs = new Qios.DevSuite.Components.QCompositeButton();
+            this.qButPrint = new Qios.DevSuite.Components.QCompositeButton();
             this.qRbPnClose = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qButExit = new Qios.DevSuite.Components.QCompositeButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -92,7 +93,6 @@
             this.tsslXCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslYCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.appManager1 = new DotSpatial.Controls.AppManager();
-            this.qButPrint = new Qios.DevSuite.Components.QCompositeButton();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).BeginInit();
             this.qRibbon1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qRibHome)).BeginInit();
@@ -468,6 +468,15 @@
             this.qButSaveAs.Title = "Save As";
             this.qButSaveAs.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButSaveAs_ItemActivated);
             // 
+            // qButPrint
+            // 
+            this.qButPrint.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
+            this.qButPrint.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
+            this.qButPrint.Configuration.MinimumSize = new System.Drawing.Size(72, 22);
+            this.qButPrint.Icon = ((System.Drawing.Icon)(resources.GetObject("qButPrint.Icon")));
+            this.qButPrint.Title = "Print Layout";
+            this.qButPrint.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButPrint_ItemActivated_1);
+            // 
             // qRbPnClose
             // 
             this.qRbPnClose.Items.Add(this.qButExit);
@@ -733,15 +742,6 @@
             this.appManager1.Map = this.mpMain;
             this.appManager1.ProgressHandler = null;
             this.appManager1.ShowExtensionsDialog = DotSpatial.Controls.ShowExtensionsDialog.Default;
-            // 
-            // qButPrint
-            // 
-            this.qButPrint.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
-            this.qButPrint.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
-            this.qButPrint.Configuration.MinimumSize = new System.Drawing.Size(72, 22);
-            this.qButPrint.Icon = ((System.Drawing.Icon)(resources.GetObject("qButPrint.Icon")));
-            this.qButPrint.Title = "Print Layout";
-            this.qButPrint.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButPrint_ItemActivated_1);
             // 
             // frmNewMain
             // 
