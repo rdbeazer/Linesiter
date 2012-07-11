@@ -261,6 +261,7 @@ namespace nx09SitingTool
                     return;
                 }
 
+           
                 MC.NumPasses = (int)numPasses.Value;
                 utCostLine();
                 //shapefileSavePath = saveLocation + @"\outputPaths.shp";
@@ -279,11 +280,13 @@ namespace nx09SitingTool
         }
 
 
-
+       
 
         public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-           /*int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
+          
+            
+            /*int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
           //  progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
            //Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
             this.progressbar1.Size = new System.Drawing.Size(670, 21);
@@ -904,6 +907,7 @@ namespace nx09SitingTool
             }
         }
 
+       
        
 
        }
