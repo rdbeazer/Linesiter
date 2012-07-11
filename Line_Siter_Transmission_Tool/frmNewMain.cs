@@ -164,7 +164,7 @@ namespace nx09SitingTool
             Coordinate xy = null;
             int seRow = 0;
             int seCol = 0;
-            double seCellValue = 0;
+          //  double seCellValue = 0;
             string seLayerText;
             if (mouseUPBool == true)
             {
