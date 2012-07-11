@@ -234,8 +234,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      
-                                erroroc = true;
+                return; 
             }
         }
     }
