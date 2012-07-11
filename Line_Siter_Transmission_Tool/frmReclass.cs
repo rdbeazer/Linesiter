@@ -83,6 +83,7 @@ namespace nx09SitingTool
         {
             clsRasterOps cro = new clsRasterOps(_MW);
             Dictionary<string, double> reclassifyDict = new Dictionary<string,double>();
+            bool success = false;
             savingRaster.Bounds = passingRaster.Bounds;
             savingRaster.Projection = passingRaster.Projection;
             savingRaster.Save();
@@ -94,7 +95,12 @@ namespace nx09SitingTool
                     reclassifyDict.Add(Convert.ToString(dgvr.Cells[0].Value), Convert.ToDouble(dgvr.Cells[1].Value));
                 }
             }
-            cro.rasterDoubleReclassify(passingRaster, savingRaster, reclassifyDict);
+            cro.rasterDoubleReclassify(passingRaster, savingRaster, reclassifyDict, ref success);
+            if (success == true)
+            {
+                MessageBox.Show("Reclassification Complete.  \n The new raster has been added to the map.", "Reclassification Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
             btnCancel.Text = "Done";
         }
     }
