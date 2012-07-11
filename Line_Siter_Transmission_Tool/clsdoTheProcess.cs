@@ -16,6 +16,8 @@ using DotSpatial.Projections;
 using System.Reflection;
 using GeospatialFiles;
 using System.Threading;
+using System.Diagnostics;
+
 
 namespace nx09SitingTool
 {
@@ -91,6 +93,7 @@ namespace nx09SitingTool
         clsCostWeight c2 = new clsCostWeight();
         clsBuildDirectory b1 = new clsBuildDirectory();
         string progress = string.Empty;
+               
 
         public bool erroroc { get; set; }
         
@@ -229,7 +232,8 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                erroroc = true;
+      
+                                erroroc = true;
             }
         }
     }
