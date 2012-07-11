@@ -344,7 +344,7 @@ namespace nx09SitingTool
         {
             try
             {
-                frmCreateBoundsRaster frmCBR = new frmCreateBoundsRaster(mpMain);
+                frmCreateBoundsRaster frmCBR = new frmCreateBoundsRaster(mpMain,projSavePath);
                 frmCBR.ShowDialog();
             }
 
