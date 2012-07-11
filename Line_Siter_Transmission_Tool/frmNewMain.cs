@@ -132,7 +132,7 @@ namespace nx09SitingTool
 
         private void qButReclass_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            frmReclass rcls = new frmReclass(mpMain);
+            frmReclass rcls = new frmReclass(mpMain,projSavePath);
             rcls.ShowDialog();
         }
 
