@@ -351,6 +351,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -365,6 +366,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show(Convert.ToString(ex));
+                return;
             }
 
             #region OLD
@@ -421,6 +423,7 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
