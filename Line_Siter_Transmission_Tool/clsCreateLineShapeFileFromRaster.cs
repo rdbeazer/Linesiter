@@ -8,7 +8,7 @@ using DotSpatial.Topology;
 using System.Windows.Forms;
 
 namespace nx09SitingTool
-{
+{ 
     class clsCreateLineShapeFileFromRaster
     {
 
@@ -39,10 +39,14 @@ namespace nx09SitingTool
                 IFeature pathLine = lineFS.AddFeature(pathString);
                 int a = 0;
                 foreach (string head in headers)
-                {
-                    pathLine.DataRow[head] = attributes[a];
-                    a++;
-                }
+                    {
+
+
+                        pathLine.DataRow[head] = attributes[a];
+                        a++;
+
+
+                     }
                 lineFS.Name = name;
                 lineFS.Extent = rastConvert.Extent;
                 lineFS.Projection = mw.Projection;
