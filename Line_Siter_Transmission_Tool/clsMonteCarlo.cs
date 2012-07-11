@@ -149,7 +149,7 @@ namespace nx09SitingTool
                 {
                     _numCells++;
                     cValue = cRaster.Value[oRows, oCols];
-                    wValue = mRaster.Value[oRows, oCols];
+                    wValue = mRaster.Value[oRows,oCols];
                     int xvalue = mRaster.NumRows;
                     int yvalue = mRaster.NumColumns;
                     if (cValue == 0)
