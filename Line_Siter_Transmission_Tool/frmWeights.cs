@@ -81,8 +81,10 @@ namespace nx09SitingTool
             if (Convert.ToDouble(txtHigh.Text) > 1 || Convert.ToDouble(txtHigh.Text) < 0)
             {
                 txtHigh.Text = Convert.ToString(0.9);
-
+                MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+           
+            
         }
 
         private void txtMedHigh_TextChanged(object sender, EventArgs e)
@@ -90,6 +92,7 @@ namespace nx09SitingTool
             if (Convert.ToDouble(txtMedHigh.Text) > 1 || Convert.ToDouble(txtMedHigh.Text) < 0)
             {
                 txtMedHigh.Text = Convert.ToString(0.7);
+                MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }
@@ -99,6 +102,7 @@ namespace nx09SitingTool
             if (Convert.ToDouble(txtMedium.Text) > 1 || Convert.ToDouble(txtMedium.Text) < 0)
             {
                 txtMedium.Text = Convert.ToString(0.5);
+                MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }
@@ -108,6 +112,7 @@ namespace nx09SitingTool
             if (Convert.ToDouble(txtMedLow.Text) > 1 || Convert.ToDouble(txtMedLow.Text) < 0)
             {
                 txtMedLow.Text = Convert.ToString(0.3);
+                MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }
@@ -117,6 +122,7 @@ namespace nx09SitingTool
             if (Convert.ToDouble(txtLow.Text) > 1 || Convert.ToDouble(txtLow.Text) < 0)
             {
                 txtLow.Text = Convert.ToString(0.1);
+                MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }
