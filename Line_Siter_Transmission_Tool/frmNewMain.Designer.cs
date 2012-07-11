@@ -59,8 +59,8 @@
             this.qButSETest = new Qios.DevSuite.Components.QCompositeButton();
             this.qRbPnRasterOps = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qButReclass = new Qios.DevSuite.Components.QCompositeButton();
-            this.qButUtilCost = new Qios.DevSuite.Components.QCompositeButton();
             this.qButBRaster = new Qios.DevSuite.Components.QCompositeButton();
+            this.qButUtilCost = new Qios.DevSuite.Components.QCompositeButton();
             this.qButSubtract1 = new Qios.DevSuite.Components.QCompositeButton();
             this.qRbPgFile = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
             this.qRbPnFile = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
@@ -369,16 +369,6 @@
             this.qButReclass.Title = "Reclassification";
             this.qButReclass.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButReclass_ItemActivated);
             // 
-            // qButUtilCost
-            // 
-            this.qButUtilCost.Configuration.AlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
-            this.qButUtilCost.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
-            this.qButUtilCost.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
-            this.qButUtilCost.Configuration.TitleConfiguration.WrapText = true;
-            this.qButUtilCost.Icon = ((System.Drawing.Icon)(resources.GetObject("qButUtilCost.Icon")));
-            this.qButUtilCost.Title = "Create Utility Cost Raster";
-            this.qButUtilCost.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButUtilCost_ItemActivated);
-            // 
             // qButBRaster
             // 
             this.qButBRaster.Configuration.AlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
@@ -390,6 +380,16 @@
             this.qButBRaster.Icon = ((System.Drawing.Icon)(resources.GetObject("qButBRaster.Icon")));
             this.qButBRaster.Title = "Create Bounds Raster";
             this.qButBRaster.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButBRaster_ItemActivated);
+            // 
+            // qButUtilCost
+            // 
+            this.qButUtilCost.Configuration.AlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButUtilCost.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
+            this.qButUtilCost.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
+            this.qButUtilCost.Configuration.TitleConfiguration.WrapText = true;
+            this.qButUtilCost.Icon = ((System.Drawing.Icon)(resources.GetObject("qButUtilCost.Icon")));
+            this.qButUtilCost.Title = "Create Utility Cost Raster";
+            this.qButUtilCost.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButUtilCost_ItemActivated);
             // 
             // qButSubtract1
             // 
