@@ -70,6 +70,7 @@
             this.txtHigh.Size = new System.Drawing.Size(46, 20);
             this.txtHigh.TabIndex = 1;
             this.txtHigh.Text = "0.9";
+            this.txtHigh.TextChanged += new System.EventHandler(this.txtHigh_TextChanged);
             // 
             // label1
             // 
@@ -96,6 +97,7 @@
             this.txtMedHigh.Size = new System.Drawing.Size(46, 20);
             this.txtMedHigh.TabIndex = 4;
             this.txtMedHigh.Text = "0.7";
+            this.txtMedHigh.TextChanged += new System.EventHandler(this.txtMedHigh_TextChanged);
             // 
             // trkMedHigh
             // 
@@ -124,6 +126,7 @@
             this.txtMedLow.Size = new System.Drawing.Size(46, 20);
             this.txtMedLow.TabIndex = 10;
             this.txtMedLow.Text = "0.3";
+            this.txtMedLow.TextChanged += new System.EventHandler(this.txtMedLow_TextChanged);
             // 
             // trkMedLow
             // 
@@ -152,6 +155,7 @@
             this.txtMedium.Size = new System.Drawing.Size(46, 20);
             this.txtMedium.TabIndex = 7;
             this.txtMedium.Text = "0.5";
+            this.txtMedium.TextChanged += new System.EventHandler(this.txtMedium_TextChanged);
             // 
             // trkMedium
             // 
@@ -180,6 +184,7 @@
             this.txtLow.Size = new System.Drawing.Size(46, 20);
             this.txtLow.TabIndex = 13;
             this.txtLow.Text = "0.1";
+            this.txtLow.TextChanged += new System.EventHandler(this.txtLow_TextChanged);
             // 
             // trkLow
             // 
