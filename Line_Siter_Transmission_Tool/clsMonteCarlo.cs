@@ -122,7 +122,7 @@ namespace nx09SitingTool
             }
             catch (Exception)
             {
-
+                return;
             }
         }
 
