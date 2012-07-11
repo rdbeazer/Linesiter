@@ -274,6 +274,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
         }
 
@@ -317,6 +318,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + "has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             } 
         }
 
@@ -360,6 +362,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error :" + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
         }
 
@@ -382,6 +385,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
 
         }
@@ -453,6 +457,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + "has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
+                return;
             }
         }
 
@@ -560,6 +565,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
+                return;
             }
         }
 
@@ -600,6 +606,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
+                return;
             }
         }
 
@@ -744,6 +751,7 @@ namespace nx09SitingTool
                 MessageBox.Show("Error: " + Convert.ToString(ex) + " /n has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 this.Close();
+                return;
 
             }
         }
@@ -773,6 +781,7 @@ namespace nx09SitingTool
          
                MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                this.Close();
+               return;
             }
         }
 
@@ -801,6 +810,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
         }
 
@@ -845,7 +855,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
-                
+                return;
             }
             currentPass = 0;
         }
@@ -890,6 +900,7 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
         }
 
