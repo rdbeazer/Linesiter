@@ -426,7 +426,7 @@ namespace nx09SitingTool
 
         private void qButSubtract1_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            frmSubtract sub = new frmSubtract(mpMain);
+            frmSubtract sub = new frmSubtract(mpMain,projSavePath);
             sub.ShowDialog();
         }
 
