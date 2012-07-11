@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,13 +16,13 @@ using DotSpatial.Projections;
 using System.Reflection;
 using GeospatialFiles;
 using System.Threading;
+using System.Windows;
 
 
 namespace nx09SitingTool
 {
     public partial class frmToolExecute : Form
     {
-
         #region classVariables
         private System.Data.DataSet dsQuesSets = new System.Data.DataSet();
         IMap _mapLayer = null;
@@ -350,7 +350,7 @@ namespace nx09SitingTool
                headers.Add("Pass");
                attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines,currentPass);
+                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
                 //createPathShapefile(outPath);
                 
