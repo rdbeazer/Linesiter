@@ -21,19 +21,14 @@ namespace nx09SitingTool
 {
     class clsCostWeight
     {
-        //IMap _mapLayer = null;
-        //int currentPass = 1;
         clsMonteCarlo MC = new clsMonteCarlo();
         clsLCPCoords lc = new clsLCPCoords();
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
         double cellSize = 0;
-        //string saveLocation = null;
         int rasterRow = 0;
         int rasterCol = 0;
-       //IRaster utilityCosts = new Raster();
-        //IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
         string startFileName = "";
         IRaster endPoint = new Raster();
@@ -57,7 +52,6 @@ namespace nx09SitingTool
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath;
         string additveCostsFilePath;
-        //IRaster additiveCosts;
         int timesHit2 = 1;
         List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
