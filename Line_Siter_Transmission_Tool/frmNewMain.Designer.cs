@@ -354,8 +354,8 @@
             // qRbPnRasterOps
             // 
             this.qRbPnRasterOps.Items.Add(this.qButReclass);
-            this.qRbPnRasterOps.Items.Add(this.qButUtilCost);
             this.qRbPnRasterOps.Items.Add(this.qButBRaster);
+            this.qRbPnRasterOps.Items.Add(this.qButUtilCost);
             this.qRbPnRasterOps.Items.Add(this.qButSubtract1);
             this.qRbPnRasterOps.Title = "Raster Operations";
             // 
