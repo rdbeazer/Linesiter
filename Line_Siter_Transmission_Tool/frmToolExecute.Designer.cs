@@ -319,7 +319,6 @@
             this.txtSaveLocation.Name = "txtSaveLocation";
             this.txtSaveLocation.Size = new System.Drawing.Size(575, 20);
             this.txtSaveLocation.TabIndex = 19;
-            //this.txtSaveLocation.TextChanged += new System.EventHandler(this.txtSaveLocation_TextChanged);
             // 
             // btnBrowse
             // 
@@ -438,6 +437,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MinimumSize = new System.Drawing.Size(352, 501);
             this.Name = "frmToolExecute";
+           
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
