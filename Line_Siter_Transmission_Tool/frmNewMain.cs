@@ -328,7 +328,7 @@ namespace nx09SitingTool
 
         private void qButUtilCost_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            frmCreateUtilityRaster cut = new frmCreateUtilityRaster(mpMain);
+            frmCreateUtilityRaster cut = new frmCreateUtilityRaster(mpMain, projSavePath);
             cut.ShowDialog();
         }
 
