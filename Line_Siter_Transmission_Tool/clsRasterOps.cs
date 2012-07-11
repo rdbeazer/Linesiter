@@ -157,7 +157,7 @@ namespace nx09SitingTool
             //_MW.Layers.Add(divFinal);
         }
 
-        public void rasterDoubleReclassify(IRaster psdRaster, IRaster saveRaster, Dictionary<string, double> rasterVals)
+        public void rasterDoubleReclassify(IRaster psdRaster, IRaster saveRaster, Dictionary<string, double> rasterVals, ref bool success)
         {
             double passedVal = 0;
             double origVal1 = 0;
@@ -185,6 +185,7 @@ namespace nx09SitingTool
             }
             saveRaster.Save();
             _MW.Layers.Add(saveRaster);
+            success = true;
         }
 
         public void removeProcessingFiles()
