@@ -35,21 +35,10 @@ namespace nx09SitingTool
             get { return _finalStatOutput; }
             set { _finalStatOutput = value; }
         }
-
-        //private System.Windows.Forms.NumericUpDown numPasses;
-        //private System.Windows.Forms.DataGridView dgvSelectLayers;
         private System.Data.DataSet dsQuesSets = new System.Data.DataSet();
-        //IMap _mapLayer = null;
-        int currentPass = 1;
         Cursor curs = Cursors.Arrow;
-        int newQIDValue = 0;
-        //string saveLocation = null;
         FeatureSet projectFS = new FeatureSet();
-        double cellSize = 0;
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
-        //IRaster bounds = new Raster();
-        //string progress = string.Empty;
-        // List<string> finalStatOutput = new List<string>();
         clsMonteCarlo MC = new clsMonteCarlo();
         clsCreateWeightedRasters c1 = new clsCreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
