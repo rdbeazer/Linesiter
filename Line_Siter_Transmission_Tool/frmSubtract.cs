@@ -9,17 +9,22 @@ using System.Windows.Forms;
 using DotSpatial.Data;
 using DotSpatial.Controls;
 using DotSpatial.Symbology;
-
+using System.IO;
 namespace nx09SitingTool
 {
     public partial class frmSubtract : Form
     {
         IMap _MW;
-        public frmSubtract(IMap mapframe)
+        public frmSubtract(IMap mapframe, string projSavePath)
         {
             InitializeComponent();
             _MW = mapframe;
             fillCombos();
+            if (projSavePath != string.Empty)
+            {
+                txtSaveLocation.Text = projSavePath;
+                FileInfo _pathInfo = new FileInfo(projSavePath);
+            }
         }
 
         IRaster S1;
