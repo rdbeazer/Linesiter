@@ -20,12 +20,18 @@ namespace nx09SitingTool
         clsRasterOps paRaster;
         string progress = string.Empty;
 
-        public frmCreateUtilityRaster(IMap mapLayer)
+        public frmCreateUtilityRaster(IMap mapLayer, string projSavePath, FileInfo pathInfo)
         {
             InitializeComponent();
             _MW = mapLayer;
             paRaster = new clsRasterOps(_MW);
             loadRtb();
+            if (projSavePath != string.Empty)
+            {
+                txtSaveLocation.Text = projSavePath;
+                FileInfo _pathInfo = new FileInfo(projSavePath);
+                pathInfo = _pathInfo;
+            }
         }
 
         private void loadRtb()
