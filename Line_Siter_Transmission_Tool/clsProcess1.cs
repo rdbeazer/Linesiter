@@ -101,7 +101,7 @@ namespace nx09SitingTool
                                 b1.buildDirectory(newPath);
                                 //load raster file
                                 IRaster oRaster = Raster.OpenFile(rasterPath);
-                                c1.createWeightedRasters(newPath, rasterPath, oRaster, MC);
+                                c1.createWeightedRasters(newPath, rasterPath, oRaster, MC, bounds);
                                 //c1.createWeightedRasters(newPath, rasterPath, oRaster, bounds, _mc, currentPass);
                             }
                         }
