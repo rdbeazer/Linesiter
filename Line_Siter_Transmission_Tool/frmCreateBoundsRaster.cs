@@ -10,6 +10,7 @@ using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Controls;
 using DotSpatial.Analysis;
+using System.IO;
 
 namespace nx09SitingTool
 {
@@ -19,13 +20,18 @@ namespace nx09SitingTool
         clsRasterOps pa;
 
 
-        public frmCreateBoundsRaster(IMap mapFrame)
+        public frmCreateBoundsRaster(IMap mapFrame, string projSavePath)
         {
             InitializeComponent();
             _MW = mapFrame;
             pa = new clsRasterOps(_MW);
             fillCombo();
             loadRtb();
+            if (projSavePath != string.Empty)
+            {
+                txtSaveLocation.Text = projSavePath;
+                FileInfo _pathInfo = new FileInfo(projSavePath);
+            }
         }
 
         private void loadRtb()
