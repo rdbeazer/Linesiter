@@ -97,10 +97,5 @@ namespace nx09SitingTool
             cro.rasterDoubleReclassify(passingRaster, savingRaster, reclassifyDict);
             btnCancel.Text = "Done";
         }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

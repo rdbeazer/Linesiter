@@ -33,7 +33,6 @@
             this.grpReclass = new System.Windows.Forms.GroupBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnClassify = new System.Windows.Forms.Button();
-            this.btnAddValues = new System.Windows.Forms.Button();
             this.dgvReclassify = new System.Windows.Forms.DataGridView();
             this.dgvcOldValues = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvcNewValues = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,7 +57,6 @@
             // 
             this.grpReclass.Controls.Add(this.btnCancel);
             this.grpReclass.Controls.Add(this.btnClassify);
-            this.grpReclass.Controls.Add(this.btnAddValues);
             this.grpReclass.Controls.Add(this.dgvReclassify);
             this.grpReclass.Location = new System.Drawing.Point(33, 93);
             this.grpReclass.Name = "grpReclass";
@@ -70,33 +68,22 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(286, 79);
+            this.btnCancel.Location = new System.Drawing.Point(286, 46);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnClassify
             // 
-            this.btnClassify.Location = new System.Drawing.Point(286, 49);
+            this.btnClassify.Location = new System.Drawing.Point(286, 16);
             this.btnClassify.Name = "btnClassify";
             this.btnClassify.Size = new System.Drawing.Size(75, 23);
             this.btnClassify.TabIndex = 2;
             this.btnClassify.Text = "Classify";
             this.btnClassify.UseVisualStyleBackColor = true;
             this.btnClassify.Click += new System.EventHandler(this.btnClassify_Click);
-            // 
-            // btnAddValues
-            // 
-            this.btnAddValues.Enabled = false;
-            this.btnAddValues.Location = new System.Drawing.Point(286, 19);
-            this.btnAddValues.Name = "btnAddValues";
-            this.btnAddValues.Size = new System.Drawing.Size(75, 23);
-            this.btnAddValues.TabIndex = 1;
-            this.btnAddValues.Text = "Add Values";
-            this.btnAddValues.UseVisualStyleBackColor = true;
             // 
             // dgvReclassify
             // 
@@ -204,7 +191,6 @@
         private System.Windows.Forms.GroupBox grpReclass;
         private System.Windows.Forms.DataGridView dgvReclassify;
         private System.Windows.Forms.Button btnClassify;
-        private System.Windows.Forms.Button btnAddValues;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvcOldValues;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvcNewValues;
         private System.Windows.Forms.TextBox txtRasterSave;
