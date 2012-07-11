@@ -109,6 +109,7 @@ namespace nx09SitingTool
                
                 MC = _MC;
                 b1 = _b1;
+                cellSize = bounds.CellHeight;
                 clsCreateBackgroundRasters cbrDP = new clsCreateBackgroundRasters();
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
@@ -189,7 +190,8 @@ namespace nx09SitingTool
                                             //insert shapefile conversion logic
                                             IRaster outputRaster = new Raster();
                                             FeatureSet fs = (FeatureSet)lay.DataSet;
-                                            Extent prjExtent = projectFS.Extent;
+                                            Extent prjExtent = bounds.Extent;
+                                            //Extent prjExtent = projectFS.Extent;
                                             string fNameS = convertPath + lay.LegendText + ".bgd";
                                             string fNameR = convertPath + lay.LegendText + ".bgd";
                                             outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
