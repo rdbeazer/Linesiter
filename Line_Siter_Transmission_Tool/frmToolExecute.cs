@@ -38,8 +38,8 @@ namespace nx09SitingTool
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
         double cellSize = 0;
         string saveLocation;
-        int rasterRow = 0;
-        int rasterCol = 0;
+       // int rasterRow = 0;
+        //int rasterCol = 0;
         IRaster utilityCosts = new Raster();
         IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
@@ -58,13 +58,13 @@ namespace nx09SitingTool
         string[] paraString;
         IRaster rasterToConvert;
         string costFileName = "";
-        string currentQuesPath = "";
+       // string currentQuesPath = "";
         IRaster outPath;
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath = string.Empty;
-        string additveCostsFilePath;
+       // string additveCostsFilePath;
         IRaster additiveCosts;
         int timesHit2 = 1;
         List<string> finalStatOutput = new List<string>();
