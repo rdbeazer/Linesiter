@@ -317,18 +317,18 @@ namespace nx09SitingTool
             {
                 MessageBox.Show("Error: " + ex + "has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
-            }
+            } 
         }
 
         private void bkwork_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker, ref outputPathFilename);
+            newWork(worker, ref outputPathFilename,currentPass);
 
 
         }
 
-        private void newWork(BackgroundWorker worker, ref string outputPathFilename)
+        private void newWork(BackgroundWorker worker, ref string outputPathFilename, int currentPass)
         {
             try
             {
@@ -347,10 +347,10 @@ namespace nx09SitingTool
                 convertCostPathwayToBGD();
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
                 //outPath.Save();
-                headers.Add("Pass");
-                attributes.Add(Convert.ToString(currentPass));
+               headers.Add("Pass");
+               attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines,currentPass);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
                 //createPathShapefile(outPath);
                 
@@ -808,6 +808,7 @@ namespace nx09SitingTool
         {
             try
             {
+               
                 int currentPass = 0;
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
@@ -843,14 +844,16 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();  
+                this.Close();
+                
             }
+            currentPass = 0;
         }
 
         private void utCosts_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker, ref outputPathFilename);
+            newWork(worker, ref outputPathFilename,currentPass);
             worker.Dispose();
 
         }
