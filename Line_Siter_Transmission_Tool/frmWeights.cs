@@ -15,30 +15,36 @@ namespace nx09SitingTool
         {
             InitializeComponent();
         }
-
+        
         private void trkHigh_Scroll(object sender, EventArgs e)
         {
+            
             txtHigh.Text = Convert.ToString(trkHigh.Value * 0.1);
+           
         }
 
         private void trkMedHigh_Scroll(object sender, EventArgs e)
         {
             txtMedHigh.Text = Convert.ToString(trkMedHigh.Value * 0.1);
+           
         }
 
         private void trkMedium_Scroll(object sender, EventArgs e)
         {
             txtMedium.Text = Convert.ToString(trkMedium.Value * 0.1);
+            
         }
 
         private void trkMedLow_Scroll(object sender, EventArgs e)
         {
             txtMedLow.Text = Convert.ToString(trkMedLow.Value * 0.1);
+           
         }
 
         private void trkLow_Scroll(object sender, EventArgs e)
         {
             txtLow.Text = Convert.ToString(trkLow.Value * 0.1);
+           
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -67,6 +73,51 @@ namespace nx09SitingTool
                 aw.LSMedLow = Convert.ToDouble(txtMedLow.Text);
                 aw.LSLow = Convert.ToDouble(txtLow.Text);
                 return aw;
+            }
+        }
+
+        private void txtHigh_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(txtHigh.Text) > 1 || Convert.ToDouble(txtHigh.Text) < 0)
+            {
+                txtHigh.Text = Convert.ToString(0.9);
+
+            }
+        }
+
+        private void txtMedHigh_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(txtMedHigh.Text) > 1 || Convert.ToDouble(txtMedHigh.Text) < 0)
+            {
+                txtMedHigh.Text = Convert.ToString(0.7);
+
+            }
+        }
+
+        private void txtMedium_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(txtMedium.Text) > 1 || Convert.ToDouble(txtMedium.Text) < 0)
+            {
+                txtMedium.Text = Convert.ToString(0.5);
+
+            }
+        }
+
+        private void txtMedLow_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(txtMedLow.Text) > 1 || Convert.ToDouble(txtMedLow.Text) < 0)
+            {
+                txtMedLow.Text = Convert.ToString(0.3);
+
+            }
+        }
+
+        private void txtLow_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(txtLow.Text) > 1 || Convert.ToDouble(txtLow.Text) < 0)
+            {
+                txtLow.Text = Convert.ToString(0.1);
+
             }
         }
 
