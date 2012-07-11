@@ -19,6 +19,7 @@ namespace nx09SitingTool
         {
             InitializeComponent();
             _MW = mapFrame;
+            loadRtb();
         }
 
         IRaster passingRaster = new Raster();
@@ -35,6 +36,26 @@ namespace nx09SitingTool
             {
                 txtRasterOpen.Text = ofd.FileName;
                 passingRaster = Raster.OpenFile(ofd.FileName);
+            }
+        }
+
+        private void loadRtb()
+        {
+            try
+            {
+                rtbHelpBox.SelectionFont = new Font("Arial", 12f, FontStyle.Bold);
+                rtbHelpBox.AppendText("Raster Reclassification \n \n");
+                rtbHelpBox.SelectionFont = new Font("Arial", 10f, FontStyle.Regular);
+                rtbHelpBox.AppendText("This tool allows the reclassification of values inside  ");
+                rtbHelpBox.AppendText("a DotSpatial raster grid.  To reclassify values, enter a value range ");
+                rtbHelpBox.AppendText("separated by a dash '-' with no spaces.  Then enter a single value ");
+                rtbHelpBox.AppendText("under the 'New Value' window as the relevant reclassified value. ");
+                rtbHelpBox.AppendText("To begin the process, click 'Classify.'");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -75,6 +96,11 @@ namespace nx09SitingTool
             }
             cro.rasterDoubleReclassify(passingRaster, savingRaster, reclassifyDict);
             btnCancel.Text = "Done";
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
