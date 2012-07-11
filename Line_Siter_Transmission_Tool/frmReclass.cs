@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using DotSpatial.Data;
 using DotSpatial.Controls;
+using System.IO;
 
 namespace nx09SitingTool
 {
@@ -15,11 +16,16 @@ namespace nx09SitingTool
     {
         IMap _MW; 
 
-        public frmReclass(IMap mapFrame)
+        public frmReclass(IMap mapFrame, string projSavePath)
         {
             InitializeComponent();
             _MW = mapFrame;
             loadRtb();
+            if (projSavePath != string.Empty)
+            {
+                txtSaveLocation.Text = projSavePath;
+                FileInfo _pathInfo = new FileInfo(projSavePath);
+            }
         }
 
         IRaster passingRaster = new Raster();
