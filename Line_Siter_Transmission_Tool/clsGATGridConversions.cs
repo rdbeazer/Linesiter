@@ -107,6 +107,8 @@ namespace nx09SitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Unexpected error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
             }
         }
     }
