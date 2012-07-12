@@ -51,9 +51,17 @@ namespace nx09SitingTool
         BackgroundWorker worker = new BackgroundWorker();
         clsBuildDirectory b1 = new clsBuildDirectory();
 
-
+      
+        public void progress(int percent,ProgressBar progressbar,BackgroundWorker tracker )
+        {
+            progressbar.Value = percent;
+            // lblProgress.Text = progress;
+            tracker.WorkerSupportsCancellation = true;
+            tracker.WorkerReportsProgress = true;
+        }
         public void clsprocess1(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts,clsBuildDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
         {
+           
             MC = _mc;
             b1 = _b1;
             tslStatus.Visible = false;
@@ -137,7 +145,7 @@ namespace nx09SitingTool
                         AnswerPercents[4] = AnswerPercents[3] + (double)dr.Cells[9].Value;
                     }
                     MC.calculateWeight(rv, AnswerPercents);
-                    tracker.ReportProgress(60);
+                    tracker.ReportProgress(50);
                     finalStatOutput.Add("LSHigh: " + Convert.ToString(AnswerPercents[0]) + " | LSMedHigh: " + Convert.ToString(AnswerPercents[1]) + " | LSMed: " + Convert.ToString(AnswerPercents[2]) + " | LSMedLow: " + Convert.ToString(AnswerPercents[3]) + " | LSLow: " + Convert.ToString(AnswerPercents[4]));
                     finalStatOutput.Add("Weight: " + (Convert.ToString(MC.socialWeight)));
                     finalStatOutput.Add(MC.wRaster);
@@ -149,6 +157,7 @@ namespace nx09SitingTool
                     questNum++;
                     MC.calcRaster2(mcRasterList, mcRaster);
                     mcRaster.Save();
+                    tracker.ReportProgress(70);
                 }
             }
 
