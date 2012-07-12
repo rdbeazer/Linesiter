@@ -63,13 +63,13 @@ namespace nx09SitingTool
 
         private void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            int percent = (int)(((double)ProgressBar1.Value / (double)ProgressBar1.Maximum) * 100);
+          /*  int percent = (int)(((double)ProgressBar1.Value / (double)ProgressBar1.Maximum) * 100);
             ProgressBar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
             Brushes.Black, new PointF(ProgressBar1.Width / 2 - 10, ProgressBar1.Height / 2 - 7));
             this.ProgressBar1.Size = new System.Drawing.Size(224,23);
 
             this.ProgressBar1.Value = e.ProgressPercentage;
-             lblprogress.Text = progress;
+             lblprogress.Text = progress; */
                    
         }
 
