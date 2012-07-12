@@ -290,12 +290,12 @@ namespace nx09SitingTool
           /* int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
           //  progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
            //Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
-           // this.progressbar1.Size = new System.Drawing.Size(670, 21);
+           // this.progressbar1.Size = new System.Drawing.Size(670, 21);*/
 
             this.progressbar1.Value = e.ProgressPercentage;
             lblProgress.Text = progress;
            tracker.WorkerSupportsCancellation = true;
-           tracker.WorkerReportsProgress = true; */
+           tracker.WorkerReportsProgress = true; 
             p2.progress(e.ProgressPercentage, progressbar1, tracker);
             
        }
