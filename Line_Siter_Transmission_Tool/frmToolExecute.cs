@@ -81,7 +81,7 @@ namespace nx09SitingTool
 
         clsdoTheProcess p1 = new clsdoTheProcess();
         clsBuildDirectory _b1 = new clsBuildDirectory();
-
+        clsProcess1 p2 = new clsProcess1();
         #region Methods
 
         public frmToolExecute(IMap MapLayer, clsLCPCoords _lc, string _projSavePath, string surveyPath)
@@ -267,7 +267,8 @@ namespace nx09SitingTool
                 //shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 //pathLines.SaveAs(shapefileSavePath, true);
            
-                this.lblProgress.Text = "Performing Process...Please Wait.";
+               this.lblProgress.Text = "Performing Process...Please Wait.";
+            
                 //doTheProcess();
             }
 
@@ -286,21 +287,22 @@ namespace nx09SitingTool
         {
           
             
-            /*int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
+          /* int percent = (int)(((double)progressbar1.Value / (double)progressbar1.Maximum) * 100);
           //  progressbar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
            //Brushes.Black, new PointF(progressbar1.Width / 2 - 10, progressbar1.Height / 2 - 7));
-            this.progressbar1.Size = new System.Drawing.Size(670, 21);
+           // this.progressbar1.Size = new System.Drawing.Size(670, 21);
 
             this.progressbar1.Value = e.ProgressPercentage;
-            lblProgress.Text = progress;*/
-            tracker.WorkerSupportsCancellation = true;
-            tracker.WorkerReportsProgress = true;
-            tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-        }
-
+            lblProgress.Text = progress;
+           tracker.WorkerSupportsCancellation = true;
+           tracker.WorkerReportsProgress = true; */
+            p2.progress(e.ProgressPercentage, progressbar1, tracker);
+            
+       }
+        
         BackgroundWorker tracker = new BackgroundWorker();
 
-
+        
         private void createAccumCostRaster(string outputPathFilename)
         {
             try
@@ -886,6 +888,7 @@ namespace nx09SitingTool
 
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
+                    tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
                     p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
                     if (p1.erroroc == true)
                     {
