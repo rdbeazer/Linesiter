@@ -17,7 +17,7 @@ using System.Reflection;
 using GeospatialFiles;
 using System.Threading;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     partial class _1121165
     {

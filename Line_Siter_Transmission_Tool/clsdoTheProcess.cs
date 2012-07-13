@@ -19,7 +19,7 @@ using System.Threading;
 using System.Diagnostics;
 
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsdoTheProcess
     {
@@ -47,46 +47,20 @@ namespace nx09SitingTool
         double cellSize = 0;
         int rasterRow = 0;
         int rasterCol = 0;
-
-        //IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
-        string startFileName = "";
         IRaster endPoint = new Raster();
-        string endFileName = "";
-        string backlinkFilename = "";
         IRaster backlink = new Raster();
         GATGrid backlinkGATRaster = new GATGrid();
-        string outputAccumFilename = "";
         IRaster outAccumRaster = new Raster();
         GATGrid outAccumGATRaster = new GATGrid();
-        string outputPathFilename = "";
         IRaster outPathRaster = new Raster();
         GATGrid outPathGATRaster = new GATGrid();
-        string[] paraString;
-        //IRaster rasterToConvert;
-        string costFileName = "";
-        string currentQuesPath = "";
-        IRaster outPath;
-       // FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath;
-        string additveCostsFilePath;
-        //IRaster additiveCosts;
-        int timesHit2 = 1;
-        //List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
-        IFeatureSet utilLCPA;
         List<IRaster> mcRasterList = new List<IRaster>();
-        //string progress = string.Empty;
-        int temp3 = 0;
-
-
-        //private System.Windows.Forms.NumericUpDown numPasses;
-        //private System.Windows.Forms.DataGridView dgvSelectLayers;
-        private System.Windows.Forms.ProgressBar progressbar1;
-        private System.Windows.Forms.Label lblProgress;
         clsCreateWeightedRasters c1 = new clsCreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
         clsProcess1 pr = new clsProcess1();
@@ -106,7 +80,6 @@ namespace nx09SitingTool
             clsBuildDirectory b1 = new clsBuildDirectory();
             try
             {
-               
                 MC = _MC;
                 b1 = _b1;
                 cellSize = bounds.CellHeight;
@@ -114,46 +87,19 @@ namespace nx09SitingTool
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
-                //lcpaShapeName = "Monte Carlo LCPA";
-                //tslPass.Text = "Current Monte Carlo Pass: " + Convert.ToString(currentPass);
                 utilityCosts.Bounds = bounds.Bounds;
                 IRaster utilsCosts = utilityCosts;
                 progress = "Creating Weighted Rasters";
                 tracker.ReportProgress(10);
-
                 b1.buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
                 costFileName = saveLocation + @"\costSurfaceRaster.bgd";
-                //additveCostsFilePath = saveLocation + @"\additveCostsRaster.bgd";
-                /*backlinkFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink";
-                outputAccumFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outAccumRaster";
-                outputPathFilename = path + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";*/
                 rasterToConvert = Raster.CreateRaster(costFileName, null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
                 backlink = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
-                /*backlink = Raster.CreateRaster(backlinkFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                backlink.Bounds = bounds.Bounds;
-                backlink.Projection = bounds.Projection;
-                backlink.Save();*/
                 outAccumRaster = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
-                /*outAccumRaster = Raster.CreateRaster(outputAccumFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                outAccumRaster.Bounds = bounds.Bounds;
-                outAccumRaster.Projection = bounds.Projection;
-                outAccumRaster.Save();*/
                 outPathRaster = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
-                /*outPathRaster = Raster.CreateRaster(outputPathFilename + ".bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                outPathRaster.Bounds = bounds.Bounds;
-                outPathRaster.Projection = bounds.Projection;
-
-                outPathRaster.Save();*/
-
-                /*pathLines.Projection = _mapLayer.Projection;
-                pathLines.SaveAs(shapefileSavePath, true);*/
                 additiveCosts = cbrDP.saveRaster(saveLocation, @"\additiveCostsRaster", bounds);
-                /*additiveCosts = Raster.CreateRaster(additveCostsFilePath, null, bounds.NumColumns, bounds.NumRows, 1, typeof(float), null);
-                additiveCosts.Bounds = bounds.Bounds;
-                additiveCosts.Projection = _mapLayer.Projection;
-                additiveCosts.Save();*/
                 pr.additiveCosts = additiveCosts;
                 pr.finalStatOutput = finalStatOutput;
                 int newQIDValue = 0;
@@ -196,7 +142,6 @@ namespace nx09SitingTool
                                             string fNameR = convertPath + lay.LegendText + ".bgd";
                                             outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
                                             paRaster.createPA(outputRaster, fNameR, -1);
-                                            //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         }
                                         else if (lay.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
                                         {
@@ -204,7 +149,6 @@ namespace nx09SitingTool
                                             IRaster bRaster = (DotSpatial.Data.Raster)lay.DataSet;
                                             string fNameR = convertPath + lay.LegendText + "PA.bgd";
                                             paRaster.createPA(bRaster, fNameR, -1);
-                                            //MessageBox.Show("File is a shapefile of type: " + Convert.ToString(lay.GetType()), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         }
                                         break;
                                     }
@@ -212,8 +156,6 @@ namespace nx09SitingTool
                                 else
                                 {
                                     MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    //pathLines.DataTable.Columns.Remove("pass");
-                                    
                                     return;
 
                                 }
@@ -221,7 +163,6 @@ namespace nx09SitingTool
                         }
                     }
                 }
-
 
                 progress = "Beginning Monte Carlo Process";
                 tracker.ReportProgress(30);

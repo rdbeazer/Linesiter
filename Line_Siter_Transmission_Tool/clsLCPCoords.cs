@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public class clsLCPCoords
     {

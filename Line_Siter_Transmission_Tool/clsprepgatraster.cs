@@ -18,32 +18,19 @@ using GeospatialFiles;
 using System.Threading;
 
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsprepgatraster
     {
-        IMap _mapLayer = null;
-         double cellSize = 0;
-        
-        int rasterRow = 0;
-        int rasterCol = 0;
         IRaster utilityCosts = new Raster();
         IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
-        string startFileName = "";
         IRaster endPoint = new Raster();
-        string endFileName = "";
         string backlinkFilename = "";
         GATGrid backlinkGATRaster = new GATGrid();
         string outputAccumFilename = "";
-       
-        GATGrid outAccumGATRaster = new GATGrid();
-        string outputPathFilename = "";
-        
+        GATGrid outAccumGATRaster = new GATGrid(); 
         GATGrid outPathGATRaster = new GATGrid();
-                
-             
-        
         List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     partial class frmAboutTool : Form
     {

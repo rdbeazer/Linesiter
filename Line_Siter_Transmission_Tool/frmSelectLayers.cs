@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Symbology;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmSelectLayers : Form
     {

@@ -19,7 +19,7 @@ using System.Threading;
 using System.Windows;
 
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmToolExecute : Form
     {
@@ -27,7 +27,6 @@ namespace nx09SitingTool
         private System.Data.DataSet dsQuesSets = new System.Data.DataSet();
         IMap _mapLayer = null;
         int currentPass = 1;
-        //int currentQuestion = 1;
         clsMonteCarlo MC = new clsMonteCarlo();
         clsprepgatraster gr = new clsprepgatraster();
         clsRasterOps pa;
@@ -38,8 +37,6 @@ namespace nx09SitingTool
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
         double cellSize = 0;
         string saveLocation;
-       // int rasterRow = 0;
-        //int rasterCol = 0;
         IRaster utilityCosts = new Raster();
         IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
@@ -58,13 +55,11 @@ namespace nx09SitingTool
         string[] paraString;
         IRaster rasterToConvert;
         string costFileName = "";
-       // string currentQuesPath = "";
         IRaster outPath;
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath = string.Empty;
-       // string additveCostsFilePath;
         IRaster additiveCosts;
         int timesHit2 = 1;
         List<string> finalStatOutput = new List<string>();
@@ -76,7 +71,6 @@ namespace nx09SitingTool
         List<string> attributes = new List<string>();
         string progress = string.Empty;
         BackgroundWorker worker = new BackgroundWorker();
-        Cursor xcurs;
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
@@ -666,12 +660,7 @@ namespace nx09SitingTool
         {
             try
             {
-                //IRaster newRast = new Raster();
                 string[] rasOps = new string[1];
-                //newRast.Bounds = bounds.Bounds;
-                //newRast.NumRows = bounds.NumRows;
-                //newRast.NumColumns = bounds.NumColumns;
-                //newRast.Projection = bounds.Projection;
                 string pathS = saveLocation;
                 IRaster startPoint = Raster.CreateRaster(pathS + @"\startPoint.bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(int), rasOps);
                 IRaster endPoint = Raster.CreateRaster(pathS + @"\endPoint.bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(int), rasOps);
@@ -824,7 +813,6 @@ namespace nx09SitingTool
             try
             {
                
-                int currentPass = 0;
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;

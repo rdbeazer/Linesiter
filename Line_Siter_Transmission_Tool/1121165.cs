@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class _1121165 : Form
     {

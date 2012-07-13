@@ -17,7 +17,7 @@ using System.Reflection;
 using GeospatialFiles;
 using System.Threading;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsCostWeight
     {
@@ -26,37 +26,22 @@ namespace nx09SitingTool
         FeatureSet projectFS = new FeatureSet();
         double[] aw = new double[5];
         string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
-        double cellSize = 0;
-        int rasterRow = 0;
-        int rasterCol = 0;
         IRaster startPoint = new Raster();
-        string startFileName = "";
         IRaster endPoint = new Raster();
-        string endFileName = "";
-        string backlinkFilename = "";
         IRaster backlink = new Raster();
         GATGrid backlinkGATRaster = new GATGrid();
-        string outputAccumFilename = "";
         IRaster outAccumRaster = new Raster();
         GATGrid outAccumGATRaster = new GATGrid();
-        string outputPathFilename = "";
         IRaster outPathRaster = new Raster();
         GATGrid outPathGATRaster = new GATGrid();
-        string[] paraString;
         IRaster rasterToConvert;
         string costFileName = "";
-        string currentQuesPath = "";
-        IRaster outPath;
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
-        string shapefileSavePath;
-        string additveCostsFilePath;
-        int timesHit2 = 1;
         List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
-        IFeatureSet utilLCPA;
         List<IRaster> mcRasterList = new List<IRaster>();
         string progress = string.Empty;
 

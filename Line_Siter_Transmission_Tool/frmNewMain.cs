@@ -17,7 +17,7 @@ using System.ComponentModel.Composition;
 //using DevExpress.XtraBars;
 using System.IO;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmNewMain : Form
     {

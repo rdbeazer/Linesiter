@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsBuildDirectory
     {

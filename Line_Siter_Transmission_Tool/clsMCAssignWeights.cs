@@ -18,7 +18,7 @@ using GeospatialFiles;
 using System.Threading;
 
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsProcess1
     {
@@ -47,7 +47,6 @@ namespace nx09SitingTool
         List<IRaster> mcRasterList = new List<IRaster>();
         clsCostWeight c2 = new clsCostWeight();
         clsprepgatraster gr = new clsprepgatraster();
-        Cursor xcurs;
         BackgroundWorker worker = new BackgroundWorker();
         clsBuildDirectory b1 = new clsBuildDirectory();
 

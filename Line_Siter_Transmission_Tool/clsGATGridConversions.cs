@@ -7,7 +7,7 @@ using GeospatialFiles;
 using System.Windows.Forms;
 using DotSpatial.Data;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsGATGridConversions
     {
