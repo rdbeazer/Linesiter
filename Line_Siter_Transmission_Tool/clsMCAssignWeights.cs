@@ -54,7 +54,6 @@ namespace LineSiterSitingTool
         public void progress(int percent,ProgressBar progressbar,BackgroundWorker tracker )
         {
             progressbar.Value = percent;
-            // lblProgress.Text = progress;
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
         }
@@ -98,7 +97,6 @@ namespace LineSiterSitingTool
                                 //load raster file
                                 IRaster oRaster = Raster.OpenFile(rasterPath);
                                 c1.createWeightedRasters(newPath, rasterPath, oRaster, MC, bounds);
-                                //c1.createWeightedRasters(newPath, rasterPath, oRaster, bounds, _mc, currentPass);
                             }
                         }
                     }
@@ -167,9 +165,6 @@ namespace LineSiterSitingTool
             tracker.ReportProgress(90);
 
             gr.prepareGATRasters(mcRasSavePath, worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
-        
-
-
         }
 
 

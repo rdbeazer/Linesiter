@@ -139,7 +139,6 @@ namespace LineSiterSitingTool
             _numZeros = 0;
             string _savePath = savePath;
             string[] calcOptions = new string[1];
-            //IRaster calcRaster = Raster.CreateRaster(savePath +@"\CalcRaster.bgd", null, oRaster.NumColumns, oRaster.NumRows, 1, typeof(double), calcOptions);
             IRaster calcRaster = Raster.CreateRaster(_savePath + @"\linesiter\LSProcessing\" + timesSaved.ToString() + ".bgd", null, cRaster.NumColumns, cRaster.NumRows, 1, typeof(double), calcOptions);
             calcRaster.Bounds = cRaster.Bounds.Copy();
 
@@ -194,7 +193,6 @@ namespace LineSiterSitingTool
                     else
                     {
                         calcRaster.Value[oRows, oCols] = 50;
-                        //calcRaster.Value[oRows, oCols] = oRaster.NoDataValue;
                     }
                 }
             }
@@ -216,10 +214,6 @@ namespace LineSiterSitingTool
                     x = 0;
                     foreach (IRaster xras in mcwRasters)
                     {
-                        //if (xras.Value[oRows, oCols] != 1)
-                        //{
-                        //    double y = xras.Value[oRows, oCols];
-                        //}
                         mcw[x] = xras.Value[oRows, oCols];
                         x++;
                     }
