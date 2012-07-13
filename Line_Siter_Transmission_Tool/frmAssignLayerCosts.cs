@@ -11,7 +11,7 @@ using DotSpatial.Symbology;
 using DotSpatial.Data;
 using System.Collections;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmAssignLayerCosts : Form
     {

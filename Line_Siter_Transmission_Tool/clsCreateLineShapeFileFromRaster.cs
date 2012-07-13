@@ -7,7 +7,7 @@ using DotSpatial.Controls;
 using DotSpatial.Topology;
 using System.Windows.Forms;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 { 
     class clsCreateLineShapeFileFromRaster
     {

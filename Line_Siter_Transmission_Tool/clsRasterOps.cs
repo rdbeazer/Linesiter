@@ -7,7 +7,7 @@ using DotSpatial.Controls;
 using System.IO;
 using System.Windows.Forms;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsRasterOps
     {

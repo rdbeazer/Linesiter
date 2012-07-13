@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>nx09SitingTool.Program</StartupObject>
+    <StartupObject>LineSiterSitingTool.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>CCB36619DAA4BEB28CAF419E2711088A9BFC9152</ManifestCertificateThumbprint>
@@ -126,9 +126,6 @@
     </Reference>
     <Reference Include="GISTools">
       <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\GISTools.dll</HintPath>
-    </Reference>
-    <Reference Include="ILMerge">
-      <HintPath>..\..\..\..\..\Desktop\nuget-07c8f86ec737\Tools\ILMerge\ILMerge.exe</HintPath>
     </Reference>
     <Reference Include="Interfaces">
       <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\Interfaces.dll</HintPath>
@@ -242,7 +239,7 @@
     <Compile Include="MCTest.Designer.cs">
       <DependentUpon>MCTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="clsProcess1.cs" />
+    <Compile Include="clsMCAssignWeights.cs" />
     <Compile Include="Randomnumber.cs" />
     <Compile Include="selectionDiag.cs">
       <SubType>Form</SubType>
@@ -255,12 +252,6 @@
     </Compile>
     <Compile Include="frmAboutTool.Designer.cs">
       <DependentUpon>frmAboutTool.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="frmToolExecute.cs">
       <SubType>Form</SubType>
@@ -296,10 +287,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCreateUtilityRaster.resx">
       <DependentUpon>frmCreateUtilityRaster.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewMain.resx">
       <DependentUpon>frmNewMain.cs</DependentUpon>

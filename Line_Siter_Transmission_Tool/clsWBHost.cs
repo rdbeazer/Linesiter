@@ -7,7 +7,7 @@ using GISTools;
 using System.IO;
 using Interfaces;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     class clsWBHost : IHost
     {

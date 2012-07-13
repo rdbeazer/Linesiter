@@ -12,7 +12,7 @@ using DotSpatial.Controls;
 using DotSpatial.Analysis;
 using System.IO;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmCreateBoundsRaster : Form
     {

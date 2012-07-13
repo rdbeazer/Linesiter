@@ -10,7 +10,7 @@ using DotSpatial.Data;
 using DotSpatial.Symbology;
 using System.Windows.Forms;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class selectionDiag : Form
     {

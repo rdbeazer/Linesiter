@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using DotSpatial.Data;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmResults : Form
     {

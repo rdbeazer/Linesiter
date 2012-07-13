@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class MCTest : Form
     {

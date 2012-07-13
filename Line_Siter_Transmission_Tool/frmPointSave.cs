@@ -13,7 +13,7 @@ using DotSpatial.Topology;
 using DotSpatial.Projections;
 using System.IO;
 
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmPointSave : Form
     {

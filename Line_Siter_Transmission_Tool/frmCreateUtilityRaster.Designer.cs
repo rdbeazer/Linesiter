@@ -1,4 +1,4 @@
-﻿namespace nx09SitingTool
+﻿namespace LineSiterSitingTool
 {
     partial class frmCreateUtilityRaster
     {

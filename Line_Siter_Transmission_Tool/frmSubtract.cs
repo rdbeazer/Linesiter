@@ -10,7 +10,7 @@ using DotSpatial.Data;
 using DotSpatial.Controls;
 using DotSpatial.Symbology;
 using System.IO;
-namespace nx09SitingTool
+namespace LineSiterSitingTool
 {
     public partial class frmSubtract : Form
     {
