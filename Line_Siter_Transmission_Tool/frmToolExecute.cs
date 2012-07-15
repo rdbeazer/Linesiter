@@ -785,7 +785,6 @@ namespace LineSiterSitingTool
             {
                 Cursor = Cursors.WaitCursor;
                 if (startConvertRas.NumRows == bounds.NumRows && startConvertRas.NumColumns == bounds.NumColumns)
-                //if (startConvertRas.Bounds == bounds.Bounds)
                 {
                     clsGATGridConversions destinationRaster = new clsGATGridConversions();
                     destinationRaster._rasterToConvert = startConvertRas;
@@ -819,7 +818,6 @@ namespace LineSiterSitingTool
                 clsCreateBackgroundRasters cbr = new clsCreateBackgroundRasters();
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
-                //shapefileSavePath = saveLocation + @"\UT\OutPath.shp";
                 DataColumn pass = new DataColumn("Pass");
                 pathLines.Projection = _mapLayer.Projection;
                 pathLines.DataTable.Columns.Add(pass);
@@ -887,7 +885,6 @@ namespace LineSiterSitingTool
                     tslStatus.Visible = true;
                     tslStatus.Text = "Finishing Up";
                     tracker.ReportProgress(100);
-            
                 }
             }
             catch (Exception ex)
