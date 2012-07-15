@@ -6,6 +6,7 @@ using DotSpatial.Data;
 using DotSpatial.Controls;
 using DotSpatial.Topology;
 using System.Windows.Forms;
+using System.IO;
 
 namespace LineSiterSitingTool
 { 
@@ -21,6 +22,8 @@ namespace LineSiterSitingTool
         {
             try
             {
+                List<string> rasterGrid = new List<string>();
+                string rastcoords = string.Empty;
                 List<Coordinate> pthXYs = new List<Coordinate>();
 
                 for (int nRows = 0; nRows < rastConvert.NumRows; nRows++)
@@ -32,21 +35,24 @@ namespace LineSiterSitingTool
                             Coordinate xy = new Coordinate();
                             xy = rastConvert.CellToProj(nRows, nCols);
                             pthXYs.Add(xy);
+                            rastcoords = rastcoords + Convert.ToString(rastConvert.Value[nRows, nCols]) + ",";
+                        }
+                        else
+                        {
+                            rastcoords = rastcoords + Convert.ToString(rastConvert.Value[nRows, nCols]) + ",";
                         }
                     }
+                    rasterGrid.Add(rastcoords + ";");
                 }
+                exportList(rasterGrid, saveLocation);
                 LineString pathString = new LineString(pthXYs);
                 IFeature pathLine = lineFS.AddFeature(pathString);
                 int a = 0;
                 foreach (string head in headers)
                     {
-
-
                         pathLine.DataRow[head] = attributes[a];
                         a++;
-
-
-                     }
+                    }
                 lineFS.Name = name;
                 lineFS.Extent = rastConvert.Extent;
                 lineFS.Projection = mw.Projection;
@@ -63,6 +69,17 @@ namespace LineSiterSitingTool
                 MessageBox.Show("Shapefile input does not have the required number of points. \n Please check the input parameters. \n" + ag, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private void exportList(List<string> lstRstCoords, string _saveLocation)
+        {
+            System.IO.StreamWriter extOut = new StreamWriter(_saveLocation + @"\pathRstCoords.txt");
+            string lstLine = null;
+            for (int lstItems = 0; lstItems < lstRstCoords.Count; lstItems++)
+            {
+                extOut.Write(lstLine);
+            }
+            extOut.Flush();
         }
     }
 }
