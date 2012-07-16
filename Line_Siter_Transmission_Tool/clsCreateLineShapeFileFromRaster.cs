@@ -43,6 +43,7 @@ namespace LineSiterSitingTool
                         }
                     }
                     rasterGrid.Add(rastcoords + ";");
+                    rastcoords = "";
                 }
                 exportList(rasterGrid, saveLocation);
                 LineString pathString = new LineString(pthXYs);
@@ -73,7 +74,8 @@ namespace LineSiterSitingTool
 
         private void exportList(List<string> lstRstCoords, string _saveLocation)
         {
-            System.IO.StreamWriter extOut = new StreamWriter(_saveLocation + @"\pathRstCoords.txt");
+            FileInfo pathInfo = new FileInfo(_saveLocation);
+            System.IO.StreamWriter extOut = new StreamWriter(pathInfo.DirectoryName + @"\pathRstCoords.txt");
             string lstLine = null;
             for (int lstItems = 0; lstItems < lstRstCoords.Count; lstItems++)
             {
