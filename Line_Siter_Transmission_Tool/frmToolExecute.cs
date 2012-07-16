@@ -610,7 +610,7 @@ namespace LineSiterSitingTool
         }
 
 
-        private void createPathShapefile(IRaster pathCon)
+       /* private void createPathShapefile(IRaster pathCon)
         {
             List<Coordinate> pthXYs = new List<Coordinate>();
 
@@ -634,7 +634,7 @@ namespace LineSiterSitingTool
             pathLines.Extent = outPath.Extent;
             pathLines.Projection = _mapLayer.Projection;
             pathLines.SaveAs(shapefileSavePath, true);
-        }
+        }*/
 
         private void finishingUp()
         {
@@ -815,7 +815,7 @@ namespace LineSiterSitingTool
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;
-                clsCreateBackgroundRasters cbr = new clsCreateBackgroundRasters();
+                clsCreateBackgroundRasters cbrUT = new clsCreateBackgroundRasters();
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
                 DataColumn pass = new DataColumn("Pass");
@@ -827,9 +827,9 @@ namespace LineSiterSitingTool
                 costFileName = saveLocation + @"\UT\utilCosts.bgd";
                 utilsCosts.SaveAs(saveLocation + @"\UT\utilCosts.bgd");
                 rasterToConvert = Raster.OpenFile(saveLocation + @"\UT\utilCosts.bgd");
-                backlink = cbr.saveRaster(saveLocation + @"\UT\", "backlink", bounds);
-                outAccumRaster = cbr.saveRaster(saveLocation + @"\UT\", "outAccumRaster", bounds);
-                outPathRaster = cbr.saveRaster(saveLocation + @"\UT\", "outPath", bounds);
+                backlink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", bounds);
+                outAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", bounds);
+                outPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", bounds);
                 gr.prepareGATRasters(saveLocation + @"\UT", worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
                 BackgroundWorker utCosts = new BackgroundWorker();
                 paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
@@ -894,9 +894,5 @@ namespace LineSiterSitingTool
                 return;
             }
         }
-
-       
-       
-
        }
 }

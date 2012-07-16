@@ -83,7 +83,7 @@ namespace LineSiterSitingTool
                 MC = _MC;
                 b1 = _b1;
                 cellSize = bounds.CellHeight;
-                clsCreateBackgroundRasters cbrDP = new clsCreateBackgroundRasters();
+                clsCreateBackgroundRasters cbrMC = new clsCreateBackgroundRasters();
                 tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
@@ -96,10 +96,10 @@ namespace LineSiterSitingTool
                 rasterCol = utilityCosts.NumColumns;
                 costFileName = saveLocation + @"\costSurfaceRaster.bgd";
                 rasterToConvert = Raster.CreateRaster(costFileName, null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
-                backlink = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
-                outAccumRaster = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
-                outPathRaster = cbrDP.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
-                additiveCosts = cbrDP.saveRaster(saveLocation, @"\additiveCostsRaster", bounds);
+                backlink = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
+                outAccumRaster = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
+                outPathRaster = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
+                additiveCosts = cbrMC.saveRaster(saveLocation, @"\additiveCostsRaster", bounds);
                 pr.additiveCosts = additiveCosts;
                 pr.finalStatOutput = finalStatOutput;
                 int newQIDValue = 0;
@@ -167,7 +167,7 @@ namespace LineSiterSitingTool
                 progress = "Beginning Monte Carlo Process";
                 tracker.ReportProgress(30);
 
-                pr.clsprocess1(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref outputPathFilename, utilityCosts, _b1, ref rasterToConvert, ref costFileName);
+                pr.clsMCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref outputPathFilename, utilityCosts, _b1, ref rasterToConvert, ref costFileName);
                 additivecosts = pr.additiveCosts;
                 finalStatOutput = pr.finalStatOutput;
             }

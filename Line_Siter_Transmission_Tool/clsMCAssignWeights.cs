@@ -57,7 +57,7 @@ namespace LineSiterSitingTool
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
         }
-        public void clsprocess1(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts,clsBuildDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
+        public void clsMCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts,clsBuildDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
         {
            
             MC = _mc;
