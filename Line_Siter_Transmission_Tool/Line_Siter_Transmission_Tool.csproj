@@ -168,6 +168,7 @@
     <Compile Include="clsGATGridConversions.cs" />
     <Compile Include="clsLCPCoords.cs" />
     <Compile Include="clsMonteCarlo.cs" />
+    <Compile Include="clsPass.cs" />
     <Compile Include="clsprepgatraster.cs" />
     <Compile Include="clsRasterOps.cs" />
     <Compile Include="clsUtilityCosts.cs" />
