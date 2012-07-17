@@ -78,7 +78,7 @@ namespace LineSiterSitingTool
             rtbHelpBox.SelectionFont = new Font("Arial", 10f, FontStyle.Regular);
             rtbHelpBox.AppendText("This process creates a cost raster from shapefiles loaded in the project.  ");
             rtbHelpBox.AppendText("To create the raster, add the relevant shapefiles from the left selection box to the right box.  ");
-            rtbHelpBox.AppendText("Relevant shapefiles must have a cost field in order to create the utility cost raster.  ");
+            rtbHelpBox.AppendText("Relevant shapefiles must have a cost passNumber in order to create the utility cost raster.  ");
 
         }
 

@@ -100,7 +100,7 @@
             this.gbSelectLayerCosts.Size = new System.Drawing.Size(406, 248);
             this.gbSelectLayerCosts.TabIndex = 1;
             this.gbSelectLayerCosts.TabStop = false;
-            this.gbSelectLayerCosts.Text = "Select layers to include along with a cost field";
+            this.gbSelectLayerCosts.Text = "Select layers to include along with a cost passNumber";
             // 
             // dgvSelectLayers
             // 

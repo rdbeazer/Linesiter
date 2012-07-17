@@ -71,6 +71,7 @@ namespace LineSiterSitingTool
         List<string> attributes = new List<string>();
         string progress = string.Empty;
         BackgroundWorker worker = new BackgroundWorker();
+        Random random = new Random();
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
@@ -255,15 +256,9 @@ namespace LineSiterSitingTool
                     return;
                 }
 
-           
                 MC.NumPasses = (int)numPasses.Value;
                 utCostLine();
-                //shapefileSavePath = saveLocation + @"\outputPaths.shp";
-                //pathLines.SaveAs(shapefileSavePath, true);
-           
                this.lblProgress.Text = "Performing Process...Please Wait.";
-            
-                //doTheProcess();
             }
 
             catch (Exception ex)
@@ -351,10 +346,8 @@ namespace LineSiterSitingTool
                headers.Add("Pass");
                attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
-                //createPathShapefile(outPath);
-                
             }
 
             catch (Exception ex)
@@ -398,13 +391,7 @@ namespace LineSiterSitingTool
             cpRas._conversionRaster = outputPathFilename;
             cpRas.convertBGD();
             outPath = cpRas.conRaster;
-
         }
-
-
-        Random random = new Random();
-
-
 
         private void btnAlterWeights_Click(object sender, EventArgs e)
         {
@@ -815,6 +802,7 @@ namespace LineSiterSitingTool
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;
+                clsMonteCarlo UTMC = new clsMonteCarlo();
                 clsCreateBackgroundRasters cbrUT = new clsCreateBackgroundRasters();
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
@@ -838,9 +826,8 @@ namespace LineSiterSitingTool
                 utCosts.DoWork += new DoWorkEventHandler(utCosts_DoWork);
                 utCosts.ProgressChanged += new ProgressChangedEventHandler(utCosts_ProgressChanged);
                 utCosts.RunWorkerCompleted += new RunWorkerCompletedEventHandler(utCosts_RunWorkerCompleted);
-                utCosts.RunWorkerAsync();
+                utCosts.RunWorkerAsync(UTMC);
             }
-
 
             catch (Exception ex)
             {
@@ -870,12 +857,13 @@ namespace LineSiterSitingTool
             try
             {
                 utilLCPA = FeatureSet.OpenFile(saveLocation + @"\UT\utilityCostsLCPA.shp");
+                clsMonteCarlo UTMC = (clsMonteCarlo) e.ar
                 this.progressbar1.Style = ProgressBarStyle.Continuous;
 
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
                     tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
+                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, UTMC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
                     if (p1.erroroc == true)
                     {
                         this.Close();

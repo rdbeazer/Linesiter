@@ -88,6 +88,18 @@ namespace LineSiterSitingTool
             set { _numZeros = value; }
         }
 
+        public string passType
+        {
+            get {return passType; }
+            set {passType = value;}
+        }
+
+        public bool errorCondition
+        {
+            get {return errorCondition;}
+            set {errorCondition = value;}
+        }
+
         # endregion
 
         public void calculateWeight(double rv, double[] processArray)
@@ -225,6 +237,5 @@ namespace LineSiterSitingTool
             passedRaster.Save();
             return passedRaster;
         }
-
     }
 }

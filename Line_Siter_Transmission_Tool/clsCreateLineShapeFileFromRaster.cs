@@ -76,11 +76,16 @@ namespace LineSiterSitingTool
         {
             FileInfo pathInfo = new FileInfo(_saveLocation);
             System.IO.StreamWriter extOut = new StreamWriter(pathInfo.DirectoryName + @"\pathRstCoords.txt");
-            string lstLine = null;
-            for (int lstItems = 0; lstItems < lstRstCoords.Count; lstItems++)
+            //for (int lstItems = 0; lstItems < lstRstCoords.Count; lstItems++)
+            //{
+            //    extOut.Write(lstRstCoords.i);
+            //}
+            foreach (string item in lstRstCoords)
             {
-                extOut.Write(lstLine);
+                //extOut.Write(item);
+                extOut.WriteLine(item);
             }
+
             extOut.Flush();
         }
     }

@@ -21,29 +21,8 @@ namespace LineSiterSitingTool
 {
     class clsCostWeight
     {
-        clsMonteCarlo MC = new clsMonteCarlo();
-        clsLCPCoords lc = new clsLCPCoords();
-        FeatureSet projectFS = new FeatureSet();
-        double[] aw = new double[5];
-        string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
-        IRaster startPoint = new Raster();
-        IRaster endPoint = new Raster();
-        IRaster backlink = new Raster();
-        GATGrid backlinkGATRaster = new GATGrid();
-        IRaster outAccumRaster = new Raster();
-        GATGrid outAccumGATRaster = new GATGrid();
-        IRaster outPathRaster = new Raster();
-        GATGrid outPathGATRaster = new GATGrid();
         IRaster rasterToConvert;
         string costFileName = "";
-        FeatureSet pathLines = new FeatureSet(FeatureType.Line);
-        FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
-        IFeatureSet fst = new FeatureSet();
-        List<string> finalStatOutput = new List<string>();
-        string _surveyPath = string.Empty;
-        string lcpaShapeName = string.Empty;
-        List<IRaster> mcRasterList = new List<IRaster>();
-        string progress = string.Empty;
 
         public void calculate_Cost_Weight(string savePath, IRaster bounds, IMap _mapLayer,int currentPass, IRaster additiveCosts, IRaster utilityCosts)
         {
