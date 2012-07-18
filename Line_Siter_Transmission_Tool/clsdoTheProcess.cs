@@ -67,24 +67,23 @@ namespace LineSiterSitingTool
         clsCostWeight c2 = new clsCostWeight();
         clsBuildDirectory b1 = new clsBuildDirectory();
         string progress = string.Empty;
-               
-
-        public bool erroroc { get; set; }
         
-        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, clsBuildDirectory _b1, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
+        public void doTheProcess(BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
         {
 
-            tracker.WorkerSupportsCancellation = true;
+            //tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
             tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
             clsBuildDirectory b1 = new clsBuildDirectory();
             try
             {
                 MC = _MC;
-                b1 = _b1;
+                if (MC.errorCondition == true)
+                {
+                    return;
+                }
                 cellSize = bounds.CellHeight;
                 clsCreateBackgroundRasters cbrMC = new clsCreateBackgroundRasters();
-                tslStatus.Visible = false;
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 utilityCosts.Bounds = bounds.Bounds;
@@ -96,9 +95,9 @@ namespace LineSiterSitingTool
                 rasterCol = utilityCosts.NumColumns;
                 costFileName = saveLocation + @"\costSurfaceRaster.bgd";
                 rasterToConvert = Raster.CreateRaster(costFileName, null, bounds.NumColumns, bounds.NumRows, 1, typeof(double), null);
-                backlink = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
-                outAccumRaster = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
-                outPathRaster = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
+                //backlink = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
+                //outAccumRaster = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
+                //outPathRaster = cbrMC.saveRaster(path + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
                 additiveCosts = cbrMC.saveRaster(saveLocation, @"\additiveCostsRaster", bounds);
                 pr.additiveCosts = additiveCosts;
                 pr.finalStatOutput = finalStatOutput;
@@ -117,13 +116,9 @@ namespace LineSiterSitingTool
                     {
                         if (dx.Cells[0].Value != null)
                         {
-
-
                             //get feature layer from map interface
                             foreach (Layer lay in _mapLayer.Layers)
                             {
-
-
                                 if (dx.Cells[1].Value != null)
                                 {
                                     if (lay.LegendText == Convert.ToString(dx.Cells[1].Value))
@@ -167,7 +162,7 @@ namespace LineSiterSitingTool
                 progress = "Beginning Monte Carlo Process";
                 tracker.ReportProgress(30);
 
-                pr.clsMCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref outputPathFilename, utilityCosts, _b1, ref rasterToConvert, ref costFileName);
+                pr.clsMCAssignWeights(tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref outputPathFilename, utilityCosts, ref rasterToConvert, ref costFileName);
                 additivecosts = pr.additiveCosts;
                 finalStatOutput = pr.finalStatOutput;
             }
@@ -175,7 +170,7 @@ namespace LineSiterSitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                MC.errorCondition = true;
             }
         }
     }
