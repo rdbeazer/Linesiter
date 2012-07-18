@@ -88,16 +88,18 @@ namespace LineSiterSitingTool
             set { _numZeros = value; }
         }
 
+        private string _passType; 
         public string passType
         {
-            get {return passType; }
-            set {passType = value;}
+            get { return _passType; }
+            set { _passType = value; }
         }
 
+        private bool _errorCondition;
         public bool errorCondition
         {
-            get {return errorCondition;}
-            set {errorCondition = value;}
+            get { return _errorCondition; }
+            set { _errorCondition = value; }
         }
 
         # endregion

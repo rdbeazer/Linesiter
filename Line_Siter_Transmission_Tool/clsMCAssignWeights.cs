@@ -57,12 +57,9 @@ namespace LineSiterSitingTool
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
         }
-        public void clsMCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts,clsBuildDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
+        public void clsMCAssignWeights(BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts, ref IRaster rasterToConvert, ref string costFileName)
         {
-           
             MC = _mc;
-            b1 = _b1;
-            tslStatus.Visible = false;
             finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(currentPass));
             int questNum = 1;
             IRaster mcRaster = bounds;
@@ -142,7 +139,7 @@ namespace LineSiterSitingTool
                         AnswerPercents[4] = AnswerPercents[3] + (double)dr.Cells[9].Value;
                     }
                     MC.calculateWeight(rv, AnswerPercents);
-                    tracker.ReportProgress(50);
+                    tracker.ReportProgress(70);
                     finalStatOutput.Add("LSHigh: " + Convert.ToString(AnswerPercents[0]) + " | LSMedHigh: " + Convert.ToString(AnswerPercents[1]) + " | LSMed: " + Convert.ToString(AnswerPercents[2]) + " | LSMedLow: " + Convert.ToString(AnswerPercents[3]) + " | LSLow: " + Convert.ToString(AnswerPercents[4]));
                     finalStatOutput.Add("Weight: " + (Convert.ToString(MC.socialWeight)));
                     finalStatOutput.Add(MC.wRaster);
@@ -154,7 +151,7 @@ namespace LineSiterSitingTool
                     questNum++;
                     MC.calcRaster2(mcRasterList, mcRaster);
                     mcRaster.Save();
-                    tracker.ReportProgress(70);
+                    tracker.ReportProgress(90);
                 }
             }
 
@@ -164,6 +161,10 @@ namespace LineSiterSitingTool
             progress = "Pass " + Convert.ToString(currentPass) + " is complete.";
             tracker.ReportProgress(90);
 
+            if (MC.passType == "Monte Carlo")
+            {
+                outputPathFilename = saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(currentPass);
+            }
             gr.prepareGATRasters(mcRasSavePath, worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
         }
 

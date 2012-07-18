@@ -857,17 +857,14 @@ namespace LineSiterSitingTool
             try
             {
                 utilLCPA = FeatureSet.OpenFile(saveLocation + @"\UT\utilityCostsLCPA.shp");
-                clsMonteCarlo UTMC = (clsMonteCarlo) e.ar
+                //clsMonteCarlo UTMC = (clsMonteCarlo) e.ar
                 this.progressbar1.Style = ProgressBarStyle.Continuous;
 
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
                     tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, UTMC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
-                    if (p1.erroroc == true)
-                    {
-                        this.Close();
-                    }
+                    p1.doTheProcess(tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
+                    MC.passType = "Monte Carlo";
                     additiveCosts = p1.additiveCosts;
                     createAccumCostRaster(outputPathFilename);
                     tslStatus.Visible = true;
@@ -878,8 +875,7 @@ namespace LineSiterSitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
+                MC.errorCondition = true;
             }
         }
        }
