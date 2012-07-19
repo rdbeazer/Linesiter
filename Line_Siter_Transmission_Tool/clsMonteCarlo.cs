@@ -88,18 +88,18 @@ namespace LineSiterSitingTool
             set { _numZeros = value; }
         }
 
-        private string _passType; 
-        public string passType
-        {
-            get { return _passType; }
-            set { _passType = value; }
-        }
-
         private bool _errorCondition;
         public bool errorCondition
         {
             get { return _errorCondition; }
             set { _errorCondition = value; }
+        }
+
+        private string _passType;
+        public string passType
+        {
+            get { return _passType; }
+            set { _passType = value; }
         }
 
         # endregion
@@ -239,5 +239,6 @@ namespace LineSiterSitingTool
             passedRaster.Save();
             return passedRaster;
         }
+
     }
 }
