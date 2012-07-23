@@ -22,8 +22,6 @@ namespace LineSiterSitingTool
         {
             try
             {
-                List<string> rasterGrid = new List<string>();
-                string rastcoords = string.Empty;
                 List<Coordinate> pthXYs = new List<Coordinate>();
 
                 for (int nRows = 0; nRows < rastConvert.NumRows; nRows++)
@@ -35,17 +33,9 @@ namespace LineSiterSitingTool
                             Coordinate xy = new Coordinate();
                             xy = rastConvert.CellToProj(nRows, nCols);
                             pthXYs.Add(xy);
-                            rastcoords = rastcoords + Convert.ToString(rastConvert.Value[nRows, nCols]) + ",";
-                        }
-                        else
-                        {
-                            rastcoords = rastcoords + Convert.ToString(rastConvert.Value[nRows, nCols]) + ",";
                         }
                     }
-                    rasterGrid.Add(rastcoords + ";");
-                    rastcoords = "";
                 }
-                exportList(rasterGrid, saveLocation);
                 LineString pathString = new LineString(pthXYs);
                 IFeature pathLine = lineFS.AddFeature(pathString);
                 int a = 0;

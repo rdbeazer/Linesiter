@@ -41,16 +41,9 @@
             this.lblProgress = new System.Windows.Forms.Label();
             this.picStartEnd = new System.Windows.Forms.PictureBox();
             this.cboStartEndPoints = new System.Windows.Forms.ComboBox();
-            this.picEnd = new System.Windows.Forms.PictureBox();
             this.progressbar1 = new System.Windows.Forms.ProgressBar();
-            this.picStart = new System.Windows.Forms.PictureBox();
-            this.cboStartPoint = new System.Windows.Forms.ComboBox();
-            this.cboEndPoint = new System.Windows.Forms.ComboBox();
             this.pictRej2 = new System.Windows.Forms.PictureBox();
-            this.pictRej1 = new System.Windows.Forms.PictureBox();
             this.picAcpt2 = new System.Windows.Forms.PictureBox();
-            this.picAcpt1 = new System.Windows.Forms.PictureBox();
-            this.cboSelectBoundingRaster = new System.Windows.Forms.ComboBox();
             this.cboSelectUtilityRaster = new System.Windows.Forms.ComboBox();
             this.txtSaveLocation = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -62,18 +55,15 @@
             this.lblNumPasses = new System.Windows.Forms.Label();
             this.numPasses = new System.Windows.Forms.NumericUpDown();
             this.dgvSelectLayers = new System.Windows.Forms.DataGridView();
+            this.btnConvert = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStartEnd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEnd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictRej2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictRej1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAcpt2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picAcpt1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPasses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectLayers)).BeginInit();
@@ -135,7 +125,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(933, 163);
+            this.panel2.Size = new System.Drawing.Size(933, 146);
             this.panel2.TabIndex = 1;
             // 
             // panel5
@@ -145,7 +135,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(933, 163);
+            this.panel5.Size = new System.Drawing.Size(933, 146);
             this.panel5.TabIndex = 8;
             // 
             // groupBox2
@@ -153,23 +143,16 @@
             this.groupBox2.Controls.Add(this.lblProgress);
             this.groupBox2.Controls.Add(this.picStartEnd);
             this.groupBox2.Controls.Add(this.cboStartEndPoints);
-            this.groupBox2.Controls.Add(this.picEnd);
             this.groupBox2.Controls.Add(this.progressbar1);
-            this.groupBox2.Controls.Add(this.picStart);
-            this.groupBox2.Controls.Add(this.cboStartPoint);
-            this.groupBox2.Controls.Add(this.cboEndPoint);
             this.groupBox2.Controls.Add(this.pictRej2);
-            this.groupBox2.Controls.Add(this.pictRej1);
             this.groupBox2.Controls.Add(this.picAcpt2);
-            this.groupBox2.Controls.Add(this.picAcpt1);
-            this.groupBox2.Controls.Add(this.cboSelectBoundingRaster);
             this.groupBox2.Controls.Add(this.cboSelectUtilityRaster);
             this.groupBox2.Controls.Add(this.txtSaveLocation);
             this.groupBox2.Controls.Add(this.btnBrowse);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(12, 16);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(682, 135);
+            this.groupBox2.Size = new System.Drawing.Size(682, 116);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Shapefiles/Rasters";
@@ -177,7 +160,7 @@
             // lblProgress
             // 
             this.lblProgress.AutoSize = true;
-            this.lblProgress.Location = new System.Drawing.Point(3, 91);
+            this.lblProgress.Location = new System.Drawing.Point(285, 61);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(0, 13);
             this.lblProgress.TabIndex = 10;
@@ -185,7 +168,7 @@
             // picStartEnd
             // 
             this.picStartEnd.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picStartEnd.Location = new System.Drawing.Point(646, 58);
+            this.picStartEnd.Location = new System.Drawing.Point(241, 83);
             this.picStartEnd.Name = "picStartEnd";
             this.picStartEnd.Size = new System.Drawing.Size(28, 21);
             this.picStartEnd.TabIndex = 31;
@@ -196,118 +179,48 @@
             // 
             this.cboStartEndPoints.Enabled = false;
             this.cboStartEndPoints.FormattingEnabled = true;
-            this.cboStartEndPoints.Location = new System.Drawing.Point(471, 58);
+            this.cboStartEndPoints.Location = new System.Drawing.Point(9, 85);
             this.cboStartEndPoints.Name = "cboStartEndPoints";
-            this.cboStartEndPoints.Size = new System.Drawing.Size(172, 21);
+            this.cboStartEndPoints.Size = new System.Drawing.Size(226, 21);
             this.cboStartEndPoints.TabIndex = 30;
             this.cboStartEndPoints.Text = "Select Shapefile for Start and End Points";
             this.cboStartEndPoints.SelectedIndexChanged += new System.EventHandler(this.cboStartEndPoints_SelectedIndexChanged);
             // 
-            // picEnd
-            // 
-            this.picEnd.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picEnd.Location = new System.Drawing.Point(646, 58);
-            this.picEnd.Name = "picEnd";
-            this.picEnd.Size = new System.Drawing.Size(28, 21);
-            this.picEnd.TabIndex = 29;
-            this.picEnd.TabStop = false;
-            this.picEnd.Visible = false;
-            // 
             // progressbar1
             // 
-            this.progressbar1.Location = new System.Drawing.Point(6, 108);
+            this.progressbar1.Location = new System.Drawing.Point(284, 83);
             this.progressbar1.MarqueeAnimationSpeed = 10;
             this.progressbar1.Name = "progressbar1";
-            this.progressbar1.Size = new System.Drawing.Size(670, 21);
+            this.progressbar1.Size = new System.Drawing.Size(392, 21);
             this.progressbar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressbar1.TabIndex = 1;
-            // 
-            // picStart
-            // 
-            this.picStart.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picStart.Location = new System.Drawing.Point(646, 58);
-            this.picStart.Name = "picStart";
-            this.picStart.Size = new System.Drawing.Size(28, 21);
-            this.picStart.TabIndex = 28;
-            this.picStart.TabStop = false;
-            this.picStart.Visible = false;
-            // 
-            // cboStartPoint
-            // 
-            this.cboStartPoint.FormattingEnabled = true;
-            this.cboStartPoint.Location = new System.Drawing.Point(471, 58);
-            this.cboStartPoint.Name = "cboStartPoint";
-            this.cboStartPoint.Size = new System.Drawing.Size(172, 21);
-            this.cboStartPoint.TabIndex = 27;
-            this.cboStartPoint.Text = "Select The Start Point Raster";
-            this.cboStartPoint.SelectedIndexChanged += new System.EventHandler(this.cboStartPoint_SelectedIndexChanged);
-            // 
-            // cboEndPoint
-            // 
-            this.cboEndPoint.FormattingEnabled = true;
-            this.cboEndPoint.Location = new System.Drawing.Point(471, 58);
-            this.cboEndPoint.Name = "cboEndPoint";
-            this.cboEndPoint.Size = new System.Drawing.Size(172, 21);
-            this.cboEndPoint.TabIndex = 26;
-            this.cboEndPoint.Text = "Select The End Point Raster";
-            this.cboEndPoint.SelectedIndexChanged += new System.EventHandler(this.cboEndPoint_SelectedIndexChanged);
             // 
             // pictRej2
             // 
             this.pictRej2.Image = global::LineSiterSitingTool.Properties.Resources.dialog_cancel;
-            this.pictRej2.Location = new System.Drawing.Point(437, 58);
+            this.pictRej2.Location = new System.Drawing.Point(241, 58);
             this.pictRej2.Name = "pictRej2";
             this.pictRej2.Size = new System.Drawing.Size(28, 21);
             this.pictRej2.TabIndex = 24;
             this.pictRej2.TabStop = false;
             this.pictRej2.Visible = false;
             // 
-            // pictRej1
-            // 
-            this.pictRej1.Image = global::LineSiterSitingTool.Properties.Resources.dialog_cancel;
-            this.pictRej1.Location = new System.Drawing.Point(205, 58);
-            this.pictRej1.Name = "pictRej1";
-            this.pictRej1.Size = new System.Drawing.Size(28, 21);
-            this.pictRej1.TabIndex = 24;
-            this.pictRej1.TabStop = false;
-            this.pictRej1.Visible = false;
-            // 
             // picAcpt2
             // 
             this.picAcpt2.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picAcpt2.Location = new System.Drawing.Point(437, 58);
+            this.picAcpt2.Location = new System.Drawing.Point(241, 58);
             this.picAcpt2.Name = "picAcpt2";
             this.picAcpt2.Size = new System.Drawing.Size(28, 21);
             this.picAcpt2.TabIndex = 23;
             this.picAcpt2.TabStop = false;
             this.picAcpt2.Visible = false;
             // 
-            // picAcpt1
-            // 
-            this.picAcpt1.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picAcpt1.Location = new System.Drawing.Point(205, 58);
-            this.picAcpt1.Name = "picAcpt1";
-            this.picAcpt1.Size = new System.Drawing.Size(28, 21);
-            this.picAcpt1.TabIndex = 22;
-            this.picAcpt1.TabStop = false;
-            this.picAcpt1.Visible = false;
-            // 
-            // cboSelectBoundingRaster
-            // 
-            this.cboSelectBoundingRaster.FormattingEnabled = true;
-            this.cboSelectBoundingRaster.Location = new System.Drawing.Point(9, 58);
-            this.cboSelectBoundingRaster.Name = "cboSelectBoundingRaster";
-            this.cboSelectBoundingRaster.Size = new System.Drawing.Size(190, 21);
-            this.cboSelectBoundingRaster.TabIndex = 21;
-            this.cboSelectBoundingRaster.Text = "Select a Bounding Raster";
-            this.cboSelectBoundingRaster.SelectedIndexChanged += new System.EventHandler(this.cboSelectBoundingRaster_SelectedIndexChanged);
-            // 
             // cboSelectUtilityRaster
             // 
             this.cboSelectUtilityRaster.FormattingEnabled = true;
-            this.cboSelectUtilityRaster.Location = new System.Drawing.Point(239, 58);
+            this.cboSelectUtilityRaster.Location = new System.Drawing.Point(9, 58);
             this.cboSelectUtilityRaster.Name = "cboSelectUtilityRaster";
-            this.cboSelectUtilityRaster.Size = new System.Drawing.Size(192, 21);
+            this.cboSelectUtilityRaster.Size = new System.Drawing.Size(226, 21);
             this.cboSelectUtilityRaster.TabIndex = 20;
             this.cboSelectUtilityRaster.Text = "Select a Utility Cost Raster";
             this.cboSelectUtilityRaster.SelectedIndexChanged += new System.EventHandler(this.cboSelectUtilityRaster_SelectedIndexChanged);
@@ -341,6 +254,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnConvert);
             this.groupBox1.Controls.Add(this.btnAlterWeights);
             this.groupBox1.Controls.Add(this.btnAbort);
             this.groupBox1.Controls.Add(this.btnBegin);
@@ -348,7 +262,7 @@
             this.groupBox1.Controls.Add(this.numPasses);
             this.groupBox1.Location = new System.Drawing.Point(700, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(221, 135);
+            this.groupBox1.Size = new System.Drawing.Size(221, 116);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Monte Carlo Simulation";
@@ -372,7 +286,7 @@
             this.btnAbort.TabIndex = 4;
             this.btnAbort.Text = "Cancel";
             this.btnAbort.UseVisualStyleBackColor = true;
-                    // 
+            // 
             // btnBegin
             // 
             this.btnBegin.Enabled = false;
@@ -420,10 +334,20 @@
             this.dgvSelectLayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvSelectLayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSelectLayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSelectLayers.Location = new System.Drawing.Point(0, 163);
+            this.dgvSelectLayers.Location = new System.Drawing.Point(0, 146);
             this.dgvSelectLayers.Name = "dgvSelectLayers";
-            this.dgvSelectLayers.Size = new System.Drawing.Size(933, 353);
+            this.dgvSelectLayers.Size = new System.Drawing.Size(933, 370);
             this.dgvSelectLayers.TabIndex = 2;
+            // 
+            // btnConvert
+            // 
+            this.btnConvert.Location = new System.Drawing.Point(1, 73);
+            this.btnConvert.Name = "btnConvert";
+            this.btnConvert.Size = new System.Drawing.Size(75, 23);
+            this.btnConvert.TabIndex = 10;
+            this.btnConvert.Text = "1121165";
+            this.btnConvert.UseVisualStyleBackColor = true;
+            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
             // 
             // frmToolExecute
             // 
@@ -446,12 +370,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStartEnd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEnd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictRej2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictRej1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picAcpt2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picAcpt1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPasses)).EndInit();
@@ -471,15 +391,8 @@
         private System.Windows.Forms.ToolStripStatusLabel tslStatus;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.PictureBox picEnd;
-        private System.Windows.Forms.PictureBox picStart;
-        private System.Windows.Forms.ComboBox cboStartPoint;
-        private System.Windows.Forms.ComboBox cboEndPoint;
         private System.Windows.Forms.PictureBox pictRej2;
-        private System.Windows.Forms.PictureBox pictRej1;
         private System.Windows.Forms.PictureBox picAcpt2;
-        private System.Windows.Forms.PictureBox picAcpt1;
-        private System.Windows.Forms.ComboBox cboSelectBoundingRaster;
         private System.Windows.Forms.ComboBox cboSelectUtilityRaster;
         private System.Windows.Forms.TextBox txtSaveLocation;
         private System.Windows.Forms.Button btnBrowse;
@@ -492,9 +405,10 @@
         private System.Windows.Forms.NumericUpDown numPasses;
         private System.Windows.Forms.ToolStripStatusLabel tslPass;
         private System.Windows.Forms.DataGridView dgvSelectLayers;
-        private System.Windows.Forms.PictureBox picStartEnd;
         private System.Windows.Forms.ComboBox cboStartEndPoints;
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
+        private System.Windows.Forms.PictureBox picStartEnd;
+        private System.Windows.Forms.Button btnConvert;
     }
 }
