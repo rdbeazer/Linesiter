@@ -30,6 +30,10 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -154,11 +158,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1121165.cs">
+    <Compile Include="frm1121165.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="1121165.Designer.cs">
-      <DependentUpon>1121165.cs</DependentUpon>
+    <Compile Include="frm1121165.Designer.cs">
+      <DependentUpon>frm1121165.cs</DependentUpon>
     </Compile>
     <Compile Include="clsBuildDirectory.cs" />
     <Compile Include="clsCostWeight.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="clsUtilityCosts.cs" />
     <Compile Include="clsWBHost.cs" />
     <Compile Include="clsCreateLineShapeFileFromRaster.cs" />
+    <Compile Include="clsCreateStartEndRasters.cs" />
     <Compile Include="frmAssignLayerCosts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,8 +278,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="1121165.resx">
-      <DependentUpon>1121165.cs</DependentUpon>
+    <EmbeddedResource Include="frm1121165.resx">
+      <DependentUpon>frm1121165.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAboutTool.resx">
       <DependentUpon>frmAboutTool.cs</DependentUpon>

@@ -38,7 +38,6 @@ namespace LineSiterSitingTool
         double cellSize = 0;
         string saveLocation;
         IRaster utilityCosts = new Raster();
-        IRaster bounds = new Raster();
         IRaster startPoint = new Raster();
         string startFileName = "";
         IRaster endPoint = new Raster();
@@ -71,6 +70,8 @@ namespace LineSiterSitingTool
         List<string> attributes = new List<string>();
         string progress = string.Empty;
         BackgroundWorker worker = new BackgroundWorker();
+        Random random = new Random();
+        BackgroundWorker tracker = new BackgroundWorker();
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
@@ -85,10 +86,7 @@ namespace LineSiterSitingTool
             _surveyPath = surveyPath;
             fillInDataView();
             pa = new clsRasterOps(_mapLayer);
-            fillBoundCombo();
             fillUtilityCombo();
-            fillStartCombo();
-            fillEndCombo();
             fillStartEndCombo();
             lc = _lc;
             pathLines.Projection = _mapLayer.Projection;
@@ -185,16 +183,6 @@ namespace LineSiterSitingTool
         }
 
         #region fillCombos
-        private void fillBoundCombo()
-        {
-            foreach (Layer lay in _mapLayer.Layers)
-            {
-                if (lay.GetType() == typeof(MapRasterLayer))
-                {
-                    cboSelectBoundingRaster.Items.Add(lay.LegendText);
-                }
-            }
-        }
 
         private void fillUtilityCombo()
         {
@@ -207,16 +195,6 @@ namespace LineSiterSitingTool
             }
         }
 
-        private void fillStartCombo()
-        {
-            foreach (Layer lay in _mapLayer.Layers)
-            {
-                if (lay.GetType() == typeof(MapRasterLayer))
-                {
-                    cboStartPoint.Items.Add(lay.LegendText);
-                }
-            }
-        }
 
         private void fillStartEndCombo()
         {
@@ -225,17 +203,6 @@ namespace LineSiterSitingTool
                 if (lay.GetType() == typeof(MapPointLayer))
                 {
                     cboStartEndPoints.Items.Add(lay.LegendText);
-                }
-            }
-        }
-
-        private void fillEndCombo()
-        {
-            foreach (Layer lay in _mapLayer.Layers)
-            {
-                if (lay.GetType() == typeof(MapRasterLayer))
-                {
-                    cboEndPoint.Items.Add(lay.LegendText);
                 }
             }
         }
@@ -286,10 +253,7 @@ namespace LineSiterSitingTool
             
        }
         
-        BackgroundWorker tracker = new BackgroundWorker();
-
-        
-        private void createAccumCostRaster(string outputPathFilename)
+       private void createAccumCostRaster(string outputPathFilename)
         {
             try
             {
@@ -332,19 +296,17 @@ namespace LineSiterSitingTool
                 utConvert.convertToGAT();
                 ac.Initialize(wbHost);
                 ac.Execute(paraString, worker);
-                string[] costPath = new string[3] { endFileName + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length -4) + ".dep", outputPathFilename + ".dep" };
+                string[] costPath = new string[3] {endFileName.Substring(0, endFileName.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", outputPathFilename + ".dep" };
                 string bk = backlinkFilename;
                 cp.Initialize(wbHost);
                 cp.Execute(costPath, worker);
                 convertCostPathwayToBGD();
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
-                //outPath.Save();
-               headers.Add("Pass");
-               attributes.Add(Convert.ToString(currentPass));
+                headers.Add("Pass");
+                attributes.Add(Convert.ToString(currentPass));
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, /*saveLocation + @"\MCLCPA.shp"*/ shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
-                //createPathShapefile(outPath);
             }
 
             catch (Exception ex)
@@ -382,18 +344,13 @@ namespace LineSiterSitingTool
         {
             clsGATGridConversions cpRas = new clsGATGridConversions();
             cpRas._statusMessage = "Converting Cost Path";
-            cpRas._bnds = bounds;
+            cpRas._bnds = utilityCosts;
             cpRas._gridToConvert = outputPathFilename;
             cpRas._conversionRaster = outputPathFilename;
             cpRas.convertBGD();
             outPath = cpRas.conRaster;
 
         }
-
-
-        Random random = new Random();
-
-
 
         private void btnAlterWeights_Click(object sender, EventArgs e)
         {
@@ -469,31 +426,6 @@ namespace LineSiterSitingTool
             this.Text = "Line Siter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-
-
-        private void cboSelectBoundingRaster_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (Layer lay in _mapLayer.Layers)
-            {
-                if (lay.LegendText == cboSelectBoundingRaster.SelectedItem)
-                {
-                    if (lay.GetType() == typeof(MapRasterLayer))
-                    {
-                        bounds = (IRaster)lay.DataSet;
-                        cboSelectBoundingRaster.Enabled = false;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Wrong layer type selected.  Please select a bounding file of raster type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
-                    }
-                }
-            }
-            projectFS.Extent = bounds.Extent;
-            cellSize = bounds.CellHeight;
-            picAcpt1.Visible = true;
-        }
-
         private void cboSelectUtilityRaster_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (Layer lay in _mapLayer.Layers)
@@ -501,99 +433,10 @@ namespace LineSiterSitingTool
                 if (lay.LegendText == cboSelectUtilityRaster.SelectedItem)
                 {
                     utilityCosts = (IRaster)lay.DataSet;
+                    projectFS.Extent = utilityCosts.Extent;
+                    cellSize = utilityCosts.CellHeight;
+                    picAcpt2.Visible = true;
                 }
-            }
-            if ((utilityCosts.NumRows == bounds.NumRows) && (utilityCosts.NumColumns == bounds.NumColumns))
-            {
-                picAcpt2.Visible = true;
-                pictRej1.Visible = false;
-                pictRej2.Visible = false;
-            }
-            else
-            {
-                pictRej1.Visible = true;
-                pictRej2.Visible = true;
-                cboSelectBoundingRaster.Enabled = true;
-                MessageBox.Show("Utility Raster and Bounding Raster have incompatible boundaries.  \n Utilities Raster's bounds are: " + Convert.ToString(utilityCosts.NumRows) + ", " + Convert.ToString(utilityCosts.NumColumns) + "\n Bounding Raster's bounds are: " + Convert.ToString(bounds.NumRows) + ", " + Convert.ToString(bounds.NumColumns) + " \n Please check and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-        }
-
-        private void cboStartPoint_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                IRaster srs = new Raster();
-                foreach (Layer lay in _mapLayer.Layers)
-                {
-                    BackgroundWorker worker = new BackgroundWorker();
-                    if (lay.LegendText == cboStartPoint.SelectedItem)
-                    {
-                        srs = (IRaster)lay.DataSet;
-                        if (srs.Bounds == bounds.Bounds)
-                        {
-                            clsGATGridConversions sourceRaster = new clsGATGridConversions();
-                            sourceRaster._rasterToConvert = srs;
-                            sourceRaster._statusMessage = "Converting Source Point Raster. ";
-                            sourceRaster.convertToGAT();
-                            startFileName = srs.Filename.Substring(0, srs.Filename.Length - 4);
-                            picStart.Visible = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Source raster bounds do not match the project bounds raster.  \nPlease select a source point raster with bounds identical to the project bounds raster.", "Bounds Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                        }
-                    }
-                }
-                Cursor = Cursors.Default;
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.Close();
-                return;
-            }
-        }
-
-        private void cboEndPoint_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                IRaster ers = new Raster();
-                BackgroundWorker worker = new BackgroundWorker();
-                foreach (Layer lay in _mapLayer.Layers)
-                {
-                    if (lay.LegendText == cboEndPoint.SelectedItem)
-                    {
-                        ers = (IRaster)lay.DataSet;
-                        if (ers.Bounds == bounds.Bounds)
-                        {
-                            clsGATGridConversions destinationRaster = new clsGATGridConversions();
-                            destinationRaster._rasterToConvert = ers;
-                            destinationRaster._statusMessage = "Converting destination point raster. ";
-                            destinationRaster.convertToGAT();
-                            endFileName = ers.Filename.Substring(0, ers.Filename.Length - 4);
-                            picEnd.Visible = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Destination raster bounds do not match the project bounds raster.  \nPlease select a destination point raster with bounds identical to the project bounds raster.", "Bounds Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                            this.Close();
-                        }
-
-                    }
-                }
-                Cursor = Cursors.Default;
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.Close();
-                return;
             }
         }
 
@@ -619,86 +462,26 @@ namespace LineSiterSitingTool
 
 
         #region StartandEndPoints
+        
+
+        
         private void cboStartEndPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 string[] rasOps = new string[1];
-                string pathS = saveLocation;
-                IRaster startPoint = Raster.CreateRaster(pathS + @"\startPoint.bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(int), rasOps);
-                IRaster endPoint = Raster.CreateRaster(pathS + @"\endPoint.bgd", null, bounds.NumColumns, bounds.NumRows, 1, typeof(int), rasOps);
-                startPoint.Bounds = bounds.Bounds;
-                startPoint.Projection = _mapLayer.Projection;
-                startPoint.Save();
-                endPoint.Bounds = bounds.Bounds;
-                endPoint.Projection = _mapLayer.Projection;
-                endPoint.Save();
                 Cursor = Cursors.WaitCursor;
-                foreach (Layer lay in _mapLayer.Layers)
-                {
-                    if (lay.LegendText == cboStartEndPoints.SelectedItem)
-                    {
-                        if (lay.GetType() == typeof(DotSpatial.Controls.MapPointLayer))
-                        {
-                            int x = 0;
-                            fst = (IFeatureSet)lay.DataSet;
-                            foreach (Feature fcd in fst.Features)
-                            {
-                                if (x == 0)
-                                {
-                                    Coordinate cd;
-                                    cd = new Coordinate((fcd.Coordinates[0]).X, (fcd.Coordinates[0]).Y);
-                                    RcIndex rSCood = bounds.Bounds.ProjToCell(cd);
-                                    lc.startCol = rSCood.Column;
-                                    lc.startRow = rSCood.Row;
-                                }
-                                if (x == 1)
-                                {
-                                    Coordinate cd;
-                                    cd = new Coordinate((fcd.Coordinates[0]).X, (fcd.Coordinates[0]).Y);
-                                    RcIndex rECood = bounds.Bounds.ProjToCell(cd);
-                                    lc.EndCol = rECood.Column;
-                                    lc.EndRow = rECood.Row;
-                                }
-                                if (x > 1)
-                                {
-                                    MessageBox.Show("This shapefile contains more than a starting and ending point and cannot be used. \n Please select a proper file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    return;
-                                }
-                                x++;
-                            }
+                clsCreateStartEndRasters cser = new clsCreateStartEndRasters();
+                string selectedItem = Convert.ToString(cboStartEndPoints.SelectedItem);
+                IRaster startPoint = Raster.CreateRaster(saveLocation + @"\startPoint.bgd", null, utilityCosts.NumColumns, utilityCosts.NumRows, 1, typeof(int), rasOps);
+                IRaster endPoint = Raster.CreateRaster(saveLocation + @"\endPoint.bgd", null, utilityCosts.NumColumns, utilityCosts.NumRows, 1, typeof(int), rasOps);
 
-                            for (int oRows = 0; oRows < bounds.NumRows - 1; oRows++)
-                            {
-                                for (int oCols = 0; oCols < bounds.NumColumns - 1; oCols++)
-                                {
-                                    if (oRows == lc.startRow & oCols == lc.startCol)
-                                    {
-                                        startPoint.Value[oRows, oCols] = 1234567890;
-                                    }
-                                    else if (oRows == lc.EndRow & oCols == lc.EndCol)
-                                    {
-                                        endPoint.Value[oRows, oCols] = 0987654321;
-                                    }
-                                    else
-                                    {
-                                        startPoint.Value[oRows, oCols] = 0;
-                                        endPoint.Value[oRows, oCols] = 0;
-                                    }
-                                }
-                            }
-                            startPoint.Save();
-                            startGAT(startPoint);
-                            endPoint.Save();
-                            endGAT(endPoint);
-                        }
-                        else
-                        {
-                            MessageBox.Show("This application currently only accepts point shapefiles for starting and ending point locations.", "Shapefile Operations", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
-                        }
-                    }
-                }
+                cser.startPoint = startPoint;
+                cser.endPoint = endPoint;
+
+                cser.createRasters(_mapLayer, selectedItem, lc, utilityCosts, saveLocation);
+                startFileName = cser.startPoint.Filename;
+                endFileName = cser.endPoint.Filename;
                 picStartEnd.Visible = true;
                 Cursor = Cursors.Default;
             }
@@ -706,69 +489,12 @@ namespace LineSiterSitingTool
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + Convert.ToString(ex) + " /n has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 this.Close();
                 return;
 
             }
         }
 
-        private void endGAT(IRaster endConvertRas)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                if (endConvertRas.Bounds == bounds.Bounds)
-                {
-                    clsGATGridConversions destinationRaster = new clsGATGridConversions();
-                    destinationRaster._rasterToConvert = endConvertRas;
-                    destinationRaster._statusMessage = "Converting end point raster. ";
-                    destinationRaster.convertToGAT();
-                    endFileName = endConvertRas.Filename.Substring(0, endConvertRas.Filename.Length - 4);
-                    picEnd.Visible = true;
-                }
-                else
-                {
-                    MessageBox.Show("End point raster bounds do not match the project bounds raster.  \nPlease select a destination point raster with bounds identical to the project bounds raster.", "Bounds Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
-                Cursor = Cursors.Default;
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
-            }
-        }
-
-        private void startGAT(IRaster startConvertRas)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                if (startConvertRas.NumRows == bounds.NumRows && startConvertRas.NumColumns == bounds.NumColumns)
-                {
-                    clsGATGridConversions destinationRaster = new clsGATGridConversions();
-                    destinationRaster._rasterToConvert = startConvertRas;
-                    destinationRaster._statusMessage = "Converting start point raster. ";
-                    destinationRaster.convertToGAT();
-                    startFileName = startConvertRas.Filename.Substring(0, startConvertRas.Filename.Length - 4);
-                    picEnd.Visible = true;
-                }
-                else
-                {
-                    MessageBox.Show("Start point raster bounds do not match the project bounds raster.  \nPlease select a destination point raster with bounds identical to the project bounds raster.", "Bounds Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
-                Cursor = Cursors.Default;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
-            }
-        } 
         #endregion
 
         private void utCostLine()
@@ -790,12 +516,12 @@ namespace LineSiterSitingTool
                 costFileName = saveLocation + @"\UT\utilCosts.bgd";
                 utilsCosts.SaveAs(saveLocation + @"\UT\utilCosts.bgd");
                 rasterToConvert = Raster.OpenFile(saveLocation + @"\UT\utilCosts.bgd");
-                backlink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", bounds);
-                outAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", bounds);
-                outPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", bounds);
+                backlink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", utilityCosts);
+                outAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", utilityCosts);
+                outPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", utilityCosts);
                 gr.prepareGATRasters(saveLocation + @"\UT", worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
                 BackgroundWorker utCosts = new BackgroundWorker();
-                paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
+                paraString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
                 utCosts.WorkerReportsProgress = true;
                 utCosts.WorkerSupportsCancellation = false;
                 utCosts.DoWork += new DoWorkEventHandler(utCosts_DoWork);
@@ -842,7 +568,7 @@ namespace LineSiterSitingTool
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
                     tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-                    p1.doTheProcess(tslStatus, tracker, bounds, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
+                    p1.doTheProcess(tslStatus, tracker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
                     additiveCosts = p1.additiveCosts;
                     createAccumCostRaster(outputPathFilename);
                     tslStatus.Visible = true;
@@ -855,6 +581,13 @@ namespace LineSiterSitingTool
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MC.errorCondition = true;
             }
+        }
+
+        private void btnConvert_Click(object sender, EventArgs e)
+        {
+            frm1121165 x12 = new frm1121165();
+            x12.ShowDialog();
+            
         }
        }
 }

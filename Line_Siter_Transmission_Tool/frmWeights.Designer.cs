@@ -60,7 +60,7 @@
             this.trkHigh.TabIndex = 0;
             this.trkHigh.TickFrequency = 5;
             this.trkHigh.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trkHigh.Value = 9;
+            this.trkHigh.Value = 1;
             this.trkHigh.Scroll += new System.EventHandler(this.trkHigh_Scroll);
             // 
             // txtHigh
@@ -69,7 +69,7 @@
             this.txtHigh.Name = "txtHigh";
             this.txtHigh.Size = new System.Drawing.Size(46, 20);
             this.txtHigh.TabIndex = 1;
-            this.txtHigh.Text = "0.9";
+            this.txtHigh.Text = "0.1";
             this.txtHigh.TextChanged += new System.EventHandler(this.txtHigh_TextChanged);
             // 
             // label1
@@ -96,7 +96,7 @@
             this.txtMedHigh.Name = "txtMedHigh";
             this.txtMedHigh.Size = new System.Drawing.Size(46, 20);
             this.txtMedHigh.TabIndex = 4;
-            this.txtMedHigh.Text = "0.7";
+            this.txtMedHigh.Text = "0.3";
             this.txtMedHigh.TextChanged += new System.EventHandler(this.txtMedHigh_TextChanged);
             // 
             // trkMedHigh
@@ -107,7 +107,7 @@
             this.trkMedHigh.TabIndex = 3;
             this.trkMedHigh.TickFrequency = 5;
             this.trkMedHigh.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trkMedHigh.Value = 7;
+            this.trkMedHigh.Value = 3;
             this.trkMedHigh.Scroll += new System.EventHandler(this.trkMedHigh_Scroll);
             // 
             // lblMediumLow
@@ -125,7 +125,7 @@
             this.txtMedLow.Name = "txtMedLow";
             this.txtMedLow.Size = new System.Drawing.Size(46, 20);
             this.txtMedLow.TabIndex = 10;
-            this.txtMedLow.Text = "0.3";
+            this.txtMedLow.Text = "0.7";
             this.txtMedLow.TextChanged += new System.EventHandler(this.txtMedLow_TextChanged);
             // 
             // trkMedLow
@@ -136,7 +136,7 @@
             this.trkMedLow.TabIndex = 9;
             this.trkMedLow.TickFrequency = 5;
             this.trkMedLow.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trkMedLow.Value = 3;
+            this.trkMedLow.Value = 7;
             this.trkMedLow.Scroll += new System.EventHandler(this.trkMedLow_Scroll);
             // 
             // lblLSMedium
@@ -183,7 +183,7 @@
             this.txtLow.Name = "txtLow";
             this.txtLow.Size = new System.Drawing.Size(46, 20);
             this.txtLow.TabIndex = 13;
-            this.txtLow.Text = "0.1";
+            this.txtLow.Text = "0.9";
             this.txtLow.TextChanged += new System.EventHandler(this.txtLow_TextChanged);
             // 
             // trkLow
@@ -194,7 +194,7 @@
             this.trkLow.TabIndex = 12;
             this.trkLow.TickFrequency = 5;
             this.trkLow.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trkLow.Value = 1;
+            this.trkLow.Value = 9;
             this.trkLow.Scroll += new System.EventHandler(this.trkLow_Scroll);
             // 
             // btnSubmit
