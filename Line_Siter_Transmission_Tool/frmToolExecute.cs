@@ -69,7 +69,7 @@ namespace LineSiterSitingTool
         List<string> headers = new List<string>();
         List<string> attributes = new List<string>();
         string progress = string.Empty;
-        BackgroundWorker worker = new BackgroundWorker();
+        //BackgroundWorker worker = new BackgroundWorker();
         Random random = new Random();
         BackgroundWorker tracker = new BackgroundWorker();
         #endregion
@@ -288,6 +288,7 @@ namespace LineSiterSitingTool
             try
             {
                 clsWBHost wbHost = new clsWBHost(tslStatus);
+                clsGATGridConversions ggc = new clsGATGridConversions();
                 GISTools.CostAccumulation ac = new GISTools.CostAccumulation();
                 GISTools.CostPathway cp = new GISTools.CostPathway();
                 clsGATGridConversions utConvert = new clsGATGridConversions();
@@ -304,8 +305,14 @@ namespace LineSiterSitingTool
                 IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
                 headers.Add("Pass");
                 attributes.Add(Convert.ToString(currentPass));
+                ggc._conversionRaster = backlink.Filename.Substring(0, backlink.Filename.Length - 4);
+                ggc._gridToConvert = backlink.Filename.Substring(0, backlink.Filename.Length - 4);
+                ggc._bnds = backlink;
+                ggc.convertBGD();
+                IRaster newBklink = Raster.OpenFile(backlink.Filename.Substring(0, backlink.Filename.Length - 4) + "new.bgd");
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
-                clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                //clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
             }
 
@@ -519,7 +526,7 @@ namespace LineSiterSitingTool
                 backlink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", utilityCosts);
                 outAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", utilityCosts);
                 outPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", utilityCosts);
-                gr.prepareGATRasters(saveLocation + @"\UT", worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
+                gr.prepareGATRasters(saveLocation + @"\UT", curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
                 BackgroundWorker utCosts = new BackgroundWorker();
                 paraString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
                 utCosts.WorkerReportsProgress = true;
