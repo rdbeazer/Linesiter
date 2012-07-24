@@ -49,7 +49,7 @@ namespace LineSiterSitingTool
             SaveFileDialog svRas = new SaveFileDialog();
             svRas.Filter = "DotSpatial Raster (*.bgd) | *.bgd";
             svRas.ShowDialog();
-            ggc._gridToConvert = svRas.FileName.Substring(0, svRas.FileName.Length - 4);
+            ggc._conversionRaster = svRas.FileName.Substring(0, svRas.FileName.Length - 4);
         }
 
         private void openBrowse()
@@ -57,7 +57,8 @@ namespace LineSiterSitingTool
             OpenFileDialog opBRas = new OpenFileDialog();
             opBRas.Filter = "Whitebox Raster (*.tas) | *.tas";
             opBRas.ShowDialog();
-            ggc._conversionRaster = opBRas.FileName.Substring(0, opBRas.FileName.Length - 4);
+            ggc._gridToConvert = opBRas.FileName.Substring(0, opBRas.FileName.Length - 4);
+            ggc._bnds = Raster.OpenFile(opBRas.FileName.Substring(0, opBRas.FileName.Length - 4) + ".bgd");
         }
     }
 }
