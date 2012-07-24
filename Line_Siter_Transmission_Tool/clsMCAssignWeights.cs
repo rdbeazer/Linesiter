@@ -164,7 +164,7 @@ namespace LineSiterSitingTool
             {
                 outputPathFilename = saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
             }
-            gr.prepareGATRasters(mcRasSavePath, worker, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
+            gr.prepareGATRasters(mcRasSavePath, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
         }
 
 

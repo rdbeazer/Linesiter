@@ -35,10 +35,10 @@ namespace LineSiterSitingTool
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
           
-         public void prepareGATRasters(string savePath,BackgroundWorker worker, Cursor xcurs, IRaster backlink,IRaster outAccumRaster,ref IRaster outPathRaster, ref string outputPathFilename)
+         public void prepareGATRasters(string savePath, Cursor xcurs, IRaster backlink,IRaster outAccumRaster,ref IRaster outPathRaster, ref string outputPathFilename)
         {
              
-            BackgroundWorker pWorker = worker;
+            //BackgroundWorker pWorker = worker;
             backlinkFilename = savePath + @"\backlink";
             clsGATGridConversions prepareGATs = new clsGATGridConversions();
             prepareGATs._rasterToConvert = backlink;
