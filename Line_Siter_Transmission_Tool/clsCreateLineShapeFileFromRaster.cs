@@ -85,9 +85,11 @@ namespace LineSiterSitingTool
                     Coordinate xy = new Coordinate();
                     xy = bklink.CellToProj(X, Y);
                     pthXYs.Add(xy);
-                    if (pthXYs.Count > 250)
+                    if (pthXYs.Count > 200)
                     {
-                        cont = false;
+                        //cont = false;
+                        saveShapeFile(lineFS, pthXYs, headers, attributes, name, bklink, mw, saveLocation);
+                        pthXYs.Clear();
                     }
                     if (cellValue > 0)
                     {
@@ -155,6 +157,16 @@ namespace LineSiterSitingTool
                 //Coordinate xy2 = new Coordinate();
                 //xy2 = bklink.CellToProj(X, Y);
                 //pthXYs.Add(xy2);
+            }
+
+            catch (System.OutOfMemoryException oome)
+            {
+                MessageBox.Show("Out of memory error. \n" + oome, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+            private void saveShapeFile(FeatureSet lineFS, List<Coordinate> pthXYs, List<string> headers, List<string> attributes, string name, IRaster bklink, IMap mw, string saveLocation)
+            {
                 LineString pathString = new LineString(pthXYs);
                 IFeature pathLine = lineFS.AddFeature(pathString);
                 int a = 0;
@@ -168,12 +180,5 @@ namespace LineSiterSitingTool
                 lineFS.Projection = mw.Projection;
                 lineFS.SaveAs(saveLocation, true);
             }
-
-            catch (System.OutOfMemoryException oome)
-            {
-                MessageBox.Show("Out of memory error. \n" + oome, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
     }
 }
