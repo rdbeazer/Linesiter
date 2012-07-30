@@ -19,12 +19,14 @@ namespace LineSiterSitingTool
         }
         const int NoData = -32768;
         const double lnOf2 = 0.693147180559945;
+        List<Coordinate> lcpPointsCoords = new List<Coordinate>();
+        FeatureSet lcpPoints = new FeatureSet(FeatureType.Point);
 
         public void createShapefile(IRaster rastConvert, int rastVal, string saveLocation, List<string> headers, List<string> attributes, IMap mw, string name, FeatureSet lineFS)
         {
             try
             {
-                List<Coordinate> pthXYs = new List<Coordinate>();
+                //List<Coordinate> pthXYs = new List<Coordinate>();
 
                 for (int nRows = 0; nRows < rastConvert.NumRows; nRows++)
                 {
@@ -32,25 +34,37 @@ namespace LineSiterSitingTool
                     {
                         if (rastConvert.Value[nRows, nCols] == rastVal)
                         {
-                            Coordinate xy = new Coordinate();
-                            xy = rastConvert.CellToProj(nRows, nCols);
-                            pthXYs.Add(xy);
+                            //Coordinate xy = new Coordinate();
+                            //xy = rastConvert.CellToProj(nRows, nCols);
+                            //pthXYs.Add(xy);
+                            Coordinate xyp = new Coordinate();
+                            xyp = rastConvert.CellToProj(nRows, nCols);
+                            lcpPointsCoords.Add(xyp);
                         }
                     }
                 }
-                LineString pathString = new LineString(pthXYs);
-                IFeature pathLine = lineFS.AddFeature(pathString);
-                int a = 0;
-                foreach (string head in headers)
-                    {
-                        pathLine.DataRow[head] = attributes[a];
-                        a++;
-                    }
-                lineFS.Name = name;
-                lineFS.Extent = rastConvert.Extent;
-                lineFS.Projection = mw.Projection;
-                //lineFS.Save();
-                lineFS.SaveAs(saveLocation, true);
+                foreach (Coordinate xyps in lcpPointsCoords)
+                {
+                    DotSpatial.Topology.Point shpPoint = new DotSpatial.Topology.Point(xyps);
+                    IFeature fs = lcpPoints.AddFeature(shpPoint);
+                    //fs.DataRow["PointID"] = pID;
+                    //pID++;
+                }
+                //LineString pathString = new LineString(pthXYs);
+                //IFeature pathLine = lineFS.AddFeature(pathString);
+                //int a = 0;
+                //foreach (string head in headers)
+                //    {
+                //        pathLine.DataRow[head] = attributes[a];
+                //        a++;
+                //    }
+                //lineFS.Name = name;
+                //lineFS.Extent = rastConvert.Extent;
+                //lineFS.Projection = mw.Projection;
+                ////lineFS.Save();
+                //lineFS.SaveAs(saveLocation, true);
+                lcpPoints.SaveAs(saveLocation, true);
+                //mw.Layers.Add(lcpPoints);
             }
             /*catch (Exception ex)
             {
@@ -70,20 +84,20 @@ namespace LineSiterSitingTool
             {
                 //int X = startX;
                 //int Y = startY;
-                int X = endX;
-                int Y = endY;
+                int row = endX;
+                int col = endY;
                 double cellValue = 0;
-                int[] dX = new int[8] { 1, 1, 1, 0, -1, -1, -1, 0 };
-                int[] dY = new int[8] { -1, 0, 1, 1, 1, 0, -1, -1 };
+                int[] drow = new int[8] { 1, 1, 1, 0, -1, -1, -1, 0 };
+                int[] dcol = new int[8] { -1, 0, 1, 1, 1, 0, -1, -1 };
                 bool cont = true;
                 int c = 0;
 
                 List<Coordinate> pthXYs = new List<Coordinate>();
                 do
                 {
-                    cellValue = bklink.Value[X, Y];
+                    cellValue = bklink.Value[row, col];
                     Coordinate xy = new Coordinate();
-                    xy = bklink.CellToProj(X, Y);
+                    xy = bklink.CellToProj(row, col);
                     pthXYs.Add(xy);
                     if (pthXYs.Count > 200)
                     {
@@ -93,9 +107,17 @@ namespace LineSiterSitingTool
                     }
                     if (cellValue > 0)
                     {
+                        //RcIndex cart;
+                        //Coordinate carte;
+                        //cart = bklink.ProjToCell(X, Y);
                         c = Convert.ToInt32(Math.Log(cellValue) / lnOf2);
-                        X += dX[c];
-                        Y += dY[c];
+                        //cart.Column += dX[c];
+                        //cart.Row += dY[c];
+                        //carte = bklink.CellToProj(cart);
+                        //X = Convert.ToInt32(carte.X);
+                        //Y = Convert.ToInt32(carte.Y);
+                        row += drow[c];
+                        col += dcol[c];
                     }
                     else
                     {
