@@ -56,6 +56,7 @@ namespace LineSiterSitingTool
         string costFileName = "";
         IRaster outPath;
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
+        FeatureSet lcpPoints = new FeatureSet(FeatureType.Point);
         FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath = string.Empty;
@@ -310,10 +311,12 @@ namespace LineSiterSitingTool
                 ggc._bnds = backlink;
                 ggc.convertBGD();
                 IRaster newBklink = Raster.OpenFile(backlink.Filename.Substring(0, backlink.Filename.Length - 4) + "new.bgd");
-                clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster(); 
+                clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster();
                 //clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
-                clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
+                clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", lcpPoints);
+                //clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
+                _mapLayer.Layers.Add(lcpPoints);
             }
 
             catch (Exception ex)
