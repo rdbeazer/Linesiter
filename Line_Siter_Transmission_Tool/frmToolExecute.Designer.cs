@@ -55,7 +55,6 @@
             this.lblNumPasses = new System.Windows.Forms.Label();
             this.numPasses = new System.Windows.Forms.NumericUpDown();
             this.dgvSelectLayers = new System.Windows.Forms.DataGridView();
-            this.btnConvert = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -254,7 +253,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnConvert);
             this.groupBox1.Controls.Add(this.btnAlterWeights);
             this.groupBox1.Controls.Add(this.btnAbort);
             this.groupBox1.Controls.Add(this.btnBegin);
@@ -339,16 +337,6 @@
             this.dgvSelectLayers.Size = new System.Drawing.Size(933, 370);
             this.dgvSelectLayers.TabIndex = 2;
             // 
-            // btnConvert
-            // 
-            this.btnConvert.Location = new System.Drawing.Point(1, 73);
-            this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(75, 23);
-            this.btnConvert.TabIndex = 10;
-            this.btnConvert.Text = "1121165";
-            this.btnConvert.UseVisualStyleBackColor = true;
-            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
-            // 
             // frmToolExecute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -409,6 +397,5 @@
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.PictureBox picStartEnd;
-        private System.Windows.Forms.Button btnConvert;
     }
 }

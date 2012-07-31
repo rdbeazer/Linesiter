@@ -158,6 +158,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsLCPGAT.cs" />
     <Compile Include="frm1121165.cs">
       <SubType>Form</SubType>
     </Compile>
