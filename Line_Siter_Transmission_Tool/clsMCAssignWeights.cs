@@ -20,7 +20,7 @@ using System.Threading;
 
 namespace LineSiterSitingTool
 {
-    class clsProcess1
+    class clsMCAssignWeights
     {
         private IRaster _additiveCosts;
         public IRaster additiveCosts
@@ -40,28 +40,28 @@ namespace LineSiterSitingTool
         FeatureSet projectFS = new FeatureSet();
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         clsMonteCarlo MC = new clsMonteCarlo();
-        clsCreateWeightedRasters c1 = new clsCreateWeightedRasters();
+        clsCreateWeightedRasters cwr = new clsCreateWeightedRasters();
         Randomnumber r1 = new Randomnumber();
         double rv = 0;
         string currentQuesPath = "";
         List<IRaster> mcRasterList = new List<IRaster>();
-        clsCostWeight c2 = new clsCostWeight();
+        clsCostWeight costWeight = new clsCostWeight();
         clsprepgatraster gr = new clsprepgatraster();
         BackgroundWorker worker = new BackgroundWorker();
-        clsBuildDirectory b1 = new clsBuildDirectory();
+        clsBuildDirectory bdir = new clsBuildDirectory();
 
-      
-        public void progress(int percent,ProgressBar progressbar,BackgroundWorker tracker )
+
+        public void progress(int percent, ProgressBar progressbar, BackgroundWorker tracker)
         {
             progressbar.Value = percent;
             tracker.WorkerSupportsCancellation = true;
             tracker.WorkerReportsProgress = true;
         }
-        public void clsMCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts,clsBuildDirectory _b1, ref IRaster rasterToConvert, ref string costFileName)
+
+        public void MCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts, ref IRaster rasterToConvert, ref string costFileName)
         {
            
             MC = _mc;
-            b1 = _b1;
             tslStatus.Visible = false;
             finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(currentPass));
             int questNum = 1;
@@ -93,10 +93,10 @@ namespace LineSiterSitingTool
                                 //create directory for each question
                                 string newPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[3].Value);
                                 string rasterPath = saveLocation + @"\linesiter\LSProcessing\Quesid_" + Convert.ToString(dr.Cells[2].Value) + Convert.ToString(dr.Cells[1].Value) + "pa.bgd";
-                                b1.buildDirectory(newPath);
+                                bdir.buildDirectory(newPath);
                                 //load raster file
                                 IRaster oRaster = Raster.OpenFile(rasterPath);
-                                c1.createWeightedRasters(newPath, rasterPath, oRaster, MC, bounds);
+                                cwr.createWeightedRasters(newPath, rasterPath, oRaster, MC, bounds);
                             }
                         }
                     }
@@ -157,7 +157,7 @@ namespace LineSiterSitingTool
                     tracker.ReportProgress(70);
                 }
             }
-            c2.calculate_Cost_Weight(mcRasSavePath, bounds, _mapLayer, currentPass, additiveCosts, utilityCosts);
+            costWeight.calculate_Cost_Weight(mcRasSavePath, bounds, _mapLayer, currentPass, additiveCosts, utilityCosts);
             progress = "Pass " + Convert.ToString(currentPass) + " is complete.";
             tracker.ReportProgress(90);
             if (MC.passType == "Monte Carlo")

@@ -77,7 +77,7 @@ namespace LineSiterSitingTool
 
         clsdoTheProcess p1 = new clsdoTheProcess();
         clsBuildDirectory _b1 = new clsBuildDirectory();
-        clsProcess1 p2 = new clsProcess1();
+        clsMCAssignWeights p2 = new clsMCAssignWeights();
         #region Methods
 
         public frmToolExecute(IMap MapLayer, clsLCPCoords _lc, string _projSavePath, string surveyPath)
@@ -136,7 +136,7 @@ namespace LineSiterSitingTool
             {
                 MessageBox.Show("An error has occurred with the survey dataset.  It appears to be in an incompatible format.  Please choose a correctly formatted dataset."/* + "\n" + oledb*/, "Survey Data Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 //this.Close();
-                this.Shown += new EventHandler (closeOnStart);
+                this.Shown += new EventHandler(closeOnStart);
                 //return;
             }
         }
@@ -223,13 +223,13 @@ namespace LineSiterSitingTool
                     return;
                 }
 
-           
+
                 MC.NumPasses = (int)numPasses.Value;
                 MC.errorCondition = false;
-                MC.passType = "Utility";
+                //MC.passType = "Utility";
                 utCostLine();
-                MC.passType = "Monte Carlo";
-               this.lblProgress.Text = "Performing Process...Please Wait.";
+                //MC.passType = "Monte Carlo";
+                this.lblProgress.Text = "Performing Process...Please Wait.";
             }
 
             catch (Exception ex)
@@ -242,24 +242,21 @@ namespace LineSiterSitingTool
         }
 
 
-       
+
 
         public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             this.progressbar1.Value = e.ProgressPercentage;
             lblProgress.Text = progress;
-           tracker.WorkerSupportsCancellation = true;
-           tracker.WorkerReportsProgress = true; 
             p2.progress(e.ProgressPercentage, progressbar1, tracker);
-            
-       }
-        
-       private void createAccumCostRaster(string outputPathFilename)
+        }
+
+        private void createAccumCostRaster(string outputPathFilename)
         {
             try
             {
                 BackgroundWorker bkwork = new BackgroundWorker();
-                 paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outputAccumFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
+                paraString = new string[6] { startFileName + ".dep", costFileName.Substring(0, costFileName.Length - 4) + ".dep", outputAccumFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
                 bkwork.WorkerReportsProgress = true;
                 bkwork.WorkerSupportsCancellation = false;
                 bkwork.DoWork += new DoWorkEventHandler(bkwork_DoWork);
@@ -275,13 +272,13 @@ namespace LineSiterSitingTool
                 MessageBox.Show("Error: " + ex + "has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
-            } 
+            }
         }
 
         private void bkwork_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker, ref outputPathFilename,currentPass);
+            newWork(worker, ref outputPathFilename, currentPass);
         }
 
         private void newWork(BackgroundWorker worker, ref string outputPathFilename, int currentPass)
@@ -298,7 +295,7 @@ namespace LineSiterSitingTool
                 utConvert.convertToGAT();
                 ac.Initialize(wbHost);
                 ac.Execute(paraString, worker);
-                string[] costPath = new string[3] {endFileName.Substring(0, endFileName.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", outputPathFilename + ".dep" };
+                string[] costPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", outputPathFilename + ".dep" };
                 string bk = backlinkFilename;
                 cp.Initialize(wbHost);
                 cp.Execute(costPath, worker);
@@ -316,7 +313,7 @@ namespace LineSiterSitingTool
                 clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", lcpPoints);
                 //clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
                 shapefileSavePath = saveLocation + @"\MCLCPA.shp";
-                _mapLayer.Layers.Add(lcpPoints);
+                //_mapLayer.Layers.Add(lcpPoints);
             }
 
             catch (Exception ex)
@@ -472,9 +469,9 @@ namespace LineSiterSitingTool
 
 
         #region StartandEndPoints
-        
 
-        
+
+
         private void cboStartEndPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -550,10 +547,12 @@ namespace LineSiterSitingTool
             currentPass = 0;
         }
 
+
+
         private void utCosts_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            newWork(worker, ref outputPathFilename,currentPass);
+            newWork(worker, ref outputPathFilename, currentPass);
             worker.Dispose();
 
         }
@@ -570,15 +569,19 @@ namespace LineSiterSitingTool
             {
                 utilLCPA = FeatureSet.OpenFile(saveLocation + @"\UT\utilityCostsLCPA.shp");
                 this.progressbar1.Style = ProgressBarStyle.Continuous;
-                //b1.buildDirectory(saveLocation + @"\Pass_" + Convert.ToString(currentPass));
+                //bdir.buildDirectory(saveLocation + @"\Pass_" + Convert.ToString(currentPass));
                 //clsCreateBackgroundRasters cbrMC = new clsCreateBackgroundRasters();
                 //backlink = cbrMC.saveRaster(saveLocation + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
                 //outAccumRaster = cbrMC.saveRaster(saveLocation + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
                 //outPathRaster = cbrMC.saveRaster(saveLocation + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
+
+                tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
+                tracker.WorkerSupportsCancellation = true;
+                tracker.WorkerReportsProgress = true; 
+
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
-                    tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-                    p1.doTheProcess(tslStatus, tracker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, _b1, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
+                    p1.doTheProcess(tslStatus, tracker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
                     additiveCosts = p1.additiveCosts;
                     createAccumCostRaster(outputPathFilename);
                     tslStatus.Visible = true;
@@ -597,7 +600,7 @@ namespace LineSiterSitingTool
         {
             frm1121165 x12 = new frm1121165();
             x12.ShowDialog();
-            
+
         }
-       }
+    }
 }
