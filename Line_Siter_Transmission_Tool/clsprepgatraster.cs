@@ -35,7 +35,7 @@ namespace LineSiterSitingTool
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
           
-         public void prepareGATRasters(string savePath, Cursor xcurs, IRaster backlink,IRaster outAccumRaster,ref IRaster outPathRaster, ref string outputPathFilename)
+         public void prepareGATRasters(string savePath, Cursor xcurs, IRaster backlink,IRaster outAccumRaster, IRaster outPathRaster, string outputPathFilename)
         {
              
             //BackgroundWorker pWorker = worker;
@@ -50,7 +50,7 @@ namespace LineSiterSitingTool
             prepareGATs.convertToGAT();
             outputPathFilename = savePath + @"\outputPathRaster";
             prepareGATs._rasterToConvert = outPathRaster;
-            outPathRaster.Filename = outputPathFilename;
+            outPathRaster.Filename = outputPathFilename + ".bgd";
             outPathRaster.Save();
             prepareGATs.convertToGAT();
             xcurs= Cursors.Default;

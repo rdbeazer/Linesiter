@@ -88,7 +88,7 @@ namespace LineSiterSitingTool
                 GATGrid gt = new GATGrid();
                 gt.HeaderFileName = gridToConvert + ".dep";
                 gt.DataFileName = gridToConvert + ".tas";
-                conRaster = Raster.CreateRaster(conversionRaster + "new.bgd", null, gt.NumberColumns, gt.NumberRows, 1, typeof(float), null);
+                conRaster = Raster.CreateRaster(conversionRaster.Substring(0, conversionRaster.Length  -4 ) + "new.bgd", null, gt.NumberColumns, gt.NumberRows, 1, typeof(float), null);
                 conRaster.CellHeight = gt.GridResolution;
                 conRaster.Bounds = bnds.Bounds;
                 conRaster.NoDataValue = -32768;
