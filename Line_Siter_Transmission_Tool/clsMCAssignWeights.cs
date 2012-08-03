@@ -50,14 +50,6 @@ namespace LineSiterSitingTool
         BackgroundWorker worker = new BackgroundWorker();
         clsBuildDirectory bdir = new clsBuildDirectory();
 
-
-        public void progress(int percent, ProgressBar progressbar, BackgroundWorker tracker)
-        {
-            progressbar.Value = percent;
-            tracker.WorkerSupportsCancellation = true;
-            tracker.WorkerReportsProgress = true;
-        }
-
         public void MCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts, ref IRaster rasterToConvert, ref string costFileName)
         {
            
@@ -164,7 +156,7 @@ namespace LineSiterSitingTool
             {
                 outputPathFilename = saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
             }
-            gr.prepareGATRasters(mcRasSavePath, curs, backlink, outAccumRaster, ref outPathRaster, ref outputPathFilename);
+            gr.prepareGATRasters(mcRasSavePath, curs, backlink, outAccumRaster, outPathRaster, outputPathFilename);
         }
 
 
