@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Data;
 using DotSpatial.Data;
 using System.Drawing;
@@ -43,13 +44,10 @@ namespace LineSiterSitingTool
         IRaster endPoint = new Raster();
         string endFileName = "";
         string backlinkFilename = "";
-        IRaster backlink = new Raster();
         GATGrid backlinkGATRaster = new GATGrid();
         string outputAccumFilename = "";
-        IRaster outAccumRaster = new Raster();
         GATGrid outAccumGATRaster = new GATGrid();
         string outputPathFilename = "";
-        IRaster outPathRaster = new Raster();
         GATGrid outPathGATRaster = new GATGrid();
         string[] paraString;
         IRaster rasterToConvert;
@@ -70,9 +68,10 @@ namespace LineSiterSitingTool
         List<string> headers = new List<string>();
         List<string> attributes = new List<string>();
         string progress = string.Empty;
-        BackgroundWorker worker = new BackgroundWorker();
+        string process = string.Empty;
         Random random = new Random();
         BackgroundWorker tracker = new BackgroundWorker();
+        Stopwatch stopWatch = new Stopwatch();
         #endregion
 
         clsdoTheProcess p1 = new clsdoTheProcess();
@@ -222,28 +221,46 @@ namespace LineSiterSitingTool
                     MessageBox.Show("Select the shapefile that has the starting and ending points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                progress = "Performing Monte Carlo Simulation and Least Cost Path Analysis...Please Wait.";
+                progress = "Performing analysis...please wait.";
                 this.Cursor = Cursors.WaitCursor;
                 this.progressbar1.Style = ProgressBarStyle.Continuous;
+                stopWatch.Start();
+                utCostLine();
+
+                tracker.DoWork += new DoWorkEventHandler(tracker_DoWork);
                 tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
+                tracker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tracker_RunWorkerCompleted);
                 tracker.WorkerSupportsCancellation = true;
                 tracker.WorkerReportsProgress = true;
 
                 MC.NumPasses = (int)numPasses.Value;
+                process = "Setting number of passes.";
                 MC.errorCondition = false;
                 tracker.ReportProgress(5);
-                utCostLine();
+                tracker.RunWorkerAsync();
+                this.Cursor = Cursors.Default;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MC.errorCondition = true;
+                this.Close();
+                return;
+            }
+        }
+
+        public void tracker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                BackgroundWorker worker = sender as BackgroundWorker;
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
-                    p1.doTheProcess(tslStatus, tracker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
+                    p1.doTheProcess(tslStatus, worker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
                     additiveCosts = p1.additiveCosts;
-                    createAccumCostRaster(outputPathFilename);
-                    lblProgress.Text = "Finishing Up.";
-                    finishingUp();
-                    //tslStatus.Visible = true;
-                    //tslStatus.Text = "Finishing Up";
-                    tracker.ReportProgress(100);
-                    this.Cursor = Cursors.Default;
+                    //createAccumCostRaster(outputPathFilename);
+                    createMCLCPA(worker);
                 }
             }
 
@@ -260,6 +277,35 @@ namespace LineSiterSitingTool
         {
             this.progressbar1.Value = e.ProgressPercentage;
             lblProgress.Text = progress;
+            lblProcess.Text = process;
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}",
+                ts.Hours, ts.Minutes, ts.Seconds);
+            lblTimeElapsed.Text = "Time Elapsed: " + elapsedTime;
+        }
+
+        public void tracker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                //lblProgress.Text = "Finishing Up.";
+                finishingUp();
+                stopWatch.Stop();
+                //tslStatus.Visible = true;
+                //tslStatus.Text = "Finishing Up";
+                //tracker.ReportProgress(100);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MC.errorCondition = true;
+                this.Close();
+                return;
+            }
         }
 
         private void createAccumCostRaster(string outputPathFilename)
@@ -290,6 +336,7 @@ namespace LineSiterSitingTool
 
         private void createMCLCPA(BackgroundWorker worker)
         {
+            process = "Beginning Monte Carlo least cost path analysis.";
             clsBuildDirectory bdir = new clsBuildDirectory();
             string passSave = saveLocation + @"\linesiter\LSProcessing";
             bdir.buildDirectory(passSave + @"\Pass_" + Convert.ToString(currentPass));
@@ -300,48 +347,40 @@ namespace LineSiterSitingTool
             Cursor curs = Cursors.Arrow;
             string utilFileName = utilCosts.Name;
             clsCreateBackgroundRasters cbrMC = new clsCreateBackgroundRasters();
-            //string bk = backlinkFilename;
             shapefileSavePath = passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\MCLCPA.shp";
-            lcpaShapeName = "Monte Carlo LCPA";
+            lcpaShapeName = "Monte Carlo LCPA" + @"\Pass_" + Convert.ToString(currentPass);
             DataColumn pass = new DataColumn("Pass");
             //pathLines.Projection = _mapLayer.Projection;
             //pathLines.DataTable.Columns.Add(pass);
             //pathLines.SaveAs(shapefileSavePath, true);
-            //IRaster utilsCosts = utilityCosts;
-            //costFileName = saveLocation + @"\UT\utilCosts.bgd";
-            //utilsCosts.SaveAs(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\utilCosts.bgd");
-            IRaster mcCosts = Raster.OpenFile(passSave + @"\costweightraster_" + Convert.ToString(currentPass) + ".bgd");
-            rasterToConvert = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\utilCosts.bgd");
-            backlink = cbrMC.saveRaster(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\", "backlink", utilityCosts);
-            outAccumRaster = cbrMC.saveRaster(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\", "outAccumRaster", utilityCosts);
-            outPathRaster = cbrMC.saveRaster(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\", "outPath", utilityCosts);
-            gr.prepareGATRasters(passSave + @"\Pass_" + Convert.ToString(currentPass), curs, backlink, outAccumRaster, outPathRaster, outPathRaster.Filename);
-            string[] mcParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", mcCosts.Filename.Substring(0, mcCosts.Filename.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
-            string[] mcCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", outPathRaster.Filename + ".dep" };
-            clsLCPGAT mcLCPA = new clsLCPGAT(tslStatus, worker, mcParaString, mcCostPath, tspProgress);
-            string oprFilename = outPathRaster.Filename;
-            BackgroundWorker mcWork = new BackgroundWorker();
-            mcWork.WorkerReportsProgress = true;
-            mcWork.WorkerSupportsCancellation = false;
-            mcWork.DoWork += new DoWorkEventHandler(mcWork_DoWork);
-            //mcWork.RunWorkerCompleted += new RunWorkerCompletedEventHandler(mcWork_RunWorkerCompleted);
-            mcWork.RunWorkerAsync(mcLCPA);
-            mcWork.Dispose();
+            IRaster mcCosts = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\costweightraster_" + Convert.ToString(currentPass) + ".bgd");
+            rasterToConvert = mcCosts; 
             mcConvert._rasterToConvert = rasterToConvert;
             mcConvert._statusMessage = "Converting cost raster. ";
             mcConvert.convertToGAT();
-            //mcLCPA.leastCostPath();
-            convertCostPathwayToBGD(oprFilename);
-            IRaster outPath = Raster.OpenFile(outputPathFilename + "new.bgd");
+            process = "Creating background rasters for pass: " + Convert.ToString(currentPass);
+            IRaster mcBacklink = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink.bgd");
+            IRaster mcOutAccumRaster = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\outAccumRaster.bgd"); 
+            IRaster mcOutPathRaster = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster.bgd");
+            gr.prepareGATRasters(passSave + @"\Pass_" + Convert.ToString(currentPass), curs, mcBacklink, mcOutAccumRaster, mcOutPathRaster, mcOutPathRaster.Filename);
+            string[] mcParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", mcCosts.Filename.Substring(0, mcCosts.Filename.Length - 4) + ".dep", mcOutAccumRaster.Filename.Substring(0, mcOutAccumRaster.Filename.Length - 4) + ".dep", mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
+            string[] mcCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4) + ".dep", mcOutPathRaster.Filename.Substring(0, mcOutPathRaster.Filename.Length - 4) + ".dep" };
+            clsLCPGAT mcLCPA = new clsLCPGAT(tslStatus, mcParaString, mcCostPath);
+            process = "Performing least cost path analysis for pass " + Convert.ToString(currentPass);
+            mcLCPA.leastCostPath(tracker);
+            string mcOprFilename = mcOutPathRaster.Filename;
+            convertCostPathwayToBGD(mcOprFilename);
+            IRaster outPath = Raster.OpenFile(mcOprFilename.Substring(0, mcOprFilename.Length - 4) + "new.bgd");
             headers.Add("Pass");
             attributes.Add(Convert.ToString(currentPass));
-            ggc._conversionRaster = backlink.Filename.Substring(0, backlink.Filename.Length - 4);
-            ggc._gridToConvert = backlink.Filename.Substring(0, backlink.Filename.Length - 4);
-            ggc._bnds = backlink;
+            ggc._conversionRaster = mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4);
+            ggc._gridToConvert = mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4);
+            ggc._bnds = mcBacklink;
             ggc.convertBGD();
             //IRaster newBklink = Raster.OpenFile(backlink.Filename.Substring(0, backlink.Filename.Length - 4) + "new.bgd");
             clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster();
             //clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+            process = "Creating least cost path point file for pass " + Convert.ToString(currentPass);
             clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", lcpPoints);
             //clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
         }
@@ -350,13 +389,13 @@ namespace LineSiterSitingTool
         {
             try
             {
+                process = "Beginning utility costs pass";
                 clsGATGridConversions ggc = new clsGATGridConversions();
                 clsGATGridConversions utConvert = new clsGATGridConversions();
                 FileInfo utilCosts = new FileInfo(utilityCosts.Filename);
                 Cursor curs = Cursors.Arrow;
                 string utilFileName = utilCosts.Name;
                 clsCreateBackgroundRasters cbrUT = new clsCreateBackgroundRasters();
-                //string bk = backlinkFilename;
                 shapefileSavePath = saveLocation + @"\UT\utilityCostsLCPA.shp";
                 lcpaShapeName = "Utility Costs LCPA";
                 DataColumn pass = new DataColumn("Pass");
@@ -364,34 +403,33 @@ namespace LineSiterSitingTool
                 //pathLines.DataTable.Columns.Add(pass);
                 //pathLines.SaveAs(shapefileSavePath, true);
                 b1.buildDirectory(saveLocation + @"\UT");
-                /*IRaster utilsCosts = utilityCosts;*/
-                //costFileName = saveLocation + @"\UT\utilCosts.bgd";
                 utilityCosts.SaveAs(saveLocation + @"\UT\utilCosts.bgd");
                 IRaster utilsCosts = Raster.OpenFile(saveLocation + @"\UT\utilCosts.bgd");
                 rasterToConvert = Raster.OpenFile(saveLocation + @"\UT\utilCosts.bgd");
-                backlink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", utilityCosts);
-                outAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", utilityCosts);
-                outPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", utilityCosts);
-                gr.prepareGATRasters(saveLocation + @"\UT", curs, backlink, outAccumRaster, outPathRaster, outPathRaster.Filename); /*outputPathFilename);*/
-                string[] utParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", /*costFileName.Substring(0, costFileName.Length - 4)*/ utilsCosts.Filename.Substring(0, utilsCosts.Filename.Length - 4) + ".dep", outAccumRaster.Filename.Substring(0, outAccumRaster.Filename.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", "not specified", "not specified" };
-                string[] utCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", backlink.Filename.Substring(0, backlink.Filename.Length - 4) + ".dep", outPathRaster.Filename.Substring(0, outPathRaster.Filename.Length - 4) + ".dep" };
-                clsLCPGAT utLCPA = new clsLCPGAT(tslStatus, worker, utParaString, utCostPath, tspProgress);
+                IRaster utBacklink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", utilityCosts);
+                IRaster utOutAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", utilityCosts);
+                IRaster utOutPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", utilityCosts);
+                gr.prepareGATRasters(saveLocation + @"\UT", curs, utBacklink, utOutAccumRaster, utOutPathRaster, utOutPathRaster.Filename);
+                string[] utParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", utilsCosts.Filename.Substring(0, utilsCosts.Filename.Length - 4) + ".dep", utOutAccumRaster.Filename.Substring(0, utOutAccumRaster.Filename.Length - 4) + ".dep", utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4) + ".dep", "not specified", "not specified" };
+                string[] utCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4) + ".dep", utOutPathRaster.Filename.Substring(0, utOutPathRaster.Filename.Length - 4) + ".dep" };
+                clsLCPGAT utLCPA = new clsLCPGAT(tslStatus, utParaString, utCostPath);
                 utConvert._rasterToConvert = rasterToConvert;
                 utConvert._statusMessage = "Converting cost raster. ";
                 utConvert.convertToGAT();
-                utLCPA.leastCostPath();
-                string oprFilename = outPathRaster.Filename;
-                convertCostPathwayToBGD(oprFilename);
-                IRaster outPath = Raster.OpenFile(oprFilename.Substring(0, oprFilename.Length - 4) + "new.bgd");
+                process = "Creating utility least cost path";
+                utLCPA.leastCostPath(worker);
+                string utOprFilename = utOutPathRaster.Filename;
+                convertCostPathwayToBGD(utOprFilename);
+                IRaster outPath = Raster.OpenFile(utOprFilename.Substring(0, utOprFilename.Length - 4) + "new.bgd");
                 headers.Add("Pass");
                 attributes.Add("UT");
-                ggc._conversionRaster = backlink.Filename.Substring(0, backlink.Filename.Length - 4);
-                ggc._gridToConvert = backlink.Filename.Substring(0, backlink.Filename.Length - 4);
-                ggc._bnds = backlink;
+                ggc._conversionRaster = utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4);
+                ggc._gridToConvert = utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4);
+                ggc._bnds = utBacklink;
                 ggc.convertBGD();
-                //IRaster newBklink = Raster.OpenFile(backlink.Filename.Substring(0, backlink.Filename.Length - 4) + "new.bgd");
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster();
                 //clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
+                process = "Generating utility costs point shapefile";
                 clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "utLCPA", lcpPoints);
                 //clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
             }
@@ -413,7 +451,7 @@ namespace LineSiterSitingTool
         private void mcWork_DoWork(object sender, DoWorkEventArgs e)
         {
             clsLCPGAT wmcLCPA = (clsLCPGAT)e.Argument;
-            wmcLCPA.leastCostPath();
+            wmcLCPA.leastCostPath(tracker);
         }
 
         //private void mcWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -549,21 +587,22 @@ namespace LineSiterSitingTool
 
         private void finishingUp()
         {
-            timesHit2++;
-            if (timesHit2 == (int)(numPasses.Value))
-            {
+            //timesHit2++;
+            //if (timesHit2 == (int)(numPasses.Value))
+            //{
                 IFeatureSet mcLCPA = new FeatureSet();
                 for (int i = 1; i <= MC.NumPasses; i++)
                 {
-                    mcLCPA = FeatureSet.OpenFile(saveLocation + @"\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
+                    mcLCPA = FeatureSet.OpenFile(saveLocation +  @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
+                    _mapLayer.Layers.Add(mcLCPA);
                 }
                 IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
                 finalStatOutput = p1.finalStatOutput;
                 frmResults result = new frmResults(utLCPA, additiveCosts, utilityCosts, mcLCPA, fst, MC.NumPasses, finalStatOutput, saveLocation);
                 result.ShowDialog();
-                _mapLayer.Layers.Add(pathLines);
+                //_mapLayer.Layers.Add(pathLines);
                 this.Close();
-            }
+            //}
         }
 
         #endregion
@@ -647,22 +686,6 @@ namespace LineSiterSitingTool
         {
             try
             {
-                utilLCPA = FeatureSet.OpenFile(saveLocation + @"\UT\utilityCostsLCPA.shp");
-                //bdir.buildDirectory(saveLocation + @"\Pass_" + Convert.ToString(currentPass));
-                //clsCreateBackgroundRasters cbrMC = new clsCreateBackgroundRasters();
-                //backlink = cbrMC.saveRaster(saveLocation + @"\Pass_" + Convert.ToString(currentPass), @"\backlink", bounds);
-                //outAccumRaster = cbrMC.saveRaster(saveLocation + @"\Pass_" + Convert.ToString(currentPass), @"\outAccumRaster", bounds);
-                //outPathRaster = cbrMC.saveRaster(saveLocation + @"\Pass_" + Convert.ToString(currentPass), @"\outputPathRaster", bounds);
-
-            //    for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
-            //    {
-            //        p1.doTheProcess(tslStatus, tracker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, ref outputPathFilename, additiveCosts, ref backlinkFilename, ref outputAccumFilename, tracker_ProgressChanged, ref rasterToConvert, ref costFileName);
-            //        additiveCosts = p1.additiveCosts;
-            //        createAccumCostRaster(outputPathFilename);
-            //        tslStatus.Visible = true;
-            //        tslStatus.Text = "Finishing Up";
-            //        tracker.ReportProgress(100);
-            //    }
             }
             catch (Exception ex)
             {
