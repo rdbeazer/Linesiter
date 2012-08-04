@@ -55,6 +55,8 @@
             this.lblNumPasses = new System.Windows.Forms.Label();
             this.numPasses = new System.Windows.Forms.NumericUpDown();
             this.dgvSelectLayers = new System.Windows.Forms.DataGridView();
+            this.lblTimeElapsed = new System.Windows.Forms.Label();
+            this.lblProcess = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -139,6 +141,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblProcess);
+            this.groupBox2.Controls.Add(this.lblTimeElapsed);
             this.groupBox2.Controls.Add(this.lblProgress);
             this.groupBox2.Controls.Add(this.picStartEnd);
             this.groupBox2.Controls.Add(this.cboStartEndPoints);
@@ -159,7 +163,7 @@
             // lblProgress
             // 
             this.lblProgress.AutoSize = true;
-            this.lblProgress.Location = new System.Drawing.Point(285, 61);
+            this.lblProgress.Location = new System.Drawing.Point(419, 18);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(0, 13);
             this.lblProgress.TabIndex = 10;
@@ -167,7 +171,7 @@
             // picStartEnd
             // 
             this.picStartEnd.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picStartEnd.Location = new System.Drawing.Point(241, 83);
+            this.picStartEnd.Location = new System.Drawing.Point(350, 85);
             this.picStartEnd.Name = "picStartEnd";
             this.picStartEnd.Size = new System.Drawing.Size(28, 21);
             this.picStartEnd.TabIndex = 31;
@@ -180,24 +184,24 @@
             this.cboStartEndPoints.FormattingEnabled = true;
             this.cboStartEndPoints.Location = new System.Drawing.Point(9, 85);
             this.cboStartEndPoints.Name = "cboStartEndPoints";
-            this.cboStartEndPoints.Size = new System.Drawing.Size(226, 21);
+            this.cboStartEndPoints.Size = new System.Drawing.Size(335, 21);
             this.cboStartEndPoints.TabIndex = 30;
             this.cboStartEndPoints.Text = "Select Shapefile for Start and End Points";
             this.cboStartEndPoints.SelectedIndexChanged += new System.EventHandler(this.cboStartEndPoints_SelectedIndexChanged);
             // 
             // progressbar1
             // 
-            this.progressbar1.Location = new System.Drawing.Point(284, 83);
+            this.progressbar1.Location = new System.Drawing.Point(395, 32);
             this.progressbar1.MarqueeAnimationSpeed = 10;
             this.progressbar1.Name = "progressbar1";
-            this.progressbar1.Size = new System.Drawing.Size(392, 21);
+            this.progressbar1.Size = new System.Drawing.Size(271, 20);
             this.progressbar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressbar1.TabIndex = 1;
             // 
             // pictRej2
             // 
             this.pictRej2.Image = global::LineSiterSitingTool.Properties.Resources.dialog_cancel;
-            this.pictRej2.Location = new System.Drawing.Point(241, 58);
+            this.pictRej2.Location = new System.Drawing.Point(350, 58);
             this.pictRej2.Name = "pictRej2";
             this.pictRej2.Size = new System.Drawing.Size(28, 21);
             this.pictRej2.TabIndex = 24;
@@ -207,7 +211,7 @@
             // picAcpt2
             // 
             this.picAcpt2.Image = global::LineSiterSitingTool.Properties.Resources.dialog_accept;
-            this.picAcpt2.Location = new System.Drawing.Point(241, 58);
+            this.picAcpt2.Location = new System.Drawing.Point(350, 58);
             this.picAcpt2.Name = "picAcpt2";
             this.picAcpt2.Size = new System.Drawing.Size(28, 21);
             this.picAcpt2.TabIndex = 23;
@@ -219,7 +223,7 @@
             this.cboSelectUtilityRaster.FormattingEnabled = true;
             this.cboSelectUtilityRaster.Location = new System.Drawing.Point(9, 58);
             this.cboSelectUtilityRaster.Name = "cboSelectUtilityRaster";
-            this.cboSelectUtilityRaster.Size = new System.Drawing.Size(226, 21);
+            this.cboSelectUtilityRaster.Size = new System.Drawing.Size(335, 21);
             this.cboSelectUtilityRaster.TabIndex = 20;
             this.cboSelectUtilityRaster.Text = "Select a Utility Cost Raster";
             this.cboSelectUtilityRaster.SelectedIndexChanged += new System.EventHandler(this.cboSelectUtilityRaster_SelectedIndexChanged);
@@ -229,13 +233,13 @@
             this.txtSaveLocation.Enabled = false;
             this.txtSaveLocation.Location = new System.Drawing.Point(6, 32);
             this.txtSaveLocation.Name = "txtSaveLocation";
-            this.txtSaveLocation.Size = new System.Drawing.Size(575, 20);
+            this.txtSaveLocation.Size = new System.Drawing.Size(338, 20);
             this.txtSaveLocation.TabIndex = 19;
             // 
             // btnBrowse
             // 
             this.btnBrowse.Image = global::LineSiterSitingTool.Properties.Resources.document_open_2__1_;
-            this.btnBrowse.Location = new System.Drawing.Point(587, 29);
+            this.btnBrowse.Location = new System.Drawing.Point(350, 30);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(31, 23);
             this.btnBrowse.TabIndex = 18;
@@ -337,6 +341,22 @@
             this.dgvSelectLayers.Size = new System.Drawing.Size(933, 370);
             this.dgvSelectLayers.TabIndex = 2;
             // 
+            // lblTimeElapsed
+            // 
+            this.lblTimeElapsed.AutoSize = true;
+            this.lblTimeElapsed.Location = new System.Drawing.Point(422, 88);
+            this.lblTimeElapsed.Name = "lblTimeElapsed";
+            this.lblTimeElapsed.Size = new System.Drawing.Size(0, 13);
+            this.lblTimeElapsed.TabIndex = 32;
+            // 
+            // lblProcess
+            // 
+            this.lblProcess.AutoSize = true;
+            this.lblProcess.Location = new System.Drawing.Point(422, 59);
+            this.lblProcess.Name = "lblProcess";
+            this.lblProcess.Size = new System.Drawing.Size(0, 13);
+            this.lblProcess.TabIndex = 33;
+            // 
             // frmToolExecute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -397,5 +417,7 @@
         private System.Windows.Forms.ProgressBar progressbar1;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.PictureBox picStartEnd;
+        private System.Windows.Forms.Label lblTimeElapsed;
+        private System.Windows.Forms.Label lblProcess;
     }
 }

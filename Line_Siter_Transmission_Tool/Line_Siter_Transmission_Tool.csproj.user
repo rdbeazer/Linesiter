@@ -3,4 +3,7 @@
   <PropertyGroup>
     <ReferencePath>C:\Users\Robert\Documents\LDRD\Tool Development\Libraries\DotSpatial 1.2 Minimal\;C:\Users\Robert\Documents\LDRD\Tool Development\Libraries\whitebox\bin\debug\;C:\Users\Robert\Documents\LDRD\Tool Development\Libraries\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GeospatialAnalysisTools\bin\Debug\</ReferencePath>
   </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
 </Project>
