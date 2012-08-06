@@ -63,6 +63,7 @@ namespace LineSiterSitingTool
                 //lineFS.Projection = mw.Projection;
                 ////lineFS.Save();
                 //lineFS.SaveAs(saveLocation, true);
+                lcpPoints.Projection = mw.Projection;
                 lcpPoints.SaveAs(saveLocation, true);
                 //mw.Layers.Add(lcpPoints);
             }

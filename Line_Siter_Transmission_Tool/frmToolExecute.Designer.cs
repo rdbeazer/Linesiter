@@ -38,6 +38,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblProcess = new System.Windows.Forms.Label();
+            this.lblTimeElapsed = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
             this.picStartEnd = new System.Windows.Forms.PictureBox();
             this.cboStartEndPoints = new System.Windows.Forms.ComboBox();
@@ -55,8 +57,6 @@
             this.lblNumPasses = new System.Windows.Forms.Label();
             this.numPasses = new System.Windows.Forms.NumericUpDown();
             this.dgvSelectLayers = new System.Windows.Forms.DataGridView();
-            this.lblTimeElapsed = new System.Windows.Forms.Label();
-            this.lblProcess = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -160,10 +160,27 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Shapefiles/Rasters";
             // 
+            // lblProcess
+            // 
+            this.lblProcess.AutoSize = true;
+            this.lblProcess.Location = new System.Drawing.Point(395, 58);
+            this.lblProcess.Name = "lblProcess";
+            this.lblProcess.Size = new System.Drawing.Size(0, 13);
+            this.lblProcess.TabIndex = 33;
+            // 
+            // lblTimeElapsed
+            // 
+            this.lblTimeElapsed.AutoSize = true;
+            this.lblTimeElapsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimeElapsed.Location = new System.Drawing.Point(393, 81);
+            this.lblTimeElapsed.Name = "lblTimeElapsed";
+            this.lblTimeElapsed.Size = new System.Drawing.Size(0, 16);
+            this.lblTimeElapsed.TabIndex = 32;
+            // 
             // lblProgress
             // 
             this.lblProgress.AutoSize = true;
-            this.lblProgress.Location = new System.Drawing.Point(419, 18);
+            this.lblProgress.Location = new System.Drawing.Point(395, 18);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(0, 13);
             this.lblProgress.TabIndex = 10;
@@ -192,7 +209,7 @@
             // progressbar1
             // 
             this.progressbar1.Location = new System.Drawing.Point(395, 32);
-            this.progressbar1.MarqueeAnimationSpeed = 10;
+            this.progressbar1.MarqueeAnimationSpeed = 50;
             this.progressbar1.Name = "progressbar1";
             this.progressbar1.Size = new System.Drawing.Size(271, 20);
             this.progressbar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -340,22 +357,6 @@
             this.dgvSelectLayers.Name = "dgvSelectLayers";
             this.dgvSelectLayers.Size = new System.Drawing.Size(933, 370);
             this.dgvSelectLayers.TabIndex = 2;
-            // 
-            // lblTimeElapsed
-            // 
-            this.lblTimeElapsed.AutoSize = true;
-            this.lblTimeElapsed.Location = new System.Drawing.Point(422, 88);
-            this.lblTimeElapsed.Name = "lblTimeElapsed";
-            this.lblTimeElapsed.Size = new System.Drawing.Size(0, 13);
-            this.lblTimeElapsed.TabIndex = 32;
-            // 
-            // lblProcess
-            // 
-            this.lblProcess.AutoSize = true;
-            this.lblProcess.Location = new System.Drawing.Point(422, 59);
-            this.lblProcess.Name = "lblProcess";
-            this.lblProcess.Size = new System.Drawing.Size(0, 13);
-            this.lblProcess.TabIndex = 33;
             // 
             // frmToolExecute
             // 

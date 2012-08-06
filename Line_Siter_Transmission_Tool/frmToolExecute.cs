@@ -223,7 +223,8 @@ namespace LineSiterSitingTool
                 }
                 progress = "Performing analysis...please wait.";
                 this.Cursor = Cursors.WaitCursor;
-                this.progressbar1.Style = ProgressBarStyle.Continuous;
+                this.progressbar1.Style = ProgressBarStyle.Marquee;
+                this.progressbar1.MarqueeAnimationSpeed = 60;
                 stopWatch.Start();
                 utCostLine();
 
@@ -587,22 +588,18 @@ namespace LineSiterSitingTool
 
         private void finishingUp()
         {
-            //timesHit2++;
-            //if (timesHit2 == (int)(numPasses.Value))
-            //{
-                IFeatureSet mcLCPA = new FeatureSet();
-                for (int i = 1; i <= MC.NumPasses; i++)
-                {
-                    mcLCPA = FeatureSet.OpenFile(saveLocation +  @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
-                    _mapLayer.Layers.Add(mcLCPA);
-                }
-                IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
-                finalStatOutput = p1.finalStatOutput;
-                frmResults result = new frmResults(utLCPA, additiveCosts, utilityCosts, mcLCPA, fst, MC.NumPasses, finalStatOutput, saveLocation);
-                result.ShowDialog();
-                //_mapLayer.Layers.Add(pathLines);
-                this.Close();
-            //}
+            IFeatureSet mcLCPA = new FeatureSet();
+            for (int i = 1; i <= MC.NumPasses; i++)
+            {
+                mcLCPA = FeatureSet.OpenFile(saveLocation +  @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
+                _mapLayer.Layers.Add(mcLCPA);
+            }
+            IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
+            finalStatOutput = p1.finalStatOutput;
+            frmResults result = new frmResults(utLCPA, additiveCosts, utilityCosts, mcLCPA, fst, MC.NumPasses, finalStatOutput, saveLocation);
+            result.ShowDialog();
+            //_mapLayer.Layers.Add(pathLines);
+            this.Close();
         }
 
         #endregion

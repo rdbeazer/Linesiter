@@ -41,13 +41,21 @@ namespace LineSiterSitingTool
 
         private void addResults()
         {
+            mpMTCosts.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
+            mpUTCosts.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
+            mpRasterResults.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
             mpUTCosts.Layers.Add(_UTCosts);
             mpUTCosts.Layers.Add(_StartEndPoints);
             mpUTCosts.Layers.Add(_UTPath);
             mpUTCosts.ResetBuffer();
-            mpMTCosts.Layers.Add(_MTCosts);
-            mpMTCosts.Layers.Add(_StartEndPoints);
-            mpMTCosts.ResetBuffer();
+            for (int i = 1; i <= _mtPasses; i++)
+            {
+                //mpMTCosts.Layers.Add(_MTCosts);
+                IFeatureSet mcLCPA = FeatureSet.OpenFile(_saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
+                mpMTCosts.Layers.Add(mcLCPA);
+                mpMTCosts.Layers.Add(_StartEndPoints);
+                mpMTCosts.ResetBuffer();
+            }
             mpRasterResults.Layers.Add(_additive);
             //---Add green to red symbolization here....
             mpRasterResults.Layers.Add(_StartEndPoints);

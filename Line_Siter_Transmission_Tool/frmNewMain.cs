@@ -151,7 +151,7 @@ namespace LineSiterSitingTool
 
         private void frmNewMain_Load(object sender, EventArgs e)
         {
-            this.Text = "Line Siter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = "LineSiter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void qRbPgTools_Activated(object sender, EventArgs e)

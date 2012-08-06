@@ -70,8 +70,8 @@
             this.mpUTCosts.Location = new System.Drawing.Point(3, 22);
             this.mpUTCosts.Name = "mpUTCosts";
             this.mpUTCosts.ProgressHandler = null;
-            this.mpUTCosts.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Prompt;
-            this.mpUTCosts.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
+            this.mpUTCosts.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Never;
+            this.mpUTCosts.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
             this.mpUTCosts.RedrawLayersWhileResizing = false;
             this.mpUTCosts.SelectionEnabled = true;
             this.mpUTCosts.Size = new System.Drawing.Size(362, 191);
@@ -112,8 +112,8 @@
             this.mpMTCosts.Location = new System.Drawing.Point(3, 22);
             this.mpMTCosts.Name = "mpMTCosts";
             this.mpMTCosts.ProgressHandler = null;
-            this.mpMTCosts.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Prompt;
-            this.mpMTCosts.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
+            this.mpMTCosts.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Never;
+            this.mpMTCosts.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
             this.mpMTCosts.RedrawLayersWhileResizing = false;
             this.mpMTCosts.SelectionEnabled = true;
             this.mpMTCosts.Size = new System.Drawing.Size(362, 191);
@@ -166,8 +166,8 @@
             this.mpRasterResults.Location = new System.Drawing.Point(3, 22);
             this.mpRasterResults.Name = "mpRasterResults";
             this.mpRasterResults.ProgressHandler = null;
-            this.mpRasterResults.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Prompt;
-            this.mpRasterResults.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
+            this.mpRasterResults.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Never;
+            this.mpRasterResults.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
             this.mpRasterResults.RedrawLayersWhileResizing = false;
             this.mpRasterResults.SelectionEnabled = true;
             this.mpRasterResults.Size = new System.Drawing.Size(362, 191);
