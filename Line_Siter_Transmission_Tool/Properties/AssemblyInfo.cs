@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Line Siter")]
+[assembly: AssemblyTitle("LineSiter")]
 [assembly: AssemblyDescription("This software is a high voltage transmission line siting tool developed to include social information from a survey instrument.  It uses various functions including a Monte Carlo process to determine a proposed least cost path for transmission line siting.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("INL Boise State University Energy Policy Institute Center for Advanced Energy Studies")]
-[assembly: AssemblyProduct("Line Siter")]
+[assembly: AssemblyProduct("LineSiter")]
 [assembly: AssemblyCopyright("Copyright ©  2011 Idaho State University Geospatial Software Lab")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.1.1718")]
-[assembly: AssemblyFileVersion("0.5.1.1718")]
+[assembly: AssemblyVersion("0.5.2.3")]
+[assembly: AssemblyFileVersion("0.5.2.3")]
