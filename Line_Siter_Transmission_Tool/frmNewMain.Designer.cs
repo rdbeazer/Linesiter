@@ -399,6 +399,7 @@
             this.qButSubtract1.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
             this.qButSubtract1.Icon = ((System.Drawing.Icon)(resources.GetObject("qButSubtract1.Icon")));
             this.qButSubtract1.Title = "Subtract Raster";
+            this.qButSubtract1.Visible = false;
             this.qButSubtract1.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButSubtract1_ItemActivated);
             // 
             // qRbPgFile
