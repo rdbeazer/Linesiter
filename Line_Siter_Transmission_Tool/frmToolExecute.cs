@@ -349,7 +349,7 @@ namespace LineSiterSitingTool
             string utilFileName = utilCosts.Name;
             clsCreateBackgroundRasters cbrMC = new clsCreateBackgroundRasters();
             shapefileSavePath = passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\MCLCPA.shp";
-            lcpaShapeName = "Monte Carlo LCPA" + @"\Pass_" + Convert.ToString(currentPass);
+            lcpaShapeName = "Monte Carlo LCPA" + @" Pass_" + Convert.ToString(currentPass);
             DataColumn pass = new DataColumn("Pass");
             //pathLines.Projection = _mapLayer.Projection;
             //pathLines.DataTable.Columns.Add(pass);
@@ -382,7 +382,7 @@ namespace LineSiterSitingTool
             clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster();
             //clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
             process = "Creating least cost path point file for pass " + Convert.ToString(currentPass);
-            clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", lcpPoints);
+            clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, lcpaShapeName, lcpPoints);
             //clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
         }
 
@@ -592,7 +592,7 @@ namespace LineSiterSitingTool
             for (int i = 1; i <= MC.NumPasses; i++)
             {
                 mcLCPA = FeatureSet.OpenFile(saveLocation +  @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
-                _mapLayer.Layers.Add(mcLCPA);
+                _mapLayer.Layers.Add(mcLCPA).LegendText = "MCLCPA Pass: " + Convert.ToString(i);
             }
             IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
             finalStatOutput = p1.finalStatOutput;
