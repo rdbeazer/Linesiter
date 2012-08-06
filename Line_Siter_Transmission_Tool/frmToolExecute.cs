@@ -443,49 +443,6 @@ namespace LineSiterSitingTool
             }
         }
 
-        //private void bkwork_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    tspProgress.Value = e.ProgressPercentage;
-
-        //}
-
-        private void mcWork_DoWork(object sender, DoWorkEventArgs e)
-        {
-            clsLCPGAT wmcLCPA = (clsLCPGAT)e.Argument;
-            wmcLCPA.leastCostPath(tracker);
-        }
-
-        //private void mcWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    try
-        //    {
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        this.Close();
-        //        return;
-        //    }
-        //}
-
-        //private void bkwork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-
-        //    try
-        //    {
-        //        finishingUp();
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error: " + ex + " \n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        this.Close();
-        //        return;
-        //    }
-
-        //}
-
         private void convertCostPathwayToBGD(string oprFileName)
         {
             clsGATGridConversions cpRas = new clsGATGridConversions();
@@ -589,6 +546,7 @@ namespace LineSiterSitingTool
         private void finishingUp()
         {
             IFeatureSet mcLCPA = new FeatureSet();
+            lblProcess.Text = "Adding cost layers to map";
             for (int i = 1; i <= MC.NumPasses; i++)
             {
                 mcLCPA = FeatureSet.OpenFile(saveLocation +  @"\linesiter\LSProcessing\Pass_" + Convert.ToString(i) + @"\MCLCPA.shp");
@@ -596,6 +554,7 @@ namespace LineSiterSitingTool
             }
             IRaster utLCPA = Raster.OpenFile(saveLocation + @"\UT\outputpathrasternew.bgd");
             finalStatOutput = p1.finalStatOutput;
+            lblProcess.Text = "Finishing up...please wait for results window.";
             frmResults result = new frmResults(utLCPA, additiveCosts, utilityCosts, mcLCPA, fst, MC.NumPasses, finalStatOutput, saveLocation);
             result.ShowDialog();
             //_mapLayer.Layers.Add(pathLines);
