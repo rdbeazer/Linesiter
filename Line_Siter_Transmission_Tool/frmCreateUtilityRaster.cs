@@ -42,8 +42,8 @@ namespace LineSiterSitingTool
                 rtbHelpBox.SelectionFont = new Font("Arial", 10f, FontStyle.Regular);
                 rtbHelpBox.AppendText("This process creates a cost raster from shapefiles loaded in the project.  ");
                 rtbHelpBox.AppendText("To create the raster, check the box next to the relevant layers and select the cost ");
-                rtbHelpBox.AppendText("passNumber you wish to apply to the resulting raster.  NOTE: ***  ");
-                rtbHelpBox.AppendText("Relevant shapefiles must have a cost passNumber in order to create the utility cost raster. *** ");
+                rtbHelpBox.AppendText("cost attribute column you wish to apply to the resulting raster.  NOTE: ***  ");
+                rtbHelpBox.AppendText("Relevant shapefiles must have a cost attribute in order to create the utility cost raster. *** ");
             }
             catch (Exception ex)
             {
@@ -98,7 +98,8 @@ namespace LineSiterSitingTool
                     return;
                 }
 
-                this.lblprogress.Text = "Performing Process...Please Wait.";
+                //this.lblprogress.Text = "Performing Process...Please Wait.";
+                progress = "Begining process..please wait...";
                 int cellSize = (int)txtCellSize.Value;
                 IRaster boundingRaster = Raster.OpenFile(txtOpenBoundsRaster.Text);
                 Extent boundingExtent = boundingRaster.Extent;
@@ -114,13 +115,16 @@ namespace LineSiterSitingTool
                 List<IRaster> lRaster = new List<IRaster>();
                 clsRasterOps rasterMA = new clsRasterOps(_MW);
                 string[] ras1 = new string[1];
+                progress = "Creating new raster template";
                 IRaster fOutputRaster = Raster.CreateRaster(savePath, null, rasterCol, rasterRow, 1, typeof(double), ras1);
                 fOutputRaster.CellHeight = boundingRaster.CellHeight;
                 fOutputRaster.CellWidth = boundingRaster.CellWidth;
                 fOutputRaster.Projection = _MW.Projection;
                 fOutputRaster.Save();
+                progress = "Raster template saved";
                 tracker.ReportProgress(30);
                 IRaster outputRaster = new Raster();
+                progress = "Creating temp directory";
                 if (!Directory.Exists(@"c:\temp\linesiter\LSProcessing\UTRasters\"))
                 {
                     Directory.CreateDirectory(@"c:\temp\linesiter\LSProcessing\UTRasters\");
@@ -130,8 +134,13 @@ namespace LineSiterSitingTool
                 {
                     foreach (Layer lay in _MW.Layers)
                     {
+                        int i = 1;
+                        double inProgress = (i/_MW.Layers.Count)*100;
+                        tracker.ReportProgress(Convert.ToInt32(inProgress));
+                        i++;
                         if (lay.LegendText == dL.Key)
                         {
+                            progress = "Processing shapefile " + lay.LegendText;
                             MapRasterLayer mras = lay as MapRasterLayer;
                             if (mras == null)
                             {
@@ -145,13 +154,13 @@ namespace LineSiterSitingTool
                                 //create method to add rasters together
                                 IRaster sendRaster = Raster.Open(@"c:\temp\linesiter\LSProcessing\UTRasters\" + lay.LegendText + "pa.bgd");
                                 sendRaster.Projection = _MW.Projection;
-                                tracker.ReportProgress(50);
+                                //tracker.ReportProgress(50);
                                 sendRaster.Save();
                                  fOutputRaster.Bounds = sendRaster.Bounds;
                                  fOutputRaster.Projection = _MW.Projection;
                                 fOutputRaster.Save();
 
-                                tracker.ReportProgress(80);
+                                //tracker.ReportProgress(80);
                                 //MessageBox.Show("Raster: " + (string)dL.Key + " is loaded.  Its row and column count is: " + Convert.ToString(sendRaster.NumRows) + " " + Convert.ToString(sendRaster.NumColumns) + ".", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 lRaster.Add(sendRaster);
                             }
