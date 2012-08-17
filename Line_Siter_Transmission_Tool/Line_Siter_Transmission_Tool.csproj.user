@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ReferencePath>C:\Users\Robert\Documents\LDRD\Tool Development\Libraries\DotSpatial 1.2 Minimal\;C:\Users\Robert\Documents\LDRD\Tool Development\Libraries\whitebox\bin\debug\;C:\Users\Robert\Documents\LDRD\Tool Development\Libraries\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GeospatialAnalysisTools\bin\Debug\</ReferencePath>
+    <ReferencePath>C:\Users\Robert\Documents\LDRD\LineSiterDev\linesiter\Resources\libraries\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
