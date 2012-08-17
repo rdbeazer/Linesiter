@@ -49,7 +49,6 @@ namespace LineSiterSitingTool
         GATGrid outAccumGATRaster = new GATGrid();
         string outputPathFilename = "";
         GATGrid outPathGATRaster = new GATGrid();
-        string[] paraString;
         IRaster rasterToConvert;
         string costFileName = "";
         IRaster outPath;
@@ -63,7 +62,6 @@ namespace LineSiterSitingTool
         List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
-        IFeatureSet utilLCPA;
         List<IRaster> mcRasterList = new List<IRaster>();
         List<string> headers = new List<string>();
         List<string> attributes = new List<string>();
@@ -534,7 +532,7 @@ namespace LineSiterSitingTool
         {
             foreach (Layer lay in _mapLayer.Layers)
             {
-                if (lay.LegendText == cboSelectUtilityRaster.SelectedItem)
+                if (lay.LegendText == cboSelectUtilityRaster.SelectedItem.ToString())
                 {
                     utilityCosts = (IRaster)lay.DataSet;
                     projectFS.Extent = utilityCosts.Extent;

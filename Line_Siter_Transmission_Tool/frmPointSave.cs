@@ -23,7 +23,6 @@ namespace LineSiterSitingTool
         FileInfo pathInfo = null;
         List<Coordinate> shCoords = new List<Coordinate>();
         BackgroundWorker worker = new BackgroundWorker();
-        string statusMessage;
         FeatureSet startEndPoints = new FeatureSet(FeatureType.Point);
         string savedElements = "";
         string bndRasterText = string.Empty;
@@ -105,7 +104,6 @@ namespace LineSiterSitingTool
             {
                 string pathS = pathInfo.FullName + @"\startEndPoints.shp";
                 startEndPoints.Name = "start end points";
-                statusMessage = "Creating Shapefile";
                 DataColumn pointID = new DataColumn("PointID");
                 int pID = 0;
                 startEndPoints.DataTable.Columns.Add(pointID);
@@ -120,7 +118,6 @@ namespace LineSiterSitingTool
                     fs.DataRow["PointID"] = pID;
                     pID++;
                 }
-                statusMessage = "Saving Shapefile";
                 startEndPoints.SaveAs(pathS, true);
                 addShapeFileToMap(startEndPoints);
                 //saveRasterFile();
@@ -155,14 +152,13 @@ namespace LineSiterSitingTool
              //int progress = 0;
                 foreach (Layer lay in _MW.GetLayers())
                 {
-                    if (lay.LegendText == cboLayers.SelectedItem)
+                    if (lay.LegendText == cboLayers.SelectedItem.ToString())
                     {
                         newRast = (IRaster)lay.DataSet;
                     }
 
                 }
                 string pathS = pathInfo.FullName;
-                statusMessage = "Creating Rasters";
                 IRaster startPoint = Raster.CreateRaster(pathS + @"\startPoint.bgd", null, newRast.NumColumns, newRast.NumRows, 1, typeof(int), rasOps);
                 IRaster endPoint = Raster.CreateRaster(pathS + @"\endPoint.bgd", null, newRast.NumColumns, newRast.NumRows, 1, typeof(int), rasOps);
                 startPoint.Bounds = newRast.Bounds;

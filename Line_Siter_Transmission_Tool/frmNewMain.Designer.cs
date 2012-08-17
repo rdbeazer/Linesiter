@@ -306,7 +306,7 @@
             this.qRbPgTools.PersistGuid = new System.Guid("c729c342-81f5-4b6f-b25f-049858abbbed");
             this.qRbPgTools.Size = new System.Drawing.Size(975, 87);
             this.qRbPgTools.Text = "Line Siter Tools";
-            this.qRbPgTools.Activated += new System.EventHandler(this.qRbPgTools_Activated);
+            
             // 
             // qRPAnalysis
             // 
@@ -412,7 +412,6 @@
             this.qRbPgFile.PersistGuid = new System.Guid("89a73cef-7694-4bec-a33d-183c0933a9d9");
             this.qRbPgFile.Size = new System.Drawing.Size(975, 87);
             this.qRbPgFile.Text = "File";
-            this.qRbPgFile.Activated += new System.EventHandler(this.qRbPgFile_Activated);
             // 
             // qRbPnFile
             // 

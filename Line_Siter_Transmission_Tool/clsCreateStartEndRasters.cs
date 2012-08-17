@@ -14,20 +14,8 @@ namespace LineSiterSitingTool
     class clsCreateStartEndRasters
     {
         IFeatureSet fst = new FeatureSet();
-
-        private IRaster _startPoint;
-        public IRaster startPoint
-        {
-            get {return _startPoint;}
-            set {_startPoint = value;}
-        }
-
-        private IRaster _endPoint;
-        public IRaster endPoint
-        {
-            get {return _endPoint;}
-            set {_endPoint = value;}
-        }
+        public IRaster startPoint { get; set; }
+        public IRaster endPoint { get; set; }
 
         public void createRasters(IMap MW, string selectedItem, clsLCPCoords LC, IRaster utilCosts, string SL)
         {

@@ -199,12 +199,6 @@
     <Compile Include="frmResults.Designer.cs">
       <DependentUpon>frmResults.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSelectLayers.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSelectLayers.Designer.cs">
-      <DependentUpon>frmSelectLayers.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmSubtract.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,9 +269,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmResults.resx">
       <DependentUpon>frmResults.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmSelectLayers.resx">
-      <DependentUpon>frmSelectLayers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSubtract.resx">
       <DependentUpon>frmSubtract.cs</DependentUpon>

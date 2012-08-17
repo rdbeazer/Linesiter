@@ -20,12 +20,7 @@ namespace LineSiterSitingTool
         {
             InitializeComponent();
             _MW = mapFrame;
-            loadRtb();
-            if (projSavePath != string.Empty)
-            {
-                txtSaveLocation.Text = projSavePath;
-                FileInfo _pathInfo = new FileInfo(projSavePath);
-            }
+            loadRtb();        
         }
 
         IRaster passingRaster = new Raster();

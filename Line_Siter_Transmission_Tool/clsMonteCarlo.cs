@@ -11,96 +11,19 @@ namespace LineSiterSitingTool
         int timesSaved = 1;
 
         #region Properties
-        private int numPasses;
-        public int NumPasses
-        {
-            get { return numPasses; }
-            set { numPasses = value; }
-        }
-
-        private double _socialWeight;
-        public double socialWeight
-        {
-            get { return _socialWeight; }
-            set { _socialWeight = value; }
-        }
-
-        private double[] _assignedWeights;
-        public double[] assignedWeights
-        {
-            get { return _assignedWeights; }
-            set { _assignedWeights = value; }
-        }
-
-        private string _wRaster;
-        public string wRaster
-        {
-            get { return _wRaster; }
-            set { _wRaster = value; }
-        }
-
-        private int _oGreaterThanZeroCount;
-        public int oGreaterThanZeroCount
-        {
-            get { return _oGreaterThanZeroCount; }
-            set { _oGreaterThanZeroCount = value; }
-        }
-
-        private int _mGreaterThanZeroCount;
-        public int mGreaterThanZeroCount
-        {
-            get { return _mGreaterThanZeroCount; }
-            set { _mGreaterThanZeroCount = value; }
-        }
-
-        private long _numCells;
-        public long numCells
-        {
-            get { return _numCells; }
-            set { _numCells = value; }
-        }
-
-        private int _changedVals;
-        public int changedVals
-        {
-            get { return _changedVals; }
-            set { _changedVals = value; }
-        }
-
-        private int _mValuechangedVals;
-        public int mValueChangedVals
-        {
-            get { return _mValuechangedVals; }
-            set { _mValuechangedVals = value; }
-        }
-
-        private int _oValueChangedVals;
-        public int oValueChangedVals
-        {
-            get { return _oValueChangedVals; }
-            set { _oValueChangedVals = value; }
-        }
-
-        private int _numZeros;
-        public int numZeros
-        {
-            get { return _numZeros; }
-            set { _numZeros = value; }
-        }
-
-        private bool _errorCondition;
-        public bool errorCondition
-        {
-            get { return _errorCondition; }
-            set { _errorCondition = value; }
-        }
-
-        private string _passType;
-        public string passType
-        {
-            get { return _passType; }
-            set { _passType = value; }
-        }
+        public int NumPasses { get; set; }
+        public double socialWeight { get; set; }
+        public double[] assignedWeights { get; set; }
+        public string wRaster { get; set; }
+        public int oGreaterThanZeroCount { get; set; }
+        public int mGreaterThanZeroCount { get; set; }
+        public long numCells { get; set; }
+        public int changedVals { get; set; }
+        public int mValueChangedVals { get; set; }
+        public int oValueChangedVals { get; set; }
+        public int numZeros { get; set; }
+        public bool errorCondition { get; set; }
+        public string passType { get; set; }
 
         # endregion
 
@@ -110,28 +33,28 @@ namespace LineSiterSitingTool
             {
                 if (rv < processArray[0])
                 {
-                    this.socialWeight = this._assignedWeights[0];
-                    this._wRaster = "LSHigh";
+                    this.socialWeight = this.assignedWeights[0];
+                    this.wRaster = "LSHigh";
                 }
                 else if (rv > processArray[0] & rv <= processArray[1])
                 {
-                    this.socialWeight = this._assignedWeights[1];
-                    this._wRaster = "LSMedHigh";
+                    this.socialWeight = this.assignedWeights[1];
+                    this.wRaster = "LSMedHigh";
                 }
                 else if (rv > processArray[1] & rv <= processArray[2])
                 {
-                    this.socialWeight = this._assignedWeights[2];
-                    this._wRaster = "LSMedium";
+                    this.socialWeight = this.assignedWeights[2];
+                    this.wRaster = "LSMedium";
                 }
                 else if (rv > processArray[2] & rv <= processArray[3])
                 {
-                    this.socialWeight = this._assignedWeights[3];
-                    this._wRaster = "LSMedLow";
+                    this.socialWeight = this.assignedWeights[3];
+                    this.wRaster = "LSMedLow";
                 }
                 else if (rv >= processArray[4])
                 {
-                    this.socialWeight = this._assignedWeights[4];
-                    this._wRaster = "LSLow";
+                    this.socialWeight = this.assignedWeights[4];
+                    this.wRaster = "LSLow";
                 }
             }
             catch (Exception)
@@ -144,39 +67,39 @@ namespace LineSiterSitingTool
         {
             double cValue = 0;
             double wValue = 0;
-            _oGreaterThanZeroCount = 0;
-            _mGreaterThanZeroCount = 0;
-            _numCells = 0;
-            _changedVals = 0;
-            _mValuechangedVals = 0;
-            _oValueChangedVals = 0;
-            _numZeros = 0;
+            oGreaterThanZeroCount = 0;
+            mGreaterThanZeroCount = 0;
+            numCells = 0;
+            changedVals = 0;
+            mValueChangedVals = 0;
+            oValueChangedVals = 0;
+            numZeros = 0;
             string _savePath = savePath;
             string[] calcOptions = new string[1];
-            IRaster calcRaster = Raster.CreateRaster(_savePath + @"\linesiter\LSProcessing\" + timesSaved.ToString() + ".bgd", null, cRaster.NumColumns, cRaster.NumRows, 1, typeof(double), calcOptions);
+            IRaster calcRaster = Raster.CreateRaster(String.Format(@"{0}\linesiter\LSProcessing\{1}.bgd", _savePath, timesSaved), null, cRaster.NumColumns, cRaster.NumRows, 1, typeof(double), calcOptions);
             calcRaster.Bounds = cRaster.Bounds.Copy();
 
             for (int oRows = 0; oRows < cRaster.NumRows - 1; oRows++)
             {
                 for (int oCols = 0; oCols < cRaster.NumColumns - 1; oCols++)
                 {
-                    _numCells++;
+                    numCells++;
                     cValue = cRaster.Value[oRows, oCols];
                     wValue = mRaster.Value[oRows,oCols];
                     int xvalue = mRaster.NumRows;
                     int yvalue = mRaster.NumColumns;
                     if (cValue == 0)
                     {
-                        _numZeros++;
+                        numZeros++;
                     }
                     if (cValue > 0 & cValue != 1)
                     {
-                        _oGreaterThanZeroCount++;
+                        oGreaterThanZeroCount++;
                     }
 
                     if (wValue > 0 & wValue != 1)
                     {
-                        _mGreaterThanZeroCount++;
+                        mGreaterThanZeroCount++;
                     }
 
                     if (cValue != cRaster.NoDataValue)
@@ -190,14 +113,14 @@ namespace LineSiterSitingTool
                         else if (cValue < wValue)//if cummulative raster has smaller value than weight raster (wValue) leave cummulative raster value (cValue)
                         {
                             calcRaster.Value[oRows, oCols] = cValue;
-                            _changedVals++;
-                            _oValueChangedVals++;
+                            changedVals++;
+                            oValueChangedVals++;
                         }
                         else if (cValue > wValue)//if weight raster (wValue) has a smaller value to cummulative raster (cValue) set cummulative raster to weight raster (wValue)
                         {
                             calcRaster.Value[oRows, oCols] = wValue;
-                            _changedVals++;
-                            _mValuechangedVals++;
+                            changedVals++;
+                            mValueChangedVals++;
                         }
                         else if (cValue == 1 & wValue == 1)
                         {

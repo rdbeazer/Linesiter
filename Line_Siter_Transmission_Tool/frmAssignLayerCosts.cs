@@ -15,12 +15,7 @@ namespace LineSiterSitingTool
 {
     public partial class frmAssignLayerCosts : Form
     {
-        private bool _okToProceed;
-        public bool okToProceed
-        {
-            get { return _okToProceed; }
-            set { _okToProceed = value; }
-        }
+        public bool okToProceed { get; set; }
 
         IMap mapLayers = null;
         public Dictionary <string, string> layerList = new Dictionary<string, string>();
