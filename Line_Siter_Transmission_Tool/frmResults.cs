@@ -72,7 +72,7 @@ namespace LineSiterSitingTool
             string lstLine = null;
             for (int lstItems = 0; lstItems < lbxStats.Items.Count; lstItems++)
             {
-                lstLine += lbxStats.Items[lstItems].ToString() + ";";
+                lstLine += lbxStats.Items[lstItems] + ";";
             }
             extOut.Write(lstLine);
             extOut.Flush();

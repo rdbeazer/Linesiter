@@ -154,11 +154,6 @@ namespace LineSiterSitingTool
             this.Text = "LineSiter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        private void qRbPgTools_Activated(object sender, EventArgs e)
-        {
-
-        }
-
         public void mpMain_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             Coordinate xy = null;
@@ -256,10 +251,6 @@ namespace LineSiterSitingTool
             Cursor = Cursors.Cross;
         }
 
-        private void qRbPgFile_Activated(object sender, EventArgs e)
-        {
-        }
-
         private void qButOpen_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
             tsslOpen.Visible = true;
@@ -319,11 +310,6 @@ namespace LineSiterSitingTool
             }
             tsslProjName.Text = "Project:" + projSaveFile;
             tsslSave.Visible = false;
-        }
-
-        private void qButLCPMonteCarlo_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
-        {
-
         }
 
         private void qButUtilCost_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
@@ -431,11 +417,6 @@ namespace LineSiterSitingTool
         {
             frmSubtract sub = new frmSubtract(mpMain,projSavePath);
             sub.ShowDialog();
-        }
-
-        private void qRibHome_Activated(object sender, EventArgs e)
-        {
-
         }
 
         private void qButNew_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)

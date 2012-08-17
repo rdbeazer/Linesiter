@@ -22,19 +22,8 @@ namespace LineSiterSitingTool
 {
     class clsMCAssignWeights
     {
-        private IRaster _additiveCosts;
-        public IRaster additiveCosts
-        {
-            get { return _additiveCosts; }
-            set { _additiveCosts = value; }
-        }
-
-        private List<string> _finalStatOutput;
-        public List<string> finalStatOutput
-        {
-            get { return _finalStatOutput; }
-            set { _finalStatOutput = value; }
-        }
+        public IRaster additiveCosts { get; set; }
+        public List<string> finalStatOutput { get; set; }
         private System.Data.DataSet dsQuesSets = new System.Data.DataSet();
         Cursor curs = Cursors.Arrow;
         FeatureSet projectFS = new FeatureSet();

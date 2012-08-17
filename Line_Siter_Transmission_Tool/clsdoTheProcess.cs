@@ -24,21 +24,8 @@ namespace LineSiterSitingTool
 {
     class clsdoTheProcess
     {
-
-        private IRaster _additiveCosts;
-        public IRaster additiveCosts
-        {
-            get { return _additiveCosts; }
-            set { _additiveCosts = value; }
-        }
-
-
-        private List<string> _finalStatOutput;
-        public List<string> finalStatOutput
-        {
-            get { return _finalStatOutput; }
-            set { _finalStatOutput = value; }
-        }
+        public IRaster additiveCosts { get; set; }
+        public List<string> finalStatOutput { get; set; }
         clsMonteCarlo MC = new clsMonteCarlo();
         clsLCPCoords lc = new clsLCPCoords();
         clsprepgatraster gr = new clsprepgatraster();

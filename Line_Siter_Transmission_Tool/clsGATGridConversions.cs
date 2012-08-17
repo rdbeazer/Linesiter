@@ -11,41 +11,11 @@ namespace LineSiterSitingTool
 {
     class clsGATGridConversions
     {
-
-        private IRaster rasterToConvert;
-        public IRaster _rasterToConvert
-        {
-            get {return rasterToConvert; }
-            set {rasterToConvert = value; }
-        }
-
-        private string statusMessage;
-        public string _statusMessage
-        {
-            get { return statusMessage; }
-            set {statusMessage = value; }
-        }
-
-        private string gridToConvert;
-        public string _gridToConvert
-        {
-            get { return gridToConvert; }
-            set { gridToConvert = value; }
-        }
-
-        private string conversionRaster;
-        public string _conversionRaster
-        {
-            get { return conversionRaster; }
-            set { conversionRaster = value; }
-        }
-
-        private IRaster bnds;
-        public IRaster _bnds
-        {
-            get { return bnds; }
-            set { bnds = value; }
-        }
+        public IRaster _rasterToConvert { get; set; }
+        public string _statusMessage { get; set; }
+        public string _gridToConvert { get; set; }
+        public string _conversionRaster { get; set; }
+        public IRaster _bnds { get; set; }
 
         public IRaster conRaster;
 
@@ -53,26 +23,26 @@ namespace LineSiterSitingTool
         {
             GATGrid newRaster = new GATGrid();
             newRaster.WriteChangesToFile = true;
-            newRaster.HeaderFileName = rasterToConvert.Filename.Substring(0, rasterToConvert.Filename.Length - 4);
-            newRaster.DataFileName = rasterToConvert.Filename.Substring(0, rasterToConvert.Filename.Length - 4) + ".tas";
-            newRaster.GridResolution = rasterToConvert.CellHeight;
+            newRaster.HeaderFileName = _rasterToConvert.Filename.Substring(0, _rasterToConvert.Filename.Length - 4);
+            newRaster.DataFileName = _rasterToConvert.Filename.Substring(0, _rasterToConvert.Filename.Length - 4) + ".tas";
+            newRaster.GridResolution = _rasterToConvert.CellHeight;
             newRaster.DataType = "float";
             newRaster.DataScale = "continuous";
-            newRaster.North = rasterToConvert.Bounds.Top();
-            newRaster.South = rasterToConvert.Bounds.Bottom();
-            newRaster.West = rasterToConvert.Bounds.Left();
-            newRaster.East = rasterToConvert.Bounds.Right();
-            newRaster.Minimum = (float)rasterToConvert.Minimum;
-            newRaster.Maximum = (float)rasterToConvert.Maximum;
-            newRaster.InitializeGrid(rasterToConvert.NumColumns, rasterToConvert.NumRows);
+            newRaster.North = _rasterToConvert.Bounds.Top();
+            newRaster.South = _rasterToConvert.Bounds.Bottom();
+            newRaster.West = _rasterToConvert.Bounds.Left();
+            newRaster.East = _rasterToConvert.Bounds.Right();
+            newRaster.Minimum = (float)_rasterToConvert.Minimum;
+            newRaster.Maximum = (float)_rasterToConvert.Maximum;
+            newRaster.InitializeGrid(_rasterToConvert.NumColumns, _rasterToConvert.NumRows);
             newRaster.WriteHeaderFile();
             newRaster.SetBlockData();
      //       MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
-            for (int nRow = 0; nRow < rasterToConvert.NumRows - 1; nRow++)
+            for (int nRow = 0; nRow < _rasterToConvert.NumRows - 1; nRow++)
             {
-                for (int nCol = 0; nCol < rasterToConvert.NumColumns - 1; nCol++)
+                for (int nCol = 0; nCol < _rasterToConvert.NumColumns - 1; nCol++)
                 {
-                    newRaster[nCol, nRow] = (float)rasterToConvert.Value[nRow, nCol];
+                    newRaster[nCol, nRow] = (float)_rasterToConvert.Value[nRow, nCol];
                 }
             }
             newRaster.WriteDataInMemoryToFile();
@@ -86,11 +56,11 @@ namespace LineSiterSitingTool
             try
             {
                 GATGrid gt = new GATGrid();
-                gt.HeaderFileName = gridToConvert + ".dep";
-                gt.DataFileName = gridToConvert + ".tas";
-                conRaster = Raster.CreateRaster(conversionRaster.Substring(0, conversionRaster.Length  -4 ) + "new.bgd", null, gt.NumberColumns, gt.NumberRows, 1, typeof(float), null);
+                gt.HeaderFileName = _gridToConvert + ".dep";
+                gt.DataFileName = _gridToConvert + ".tas";
+                conRaster = Raster.CreateRaster(_conversionRaster.Substring(0, _conversionRaster.Length  -4 ) + "new.bgd", null, gt.NumberColumns, gt.NumberRows, 1, typeof(float), null);
                 conRaster.CellHeight = gt.GridResolution;
-                conRaster.Bounds = bnds.Bounds;
+                conRaster.Bounds = _bnds.Bounds;
                 conRaster.NoDataValue = -32768;
                 //conRaster.Save();
                 //MessageBox.Show(Convert.ToString(gt.NumberRows - 1));
