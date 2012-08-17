@@ -119,7 +119,6 @@ namespace LineSiterSitingTool.MonteCarlo
                         AnswerPercents[4] = AnswerPercents[3] + (double)dr.Cells[9].Value;
                     }
                     MC.calculateWeight(rv, AnswerPercents);
-                    tracker.ReportProgress(50, "Splines reticulated.");
                     finalStatOutput.Add("LSHigh: " + Convert.ToString(AnswerPercents[0]) + " | LSMedHigh: " + Convert.ToString(AnswerPercents[1]) + " | LSMed: " + Convert.ToString(AnswerPercents[2]) + " | LSMedLow: " + Convert.ToString(AnswerPercents[3]) + " | LSLow: " + Convert.ToString(AnswerPercents[4]));
                     finalStatOutput.Add("Weight: " + (Convert.ToString(MC.socialWeight)));
                     finalStatOutput.Add(MC.wRaster);
@@ -131,7 +130,6 @@ namespace LineSiterSitingTool.MonteCarlo
                     questNum++;
                     MC.calcRaster2(mcRasterList, mcRaster);
                     mcRaster.Save();
-                    tracker.ReportProgress(70, "moving on");
                 }
             }
             costWeight.calculate_Cost_Weight(mcRasSavePath, bounds, _mapLayer, currentPass, additiveCosts, utilityCosts);

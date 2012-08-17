@@ -48,6 +48,7 @@ namespace LineSiterSitingTool
         private List<string> attributes = new List<string>();
         private string process = string.Empty;
         private BackgroundWorker tracker = new BackgroundWorker();
+        private BackgroundWorker utCostsWorker = new BackgroundWorker();
         private Stopwatch stopWatch = new Stopwatch();
 
         #endregion classVariables
@@ -199,23 +200,19 @@ namespace LineSiterSitingTool
                     MessageBox.Show("Select the shapefile that has the starting and ending points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                lblProgress.Text = "Performing analysis...please wait.";
+                lblProgress.Text = "Performing analysis... please wait.";
                 this.Cursor = Cursors.WaitCursor;
                 this.progressbar1.Style = ProgressBarStyle.Marquee;
                 this.progressbar1.MarqueeAnimationSpeed = 60;
                 stopWatch.Start();
-                utCostLine();
 
-                MC.NumPasses = (int)numPasses.Value;
-                process = "Setting number of passes.";
-                MC.errorCondition = false;
+                utCostsWorker.WorkerReportsProgress = true;
+                utCostsWorker.WorkerSupportsCancellation = true;
+                utCostsWorker.DoWork += new DoWorkEventHandler(utCosts_DoWork);
+                utCostsWorker.ProgressChanged += new ProgressChangedEventHandler(utCosts_ProgressChanged);
+                utCostsWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(utCosts_RunWorkerCompleted);
+                utCostsWorker.RunWorkerAsync();
 
-                tracker.DoWork += new DoWorkEventHandler(tracker_DoWork);
-                tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
-                tracker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tracker_RunWorkerCompleted);
-                tracker.WorkerSupportsCancellation = true;
-                tracker.WorkerReportsProgress = true;
-                tracker.RunWorkerAsync();
                 this.Cursor = Cursors.Default;
             }
 
@@ -235,7 +232,12 @@ namespace LineSiterSitingTool
                 BackgroundWorker worker = sender as BackgroundWorker;
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
+                    if (worker.CancellationPending) return;
+
                     p1.doTheProcess(tslStatus, worker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, additiveCosts, ref rasterToConvert, ref costFileName);
+
+                    if (worker.CancellationPending) return;
+
                     additiveCosts = p1.additiveCosts;
                     //createAccumCostRaster(outputPathFilename);
                     createMCLCPA();
@@ -250,11 +252,8 @@ namespace LineSiterSitingTool
             }
         }
 
-        public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void UpdateClockDisplay()
         {
-            this.progressbar1.Value = e.ProgressPercentage;
-            lblProgress.Text = (string)e.UserState;
-            lblProcess.Text = process;
             // Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
 
@@ -262,6 +261,18 @@ namespace LineSiterSitingTool
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}",
                 ts.Hours, ts.Minutes, ts.Seconds);
             lblTimeElapsed.Text = "Time Elapsed: " + elapsedTime;
+        }
+
+        public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.progressbar1.Value = e.ProgressPercentage;
+            string newMessage = (string)e.UserState;
+            if (newMessage != null)
+            {
+                lblProgress.Text = newMessage;
+            }
+            lblProcess.Text = process;
+            UpdateClockDisplay();
         }
 
         public void tracker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -305,7 +316,7 @@ namespace LineSiterSitingTool
             string[] mcParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", mcCosts.Filename.Substring(0, mcCosts.Filename.Length - 4) + ".dep", mcOutAccumRaster.Filename.Substring(0, mcOutAccumRaster.Filename.Length - 4) + ".dep", mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
             string[] mcCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4) + ".dep", mcOutPathRaster.Filename.Substring(0, mcOutPathRaster.Filename.Length - 4) + ".dep" };
             clsLCPGAT mcLCPA = new clsLCPGAT(tslStatus, mcParaString, mcCostPath);
-            process = "Performing least cost path analysis for pass " + Convert.ToString(currentPass);
+            tracker.ReportProgress(60, "Performing least cost path analysis for pass " + Convert.ToString(currentPass));
             mcLCPA.leastCostPath(tracker);
             string mcOprFilename = mcOutPathRaster.Filename;
             convertCostPathwayToBGD(mcOprFilename);
@@ -350,8 +361,12 @@ namespace LineSiterSitingTool
                 utConvert._rasterToConvert = rasterToConvert;
                 utConvert._statusMessage = "Converting cost raster. ";
                 utConvert.convertToGAT();
+                if (worker.CancellationPending) return;
+
                 process = "Creating utility least cost path";
                 utLCPA.leastCostPath(worker);
+                if (worker.CancellationPending) return;
+
                 string utOprFilename = utOutPathRaster.Filename;
                 convertCostPathwayToBGD(utOprFilename);
                 IRaster outPath = Raster.OpenFile(utOprFilename.Substring(0, utOprFilename.Length - 4) + "new.bgd");
@@ -361,16 +376,19 @@ namespace LineSiterSitingTool
                 ggc._gridToConvert = utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4);
                 ggc._bnds = utBacklink;
                 ggc.convertBGD();
+
+                if (worker.CancellationPending) return;
+
                 clsCreateLineShapeFileFromRaster clsf = new clsCreateLineShapeFileFromRaster();
                 //clsf.createShapefile(outPath, 1, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines);
                 process = "Generating utility costs point shapefile";
                 clsf.createShapefile(outPath, 1, shapefileSavePath, _mapLayer, "utLCPA");
                 //clsf.createLineFromBacklink(newBklink, shapefileSavePath, headers, attributes, _mapLayer, "MCLCPA", pathLines, lc.startRow, lc.startCol, lc.EndRow, lc.EndCol);
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show("Error :" + ex + " has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                worker.CancelAsync();
                 this.Close();
                 return;
             }
@@ -485,53 +503,58 @@ namespace LineSiterSitingTool
             frmResults result = new frmResults(utLCPA, additiveCosts, utilityCosts, mcLCPA, fst, MC.NumPasses, finalStatOutput, saveLocation);
             result.ShowDialog();
             //_mapLayer.Layers.Add(pathLines);
+            utCostsWorker.Dispose();
+            tracker.Dispose();
             this.Close();
-        }
-
-        private void utCostLine()
-        {
-            try
-            {
-                BackgroundWorker utCosts = new BackgroundWorker();
-                utCosts.WorkerReportsProgress = true;
-                utCosts.WorkerSupportsCancellation = false;
-                utCosts.DoWork += new DoWorkEventHandler(utCosts_DoWork);
-                utCosts.ProgressChanged += new ProgressChangedEventHandler(utCosts_ProgressChanged);
-                utCosts.RunWorkerCompleted += new RunWorkerCompletedEventHandler(utCosts_RunWorkerCompleted);
-                utCosts.RunWorkerAsync();
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
-            }
-            currentPass = 0;
         }
 
         private void utCosts_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             createUTLCPA(worker);
-            worker.Dispose();
         }
 
         private void utCosts_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             tspProgress.Value = e.ProgressPercentage;
+            UpdateClockDisplay();
         }
 
         private void utCosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
+                MC.NumPasses = (int)numPasses.Value;
+                process = "Setting number of passes.";
+                MC.errorCondition = false;
+
+                tracker.DoWork += new DoWorkEventHandler(tracker_DoWork);
+                tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
+                tracker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tracker_RunWorkerCompleted);
+                tracker.WorkerSupportsCancellation = true;
+                tracker.WorkerReportsProgress = true;
+                tracker.RunWorkerAsync();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + " \n has occured." + "\n" + "Current Pass: " + Convert.ToString(currentPass), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MC.errorCondition = true;
             }
+        }
+
+        private void btnAbort_Click(object sender, EventArgs e)
+        {
+
+            if (tracker.WorkerSupportsCancellation)
+            {
+                tracker.CancelAsync();
+            }
+            if (utCostsWorker.WorkerSupportsCancellation)
+            {
+                utCostsWorker.CancelAsync();
+            }
+
+            this.Close();
         }
 
         #endregion Methods
@@ -568,5 +591,7 @@ namespace LineSiterSitingTool
         }
 
         #endregion StartandEndPoints
+
+
     }
 }

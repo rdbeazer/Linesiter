@@ -23,7 +23,9 @@ namespace LineSiterSitingTool.Whitebox
             try
             {
                 clsWBHost wbHost = new clsWBHost(_tslStatus);
+                worker.ReportProgress(60, "Whitebox: creating cost accumulation raster");
                 GISTools.CostAccumulation ca = new GISTools.CostAccumulation();
+                worker.ReportProgress(70, "Whitebox: creating cost pathway");
                 GISTools.CostPathway cp = new GISTools.CostPathway();
                 ca.Initialize(wbHost);
                 ca.Execute(_paraString, worker);

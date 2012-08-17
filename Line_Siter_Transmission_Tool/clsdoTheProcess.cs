@@ -28,7 +28,7 @@ namespace LineSiterSitingTool
         private clsBuildDirectory bdir = new clsBuildDirectory();
 
         public void doTheProcess(ToolStripStatusLabel tslStatus, 
-            BackgroundWorker tracker, 
+            BackgroundWorker worker, 
             IRaster bounds, 
             string saveLocation, 
             IMap _mapLayer, 
@@ -54,7 +54,7 @@ namespace LineSiterSitingTool
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 utilityCosts.Bounds = bounds.Bounds;
 
-                tracker.ReportProgress(10, "Creating Weighted Rasters");
+                worker.ReportProgress(10, "Creating Weighted Rasters");
                 bdir.buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
@@ -67,10 +67,12 @@ namespace LineSiterSitingTool
                 mcAssign.additiveCosts = additiveCosts;
                 mcAssign.finalStatOutput = finalStatOutput;
                 int newQIDValue = 0;
-                tracker.ReportProgress(20, "Building Temp Directories");
+                worker.ReportProgress(20, "Building Temp Directories");
 
                 foreach (DataGridViewRow dx in dgvSelectLayers.Rows)
                 {
+                    if (worker.CancellationPending) return;
+
                     newQIDValue++;
                     dx.Cells[2].Value = newQIDValue;
                     string convertPath = saveLocation + @"\linesiter\LSProcessing\QuesID_" + Convert.ToString(newQIDValue);
@@ -83,6 +85,8 @@ namespace LineSiterSitingTool
                             //get feature layer from map interface
                             foreach (Layer lay in _mapLayer.Layers)
                             {
+                                if (worker.CancellationPending) return;
+
                                 if (dx.Cells[1].Value != null)
                                 {
                                     if (lay.LegendText == Convert.ToString(dx.Cells[1].Value))
@@ -122,10 +126,10 @@ namespace LineSiterSitingTool
                     }
                 }
 
-                tracker.ReportProgress(30,"Beginning Monte Carlo Process");
+                worker.ReportProgress(30,"Beginning Monte Carlo Process");
 
                 string mcOutputPathFilename = outPathRaster.Filename;
-                mcAssign.MCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, ref mcOutputPathFilename, utilityCosts);
+                mcAssign.MCAssignWeights(tslStatus, worker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, ref mcOutputPathFilename, utilityCosts);
                 additivecosts = mcAssign.additiveCosts;
                 finalStatOutput = mcAssign.finalStatOutput;
             }
