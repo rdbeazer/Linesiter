@@ -188,7 +188,7 @@ namespace LineSiterSitingTool
 
         private void distChart()
         {
-            int s = 100;
+            const int s = 100;
             double a = Convert.ToDouble(txtA.Text) * s;
             double b = Convert.ToDouble(txtB.Text) * s;
             double c = Convert.ToDouble(txtC.Text) * s;

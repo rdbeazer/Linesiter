@@ -185,7 +185,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmCreateBoundsRaster";
             this.Text = "Create Bounds Raster";
-            this.Load += new System.EventHandler(this.frmCreateBoundsRaster_Load);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

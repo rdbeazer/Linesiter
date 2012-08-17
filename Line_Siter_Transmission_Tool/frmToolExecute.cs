@@ -59,7 +59,7 @@ namespace LineSiterSitingTool
         IFeatureSet fst = new FeatureSet();
         string shapefileSavePath = string.Empty;
         IRaster additiveCosts;
-        int timesHit2 = 1;
+        const int timesHit2 = 1;
         List<string> finalStatOutput = new List<string>();
         string _surveyPath = string.Empty;
         string lcpaShapeName = string.Empty;
@@ -133,6 +133,7 @@ namespace LineSiterSitingTool
 
             catch (System.Data.OleDb.OleDbException oledb)
             {
+                Debug.WriteLine(oledb);
                 MessageBox.Show("An error has occurred with the survey dataset.  It appears to be in an incompatible format.  Please choose a correctly formatted dataset."/* + "\n" + oledb*/, "Survey Data Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 //this.Close();
                 this.Shown += new EventHandler(closeOnStart);
