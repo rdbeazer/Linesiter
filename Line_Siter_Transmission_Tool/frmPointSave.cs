@@ -22,7 +22,6 @@ namespace LineSiterSitingTool
         IMap _MW;
         FileInfo pathInfo = null;
         List<Coordinate> shCoords = new List<Coordinate>();
-        BackgroundWorker worker = new BackgroundWorker();
         FeatureSet startEndPoints = new FeatureSet(FeatureType.Point);
         string savedElements = "";
         string bndRasterText = string.Empty;
@@ -136,79 +135,6 @@ namespace LineSiterSitingTool
             _MW.ResetBuffer();
         }
 
-        private void addRasterToMap(IRaster rasterToAdd)
-        {
-            
-            _MW.Layers.Add(rasterToAdd);
-            _MW.ResetBuffer();
-        }
-
-        private void saveRasterFile()
-        {
-            try
-            {
-                IRaster newRast = new Raster();
-                string[] rasOps = new string[1];
-             //int progress = 0;
-                foreach (Layer lay in _MW.GetLayers())
-                {
-                    if (lay.LegendText == cboLayers.SelectedItem.ToString())
-                    {
-                        newRast = (IRaster)lay.DataSet;
-                    }
-
-                }
-                string pathS = pathInfo.FullName;
-                IRaster startPoint = Raster.CreateRaster(pathS + @"\startPoint.bgd", null, newRast.NumColumns, newRast.NumRows, 1, typeof(int), rasOps);
-                IRaster endPoint = Raster.CreateRaster(pathS + @"\endPoint.bgd", null, newRast.NumColumns, newRast.NumRows, 1, typeof(int), rasOps);
-                startPoint.Bounds = newRast.Bounds;
-                startPoint.Projection = _MW.Projection;
-                startPoint.Save();
-                endPoint.Bounds = newRast.Bounds;
-                endPoint.Projection = _MW.Projection;
-                endPoint.Save();
-
-                //int q = 0;
-
-                for (int oRows = 0; oRows < newRast.NumRows - 1; oRows++)
-                {
-                    for (int oCols = 0; oCols < newRast.NumColumns - 1; oCols++)
-                    {
-                        //if (q >= 10000)
-                        //{
-                        //    q = 0;
-                        //    startPoint.Save();
-                        //    endPoint.Save();
-                        //}
-                        if (oRows == _startRow & oCols == _startCol)
-                        {
-                            startPoint.Value[oRows, oCols] = 1234567890;
-                        }
-                        else if (oRows == _endRow & oCols == _endCol)
-                        {
-                            endPoint.Value[oRows, oCols] = 0987654321;
-                        }
-                        else
-                        {
-                            startPoint.Value[oRows, oCols] = 0;
-                            endPoint.Value[oRows, oCols] = 0;
-                        }
-                        //q++;
-                    }
-                }
-                startPoint.Save();
-                endPoint.Save();
-                addRasterToMap(startPoint);
-                addRasterToMap(endPoint);
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -222,7 +148,6 @@ namespace LineSiterSitingTool
 
                 saveShapeFile();
                 savedElements = "\n startEndPoints.shp";
-                //saveRasterFile();
                 //savedElements += ", \n startPoint.bgd, \n endPoint.bgd";
                 MessageBox.Show("The shapefile was saved successfully at location: " + pathInfo.FullName + savedElements, "Files Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();

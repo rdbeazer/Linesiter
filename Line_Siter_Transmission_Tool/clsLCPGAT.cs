@@ -14,21 +14,15 @@ namespace LineSiterSitingTool
 {
     class clsLCPGAT
     {
-        BackgroundWorker _worker = new BackgroundWorker();
         ToolStripStatusLabel _tslStatus = new ToolStripStatusLabel();
-        ToolStripProgressBar _tspProgress = new ToolStripProgressBar();
-        ProgressBar _progres1 = new ProgressBar();
         string[] _paraString;
         string[] _costPathString;
-                
+
         public clsLCPGAT(ToolStripStatusLabel tslStatus, string[] paraString, string[] costPathString)
         {
-            //_worker = worker;
             _tslStatus = tslStatus;
             _paraString = paraString;
             _costPathString = costPathString;
-            //_tspProgress = tspProgress;
-            //_progres1 = progres1;
         }
 
         public void leastCostPath(BackgroundWorker worker)

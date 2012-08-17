@@ -12,6 +12,9 @@ using DotSpatial.Symbology;
 using System.IO;
 namespace LineSiterSitingTool
 {
+    /// <summary>
+    /// This form is not used in the present version.
+    /// </summary>
     public partial class frmSubtract : Form
     {
         IMap _MW;
@@ -20,10 +23,10 @@ namespace LineSiterSitingTool
             InitializeComponent();
             _MW = mapframe;
             fillCombos();
+
             if (projSavePath != string.Empty)
             {
-                txtSaveLocation.Text = projSavePath;
-                FileInfo _pathInfo = new FileInfo(projSavePath);
+                saveLocation = projSavePath;
             }
         }
 

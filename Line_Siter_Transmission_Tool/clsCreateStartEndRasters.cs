@@ -17,7 +17,7 @@ namespace LineSiterSitingTool
         public IRaster startPoint { get; set; }
         public IRaster endPoint { get; set; }
 
-        public void createRasters(IMap MW, string selectedItem, clsLCPCoords LC, IRaster utilCosts, string SL)
+        public void createRasters(IMap MW, string selectedItem, clsLCPCoords LC, IRaster utilCosts)
         {
             startPoint.Bounds = utilCosts.Bounds;
             startPoint.Projection = MW.Projection;

@@ -68,8 +68,6 @@ namespace LineSiterSitingTool
                 return;
             }
             SaveFileDialog sfd = new SaveFileDialog();
-            string[] rasops = new string[1];
-
             sfd.InitialDirectory = @"C:\Users\Robert\Documents\LDRD\Data\Test Data";
             sfd.Filter = "DotSpatial Raster Files (*.bgd)|*.bgd";
 

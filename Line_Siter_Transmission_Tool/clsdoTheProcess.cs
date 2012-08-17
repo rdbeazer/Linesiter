@@ -27,36 +27,17 @@ namespace LineSiterSitingTool
         public IRaster additiveCosts { get; set; }
         public List<string> finalStatOutput { get; set; }
         clsMonteCarlo MC = new clsMonteCarlo();
-        clsLCPCoords lc = new clsLCPCoords();
-        clsprepgatraster gr = new clsprepgatraster();
-        FeatureSet projectFS = new FeatureSet();
-        double[] aw = new double[5];
-        string[] awTitles = new string[5] { "LSHigh", "LSMedHigh", "LSMedium", "LSMedLow", "LSLow" };
         double cellSize = 0;
         int rasterRow = 0;
         int rasterCol = 0;
-        IRaster startPoint = new Raster();
-        IRaster endPoint = new Raster();
         IRaster backlink = new Raster();
-        GATGrid backlinkGATRaster = new GATGrid();
         IRaster outAccumRaster = new Raster();
-        GATGrid outAccumGATRaster = new GATGrid();
         IRaster outPathRaster = new Raster();
-        GATGrid outPathGATRaster = new GATGrid();
-        FeatureSet utPathLine = new FeatureSet(FeatureType.Line);
-        IFeatureSet fst = new FeatureSet();
         string shapefileSavePath;
-        string _surveyPath = string.Empty;
-        string lcpaShapeName = string.Empty;
-        List<IRaster> mcRasterList = new List<IRaster>();
-        clsCreateWeightedRasters c1 = new clsCreateWeightedRasters();
-        Randomnumber r1 = new Randomnumber();
         clsMCAssignWeights mcAssign = new clsMCAssignWeights();
-        clsCostWeight costW = new clsCostWeight();
         clsBuildDirectory bdir = new clsBuildDirectory();
-        string progress = string.Empty;
         
-        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, ref string outputPathFilename, IRaster additivecosts, ref string backlinkFilename, ref string outputAccumFilename, ProgressChangedEventHandler tracker_ProgressChanged, ref IRaster rasterToConvert, ref string costFileName)
+        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, IRaster additivecosts, ref IRaster rasterToConvert, ref string costFileName)
         {
             try
             {
@@ -71,7 +52,7 @@ namespace LineSiterSitingTool
                 string path = saveLocation + @"\linesiter\LSProcessing";
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 utilityCosts.Bounds = bounds.Bounds;
-                IRaster utilsCosts = utilityCosts;
+
                 progress = "Creating Weighted Rasters";
                 tracker.ReportProgress(10);
                 bdir.buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
@@ -96,17 +77,13 @@ namespace LineSiterSitingTool
                     string convertPath = saveLocation + @"\linesiter\LSProcessing\QuesID_" + Convert.ToString(newQIDValue);
 
                     string cellValue = Convert.ToString(dx.Cells[0].Value);
-                    if (Convert.ToString(dx.Cells[0].Value) != "False")
+                    if (cellValue != "False")
                     {
                         if (dx.Cells[0].Value != null)
                         {
-
-
                             //get feature layer from map interface
                             foreach (Layer lay in _mapLayer.Layers)
                             {
-
-
                                 if (dx.Cells[1].Value != null)
                                 {
                                     if (lay.LegendText == Convert.ToString(dx.Cells[1].Value))
@@ -151,7 +128,7 @@ namespace LineSiterSitingTool
                 tracker.ReportProgress(30);
 
                 string mcOutputPathFilename = outPathRaster.Filename;
-                mcAssign.MCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref mcOutputPathFilename, utilityCosts, ref rasterToConvert, ref costFileName);
+                mcAssign.MCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref mcOutputPathFilename, utilityCosts);
                 additivecosts = mcAssign.additiveCosts;
                 finalStatOutput = mcAssign.finalStatOutput;
             }

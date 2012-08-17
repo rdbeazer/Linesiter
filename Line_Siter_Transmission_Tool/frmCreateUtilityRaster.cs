@@ -28,7 +28,6 @@ namespace LineSiterSitingTool
             if (projSavePath != string.Empty)
             {
                 txtSaveLocation.Text = projSavePath;
-                FileInfo _pathInfo = new FileInfo(projSavePath);
             }
         }
 
@@ -48,7 +47,7 @@ namespace LineSiterSitingTool
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-                
+
             }
         }
 
@@ -62,14 +61,14 @@ namespace LineSiterSitingTool
 
         private void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-          /*  int percent = (int)(((double)ProgressBar1.Value / (double)ProgressBar1.Maximum) * 100);
-            ProgressBar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
-            Brushes.Black, new PointF(ProgressBar1.Width / 2 - 10, ProgressBar1.Height / 2 - 7));
-            this.ProgressBar1.Size = new System.Drawing.Size(224,23);*/
+            /*  int percent = (int)(((double)ProgressBar1.Value / (double)ProgressBar1.Maximum) * 100);
+              ProgressBar1.CreateGraphics().DrawString(percent.ToString() + "%", new Font("Arial", (float)8.25, FontStyle.Regular),
+              Brushes.Black, new PointF(ProgressBar1.Width / 2 - 10, ProgressBar1.Height / 2 - 7));
+              this.ProgressBar1.Size = new System.Drawing.Size(224,23);*/
 
             this.ProgressBar1.Value = e.ProgressPercentage;
-             lblprogress.Text = progress;
-                   
+            lblprogress.Text = progress;
+
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -134,7 +133,7 @@ namespace LineSiterSitingTool
                     foreach (Layer lay in _MW.Layers)
                     {
                         int i = 1;
-                        double inProgress = (i/_MW.Layers.Count)*100;
+                        double inProgress = (i / _MW.Layers.Count) * 100;
                         tracker.ReportProgress(Convert.ToInt32(inProgress));
                         i++;
                         if (lay.LegendText == dL.Key)
@@ -155,8 +154,8 @@ namespace LineSiterSitingTool
                                 sendRaster.Projection = _MW.Projection;
                                 //tracker.ReportProgress(50);
                                 sendRaster.Save();
-                                 fOutputRaster.Bounds = sendRaster.Bounds;
-                                 fOutputRaster.Projection = _MW.Projection;
+                                fOutputRaster.Bounds = sendRaster.Bounds;
+                                fOutputRaster.Projection = _MW.Projection;
                                 fOutputRaster.Save();
 
                                 //tracker.ReportProgress(80);
@@ -185,15 +184,9 @@ namespace LineSiterSitingTool
             }
         }
 
-           
-
-            }
     }
-        //private void txtSaveLocation_TextChanged(object sender, EventArgs e)
-        //{
+}
 
-        //}
 
-        
-    
+
 
