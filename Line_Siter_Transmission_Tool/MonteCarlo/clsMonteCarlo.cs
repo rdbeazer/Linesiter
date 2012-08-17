@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LineSiterSitingTool
+namespace LineSiterSitingTool.MonteCarlo
 {
     internal class clsMonteCarlo
     {

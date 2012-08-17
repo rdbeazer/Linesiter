@@ -306,7 +306,6 @@
             this.qRbPgTools.PersistGuid = new System.Guid("c729c342-81f5-4b6f-b25f-049858abbbed");
             this.qRbPgTools.Size = new System.Drawing.Size(975, 87);
             this.qRbPgTools.Text = "Line Siter Tools";
-            
             // 
             // qRPAnalysis
             // 

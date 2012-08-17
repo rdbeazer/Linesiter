@@ -2,6 +2,8 @@
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
+using LineSiterSitingTool.MonteCarlo;
+using LineSiterSitingTool.Whitebox;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

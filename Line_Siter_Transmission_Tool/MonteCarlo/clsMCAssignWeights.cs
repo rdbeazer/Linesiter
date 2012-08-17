@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
-namespace LineSiterSitingTool
+namespace LineSiterSitingTool.MonteCarlo
 {
     internal class clsMCAssignWeights
     {
