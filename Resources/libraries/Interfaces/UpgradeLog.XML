@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Interfaces">
+</Property><Property Name="Solution File" Value="C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Interfaces.sln">
+</Property><Property Name="User Options File" Value="C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Interfaces.suo">
+</Property><Property Name="Date" Value="March-09-09">
+</Property><Property Name="Time" Value="22:32 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="Interfaces.sln" Description="File successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\Interfaces.sln">
+</Event><Event ErrorLevel="0" Project="" Source="Interfaces.suo" Description="File successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\Interfaces.suo">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="Interfaces.vbproj" Description="Project file successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\Interfaces.vbproj">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="Interfaces.vbproj.user" Description="Project user file successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\Interfaces.vbproj.user">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="AssemblyInfo.vb" Description="File successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\AssemblyInfo.vb">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="IHost.vb" Description="File successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\IHost.vb">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="IPlugin.vb" Description="File successfully backed up as C:\Users\John Lindsay\Documents\Programming\Plug in\pluginssample\Interfaces\Backup\IPlugin.vb">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="Interfaces.vbproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Interfaces" Source="Interfaces.vbproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Interfaces.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Interfaces.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Interfaces" Source="Interfaces.vbproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
