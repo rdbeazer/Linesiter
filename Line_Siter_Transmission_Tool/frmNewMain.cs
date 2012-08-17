@@ -225,15 +225,13 @@ namespace LineSiterSitingTool
         private void qButStartEnd_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
             mouseUPBool = true;
-            //lc.startCol = -999;
-            //lc.startRow = -999;
-            //lc.EndCol = -999;
-            //lc.EndRow = -999;
+
             if (wired)
             {
                 mpMain.MouseUp -= mpMain_MouseUp;
             }
-            mpMain.MouseUp += new MouseEventHandler(mpMain_MouseUp);
+            mpMain.MouseUp += mpMain_MouseUp;
+            wired = true;
             Cursor = Cursors.Cross;
         }
 

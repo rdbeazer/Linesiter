@@ -27,7 +27,18 @@ namespace LineSiterSitingTool
         private clsMCAssignWeights mcAssign = new clsMCAssignWeights();
         private clsBuildDirectory bdir = new clsBuildDirectory();
 
-        public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, IRaster additivecosts, ref IRaster rasterToConvert, ref string costFileName)
+        public void doTheProcess(ToolStripStatusLabel tslStatus, 
+            BackgroundWorker tracker, 
+            IRaster bounds, 
+            string saveLocation, 
+            IMap _mapLayer, 
+            int currentPass, 
+            DataGridView dgvSelectLayers, 
+            IRaster utilityCosts, 
+            clsMonteCarlo _MC, 
+            IRaster additivecosts, 
+            ref IRaster rasterToConvert, 
+            ref string costFileName)
         {
             try
             {
@@ -43,8 +54,7 @@ namespace LineSiterSitingTool
                 shapefileSavePath = saveLocation + @"\outputPaths.shp";
                 utilityCosts.Bounds = bounds.Bounds;
 
-                progress = "Creating Weighted Rasters";
-                tracker.ReportProgress(10);
+                tracker.ReportProgress(10, "Creating Weighted Rasters");
                 bdir.buildDirectory(path + @"\Pass_" + Convert.ToString(currentPass));
                 rasterRow = utilityCosts.NumRows;
                 rasterCol = utilityCosts.NumColumns;
@@ -57,8 +67,7 @@ namespace LineSiterSitingTool
                 mcAssign.additiveCosts = additiveCosts;
                 mcAssign.finalStatOutput = finalStatOutput;
                 int newQIDValue = 0;
-                progress = "Building Temp Directories";
-                tracker.ReportProgress(20);
+                tracker.ReportProgress(20, "Building Temp Directories");
 
                 foreach (DataGridViewRow dx in dgvSelectLayers.Rows)
                 {
@@ -113,11 +122,10 @@ namespace LineSiterSitingTool
                     }
                 }
 
-                progress = "Beginning Monte Carlo Process";
-                tracker.ReportProgress(30);
+                tracker.ReportProgress(30,"Beginning Monte Carlo Process");
 
                 string mcOutputPathFilename = outPathRaster.Filename;
-                mcAssign.MCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, progress, ref mcOutputPathFilename, utilityCosts);
+                mcAssign.MCAssignWeights(tslStatus, tracker, backlink, outAccumRaster, outPathRaster, currentPass, MC, dgvSelectLayers, bounds, saveLocation, _mapLayer, ref mcOutputPathFilename, utilityCosts);
                 additivecosts = mcAssign.additiveCosts;
                 finalStatOutput = mcAssign.finalStatOutput;
             }

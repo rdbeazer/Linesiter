@@ -46,7 +46,6 @@ namespace LineSiterSitingTool
         private string lcpaShapeName = string.Empty;
         private List<string> headers = new List<string>();
         private List<string> attributes = new List<string>();
-        private string progress = string.Empty;
         private string process = string.Empty;
         private BackgroundWorker tracker = new BackgroundWorker();
         private Stopwatch stopWatch = new Stopwatch();
@@ -136,7 +135,10 @@ namespace LineSiterSitingTool
             {
                 OpenFileDialog dataSetFill = new OpenFileDialog();
                 dataSetFill.Title = "Open Question Set for Analysis";
-                dataSetFill.ShowDialog();
+                var result = dataSetFill.ShowDialog();
+                if (result != System.Windows.Forms.DialogResult.OK)
+                    return;
+
                 bool exists = dataSetFill.CheckFileExists;
                 if (exists == true)
                 {
@@ -152,11 +154,14 @@ namespace LineSiterSitingTool
             }
             ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + pathLoc + @"; Extended Properties=""text;HDR=YES;FMT=Delimited;"";";
             importDataFile = "select * from " + Path.GetFileName(_surveyPath);
-            OleDbConnection myConnection = new OleDbConnection(ConnectionString);
-            myConnection.Open();
-            OleDbDataAdapter oleDa = new OleDbDataAdapter(importDataFile, ConnectionString);
-            oleDa.Fill(dgvDSet);
-            myConnection.Close();
+            using (OleDbConnection myConnection = new OleDbConnection(ConnectionString))
+            {
+                myConnection.Open();
+                using (OleDbDataAdapter oleDa = new OleDbDataAdapter(importDataFile, ConnectionString))
+                {
+                    oleDa.Fill(dgvDSet);
+                }
+            }
         }
 
         #region fillCombos
@@ -194,23 +199,22 @@ namespace LineSiterSitingTool
                     MessageBox.Show("Select the shapefile that has the starting and ending points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                progress = "Performing analysis...please wait.";
+                lblProgress.Text = "Performing analysis...please wait.";
                 this.Cursor = Cursors.WaitCursor;
                 this.progressbar1.Style = ProgressBarStyle.Marquee;
                 this.progressbar1.MarqueeAnimationSpeed = 60;
                 stopWatch.Start();
                 utCostLine();
 
+                MC.NumPasses = (int)numPasses.Value;
+                process = "Setting number of passes.";
+                MC.errorCondition = false;
+
                 tracker.DoWork += new DoWorkEventHandler(tracker_DoWork);
                 tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
                 tracker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(tracker_RunWorkerCompleted);
                 tracker.WorkerSupportsCancellation = true;
                 tracker.WorkerReportsProgress = true;
-
-                MC.NumPasses = (int)numPasses.Value;
-                process = "Setting number of passes.";
-                MC.errorCondition = false;
-                tracker.ReportProgress(5);
                 tracker.RunWorkerAsync();
                 this.Cursor = Cursors.Default;
             }
@@ -231,13 +235,12 @@ namespace LineSiterSitingTool
                 BackgroundWorker worker = sender as BackgroundWorker;
                 for (currentPass = 1; currentPass <= numPasses.Value; currentPass++)
                 {
-                    p1.doTheProcess(tslStatus, worker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, progress, additiveCosts, ref rasterToConvert, ref costFileName);
+                    p1.doTheProcess(tslStatus, worker, utilityCosts, saveLocation, _mapLayer, currentPass, dgvSelectLayers, utilityCosts, MC, additiveCosts, ref rasterToConvert, ref costFileName);
                     additiveCosts = p1.additiveCosts;
                     //createAccumCostRaster(outputPathFilename);
                     createMCLCPA();
                 }
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -250,7 +253,7 @@ namespace LineSiterSitingTool
         public void tracker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             this.progressbar1.Value = e.ProgressPercentage;
-            lblProgress.Text = progress;
+            lblProgress.Text = (string)e.UserState;
             lblProcess.Text = process;
             // Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
@@ -265,14 +268,9 @@ namespace LineSiterSitingTool
         {
             try
             {
-                //lblProgress.Text = "Finishing Up.";
                 finishingUp();
                 stopWatch.Stop();
-                //tslStatus.Visible = true;
-                //tslStatus.Text = "Finishing Up";
-                //tracker.ReportProgress(100);
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex + "\n has occurred.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

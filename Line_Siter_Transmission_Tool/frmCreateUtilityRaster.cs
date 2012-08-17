@@ -107,14 +107,12 @@ namespace LineSiterSitingTool
                 List<IRaster> lRaster = new List<IRaster>();
                 clsRasterOps rasterMA = new clsRasterOps(_MW);
                 string[] ras1 = new string[1];
-                progress = "Creating new raster template";
                 IRaster fOutputRaster = Raster.CreateRaster(savePath, null, rasterCol, rasterRow, 1, typeof(double), ras1);
                 fOutputRaster.CellHeight = boundingRaster.CellHeight;
                 fOutputRaster.CellWidth = boundingRaster.CellWidth;
                 fOutputRaster.Projection = _MW.Projection;
                 fOutputRaster.Save();
-                progress = "Raster template saved";
-                tracker.ReportProgress(30);
+                tracker.ReportProgress(30, "Raster template saved");
                 IRaster outputRaster = new Raster();
                 progress = "Creating temp directory";
                 if (!Directory.Exists(@"c:\temp\linesiter\LSProcessing\UTRasters\"))
@@ -128,11 +126,10 @@ namespace LineSiterSitingTool
                     {
                         int i = 1;
                         double inProgress = (i / _MW.Layers.Count) * 100;
-                        tracker.ReportProgress(Convert.ToInt32(inProgress));
+                        tracker.ReportProgress(Convert.ToInt32(inProgress), "Processing layer " + lay.LegendText);
                         i++;
                         if (lay.LegendText == dL.Key)
                         {
-                            progress = "Processing shapefile " + lay.LegendText;
                             MapRasterLayer mras = lay as MapRasterLayer;
                             if (mras == null)
                             {
@@ -145,13 +142,11 @@ namespace LineSiterSitingTool
                                 //create method to add rasters together
                                 IRaster sendRaster = Raster.Open(@"c:\temp\linesiter\LSProcessing\UTRasters\" + lay.LegendText + "pa.bgd");
                                 sendRaster.Projection = _MW.Projection;
-                                //tracker.ReportProgress(50);
                                 sendRaster.Save();
                                 fOutputRaster.Bounds = sendRaster.Bounds;
                                 fOutputRaster.Projection = _MW.Projection;
                                 fOutputRaster.Save();
 
-                                //tracker.ReportProgress(80);
                                 //MessageBox.Show("Raster: " + (string)dL.Key + " is loaded.  Its row and column count is: " + Convert.ToString(sendRaster.NumRows) + " " + Convert.ToString(sendRaster.NumColumns) + ".", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 lRaster.Add(sendRaster);
                             }
@@ -164,7 +159,6 @@ namespace LineSiterSitingTool
                 }
                 rasterMA.rasterAddition(lRaster, fOutputRaster);
                 paRaster.removeProcessingFiles();
-                tracker.ReportProgress(100);
                 _MW.Layers.Add(fOutputRaster);
                 MessageBox.Show("Process Complete.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
