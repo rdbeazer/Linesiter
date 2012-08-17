@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace LineSiterSitingTool
+namespace LineSiterSitingTool.Whitebox
 {
     internal class clsLCPGAT
     {

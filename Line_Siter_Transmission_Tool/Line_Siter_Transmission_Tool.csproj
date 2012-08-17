@@ -141,7 +141,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsLCPGAT.cs" />
+    <Compile Include="Whitebox\clsLCPGAT.cs" />
     <Compile Include="clsBuildDirectory.cs" />
     <Compile Include="clsCostWeight.cs" />
     <Compile Include="clsCreateBackgroundRasters.cs" />
@@ -212,7 +212,6 @@
       <DependentUpon>MCTest.cs</DependentUpon>
     </Compile>
     <Compile Include="MonteCarlo\clsMCAssignWeights.cs" />
-    <Compile Include="Randomnumber.cs" />
     <Compile Include="frmAboutTool.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -303,7 +303,7 @@ namespace LineSiterSitingTool
             IRaster mcBacklink = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\backlink.bgd");
             IRaster mcOutAccumRaster = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\outAccumRaster.bgd");
             IRaster mcOutPathRaster = Raster.OpenFile(passSave + @"\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster.bgd");
-            gr.prepareGATRasters(passSave + @"\Pass_" + Convert.ToString(currentPass), curs, mcBacklink, mcOutAccumRaster, mcOutPathRaster, mcOutPathRaster.Filename);
+            gr.prepareGATRasters(passSave + @"\Pass_" + Convert.ToString(currentPass), mcBacklink, mcOutAccumRaster, mcOutPathRaster, mcOutPathRaster.Filename);
             string[] mcParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", mcCosts.Filename.Substring(0, mcCosts.Filename.Length - 4) + ".dep", mcOutAccumRaster.Filename.Substring(0, mcOutAccumRaster.Filename.Length - 4) + ".dep", mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4) + ".dep", "not specified", "not specified" }; //outputFilename + ".dep", backlinkFilename + ".dep", "not specified", "not specified" };
             string[] mcCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", mcBacklink.Filename.Substring(0, mcBacklink.Filename.Length - 4) + ".dep", mcOutPathRaster.Filename.Substring(0, mcOutPathRaster.Filename.Length - 4) + ".dep" };
             clsLCPGAT mcLCPA = new clsLCPGAT(tslStatus, mcParaString, mcCostPath);
@@ -345,7 +345,7 @@ namespace LineSiterSitingTool
                 IRaster utBacklink = cbrUT.saveRaster(saveLocation + @"\UT\", "backlink", utilityCosts);
                 IRaster utOutAccumRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outAccumRaster", utilityCosts);
                 IRaster utOutPathRaster = cbrUT.saveRaster(saveLocation + @"\UT\", "outPath", utilityCosts);
-                gr.prepareGATRasters(saveLocation + @"\UT", curs, utBacklink, utOutAccumRaster, utOutPathRaster, utOutPathRaster.Filename);
+                gr.prepareGATRasters(saveLocation + @"\UT", utBacklink, utOutAccumRaster, utOutPathRaster, utOutPathRaster.Filename);
                 string[] utParaString = new string[6] { startFileName.Substring(0, startFileName.Length - 4) + ".dep", utilsCosts.Filename.Substring(0, utilsCosts.Filename.Length - 4) + ".dep", utOutAccumRaster.Filename.Substring(0, utOutAccumRaster.Filename.Length - 4) + ".dep", utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4) + ".dep", "not specified", "not specified" };
                 string[] utCostPath = new string[3] { endFileName.Substring(0, endFileName.Length - 4) + ".dep", utBacklink.Filename.Substring(0, utBacklink.Filename.Length - 4) + ".dep", utOutPathRaster.Filename.Substring(0, utOutPathRaster.Filename.Length - 4) + ".dep" };
                 clsLCPGAT utLCPA = new clsLCPGAT(tslStatus, utParaString, utCostPath);

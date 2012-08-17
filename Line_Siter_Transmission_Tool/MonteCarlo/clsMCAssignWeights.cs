@@ -15,11 +15,11 @@ namespace LineSiterSitingTool.MonteCarlo
 
         public List<string> finalStatOutput { get; set; }
 
-        private Cursor curs = Cursors.Arrow;
+
         private FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         private clsMonteCarlo MC = new clsMonteCarlo();
         private clsCreateWeightedRasters cwr = new clsCreateWeightedRasters();
-        private Randomnumber r1 = new Randomnumber();
+        private Random random = new Random();
         private double rv = 0;
         private string currentQuesPath = "";
         private List<IRaster> mcRasterList = new List<IRaster>();
@@ -68,8 +68,7 @@ namespace LineSiterSitingTool.MonteCarlo
                         }
                     }
 
-                    rv = 0;
-                    rv = r1.RandomNumber();
+                    rv = random.NextDouble();
                     finalStatOutput.Add("Question: ");
                     if (dr.Cells[4].Value != DBNull.Value)
                     {
@@ -131,7 +130,7 @@ namespace LineSiterSitingTool.MonteCarlo
             {
                 outputPathFilename = saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
             }
-            gr.prepareGATRasters(mcRasSavePath, curs, backlink, outAccumRaster, outPathRaster, outputPathFilename);
+            gr.prepareGATRasters(mcRasSavePath, backlink, outAccumRaster, outPathRaster, outputPathFilename);
         }
     }
 }
