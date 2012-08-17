@@ -34,6 +34,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -73,57 +75,41 @@
     <ApplicationIcon>pwLine.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotSpatial.Analysis, Version=0.11.9.6, Culture=neutral, PublicKeyToken=df3f45fb0fe4cb0c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Analysis.dll</HintPath>
+    <Reference Include="DotSpatial.Analysis">
+      <HintPath>packages\DotSpatial.Analysis.1.3\lib\net40-Client\DotSpatial.Analysis.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Compatibility, Version=0.11.9.6, Culture=neutral, PublicKeyToken=094c8fdea7f4a002, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Compatibility.dll</HintPath>
+    <Reference Include="DotSpatial.Controls">
+      <HintPath>packages\DotSpatial.Controls.1.3\lib\net40\DotSpatial.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Controls, Version=0.11.9.6, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Controls.dll</HintPath>
+    <Reference Include="DotSpatial.Data">
+      <HintPath>packages\DotSpatial.Data.1.3\lib\net40-Client\DotSpatial.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Data, Version=0.11.9.6, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Data.dll</HintPath>
+    <Reference Include="DotSpatial.Data.Forms">
+      <HintPath>packages\DotSpatial.Data.Forms.1.3\lib\net40-Client\DotSpatial.Data.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Data.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=53ab5a198378d4c1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Data.Forms.dll</HintPath>
+    <Reference Include="DotSpatial.Extensions">
+      <HintPath>packages\DotSpatial.Extensions.1.3\lib\net40-Client\DotSpatial.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Extensions.dll</HintPath>
+    <Reference Include="DotSpatial.Modeling.Forms">
+      <HintPath>packages\DotSpatial.Modeling.Forms.1.3\lib\net40-Client\DotSpatial.Modeling.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Modeling.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=712bef29a31a9354, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Modeling.Forms.dll</HintPath>
+    <Reference Include="DotSpatial.Projections">
+      <HintPath>packages\DotSpatial.Projections.1.3\lib\net40-Client\DotSpatial.Projections.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Projections, Version=0.11.9.6, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Projections.dll</HintPath>
+    <Reference Include="DotSpatial.Projections.Forms">
+      <HintPath>packages\DotSpatial.Projections.Forms.1.3\lib\net40-Client\DotSpatial.Projections.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Projections.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=52099474f11b7ff0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Projections.Forms.dll</HintPath>
+    <Reference Include="DotSpatial.Serialization">
+      <HintPath>packages\DotSpatial.Serialization.1.3\lib\net40-Client\DotSpatial.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Serialization, Version=0.11.9.6, Culture=neutral, PublicKeyToken=441f200f827611e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Serialization.dll</HintPath>
+    <Reference Include="DotSpatial.Symbology">
+      <HintPath>packages\DotSpatial.Symbology.1.3\lib\net40-Client\DotSpatial.Symbology.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Symbology, Version=0.11.9.6, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Symbology.dll</HintPath>
+    <Reference Include="DotSpatial.Symbology.Forms">
+      <HintPath>packages\DotSpatial.Symbology.Forms.1.3\lib\net40\DotSpatial.Symbology.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Symbology.Forms, Version=0.11.9.6, Culture=neutral, PublicKeyToken=0544cdeefb662382, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Symbology.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Topology, Version=0.11.9.6, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\DotSpatial Extended\DotSpatial.Topology.dll</HintPath>
+    <Reference Include="DotSpatial.Topology">
+      <HintPath>packages\DotSpatial.Topology.1.3\lib\net40-Client\DotSpatial.Topology.dll</HintPath>
     </Reference>
     <Reference Include="GeospatialFiles">
       <HintPath>..\..\..\WhiteboxGAT_1_0_7_SourceCode\WhiteboxGAT_src\GeospatialAnalysisTools\GISTools\GISTools\bin\Debug\GeospatialFiles.dll</HintPath>
@@ -136,9 +122,6 @@
     </Reference>
     <Reference Include="NuGet.Core">
       <HintPath>..\..\..\..\..\Downloads\nugetfiles\NuGet.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PercentageProgressBar">
-      <HintPath>..\packages\Percentage_ProgressBar.1.0\lib\PercentageProgressBar.dll</HintPath>
     </Reference>
     <Reference Include="Qios.DevSuite.Components, Version=4.0.0.20, Culture=neutral, PublicKeyToken=3cc53827b79c92fa, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -433,6 +416,7 @@
     <Content Include="pwLine.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

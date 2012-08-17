@@ -17,6 +17,7 @@ using System.Reflection;
 using GeospatialFiles;
 using System.Threading;
 using System.Diagnostics;
+using DotSpatial.Analysis;
 
 
 namespace LineSiterSitingTool
@@ -135,7 +136,7 @@ namespace LineSiterSitingTool
                                             //Extent prjExtent = projectFS.Extent;
                                             string fNameS = convertPath + lay.LegendText + ".bgd";
                                             string fNameR = convertPath + lay.LegendText + ".bgd";
-                                            outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
+                                            outputRaster = VectorToRaster.ToRaster(fs, prjExtent, cellSize, "FID", fNameS, "", new string[0], null);
                                             paRaster.createPA(outputRaster, fNameR, -1);
                                         }
                                         else if (lay.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
