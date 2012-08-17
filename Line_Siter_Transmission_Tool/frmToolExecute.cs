@@ -561,45 +561,6 @@ namespace LineSiterSitingTool
             this.Close();
         }
 
-        #endregion
-
-
-        #region StartandEndPoints
-
-
-
-        private void cboStartEndPoints_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                string[] rasOps = new string[1];
-                Cursor = Cursors.WaitCursor;
-                clsCreateStartEndRasters cser = new clsCreateStartEndRasters();
-                string selectedItem = Convert.ToString(cboStartEndPoints.SelectedItem);
-                IRaster startPoint = Raster.CreateRaster(saveLocation + @"\startPoint.bgd", null, utilityCosts.NumColumns, utilityCosts.NumRows, 1, typeof(int), rasOps);
-                IRaster endPoint = Raster.CreateRaster(saveLocation + @"\endPoint.bgd", null, utilityCosts.NumColumns, utilityCosts.NumRows, 1, typeof(int), rasOps);
-
-                cser.startPoint = startPoint;
-                cser.endPoint = endPoint;
-
-                cser.createRasters(_mapLayer, selectedItem, lc, utilityCosts, saveLocation);
-                startFileName = cser.startPoint.Filename;
-                endFileName = cser.endPoint.Filename;
-                picStartEnd.Visible = true;
-                Cursor = Cursors.Default;
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + Convert.ToString(ex) + " /n has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
-
-            }
-        }
-
-        #endregion
-
         private void utCostLine()
         {
             try
@@ -649,5 +610,45 @@ namespace LineSiterSitingTool
                 MC.errorCondition = true;
             }
         }
+
+        #endregion
+
+
+        #region StartandEndPoints
+
+
+
+        private void cboStartEndPoints_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] rasOps = new string[1];
+                Cursor = Cursors.WaitCursor;
+                clsCreateStartEndRasters cser = new clsCreateStartEndRasters();
+                string selectedItem = Convert.ToString(cboStartEndPoints.SelectedItem);
+                IRaster startPoint = Raster.CreateRaster(saveLocation + @"\startPoint.bgd", null, utilityCosts.NumColumns, utilityCosts.NumRows, 1, typeof(int), rasOps);
+                IRaster endPoint = Raster.CreateRaster(saveLocation + @"\endPoint.bgd", null, utilityCosts.NumColumns, utilityCosts.NumRows, 1, typeof(int), rasOps);
+
+                cser.startPoint = startPoint;
+                cser.endPoint = endPoint;
+
+                cser.createRasters(_mapLayer, selectedItem, lc, utilityCosts, saveLocation);
+                startFileName = cser.startPoint.Filename;
+                endFileName = cser.endPoint.Filename;
+                picStartEnd.Visible = true;
+                Cursor = Cursors.Default;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + Convert.ToString(ex) + " /n has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+
+            }
+        }
+
+        #endregion
+
     }
 }
