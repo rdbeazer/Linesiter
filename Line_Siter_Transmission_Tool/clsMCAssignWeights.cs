@@ -24,9 +24,7 @@ namespace LineSiterSitingTool
     {
         public IRaster additiveCosts { get; set; }
         public List<string> finalStatOutput { get; set; }
-        private System.Data.DataSet dsQuesSets = new System.Data.DataSet();
         Cursor curs = Cursors.Arrow;
-        FeatureSet projectFS = new FeatureSet();
         FeatureSet pathLines = new FeatureSet(FeatureType.Line);
         clsMonteCarlo MC = new clsMonteCarlo();
         clsCreateWeightedRasters cwr = new clsCreateWeightedRasters();
@@ -36,12 +34,11 @@ namespace LineSiterSitingTool
         List<IRaster> mcRasterList = new List<IRaster>();
         clsCostWeight costWeight = new clsCostWeight();
         clsprepgatraster gr = new clsprepgatraster();
-        BackgroundWorker worker = new BackgroundWorker();
         clsBuildDirectory bdir = new clsBuildDirectory();
 
-        public void MCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts, ref IRaster rasterToConvert, ref string costFileName)
+        public void MCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts)
         {
-           
+
             MC = _mc;
             tslStatus.Visible = false;
             finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(currentPass));
@@ -53,7 +50,6 @@ namespace LineSiterSitingTool
             mcRaster = null;
             mcRaster = Raster.Open(mcRasSavePath + @"\mcRaster.bgd");
             double[] AnswerPercents = new double[5];
-            double[] mcPercents = new double[5];
             progress = "Current Pass " + Convert.ToString(currentPass);
             tracker.ReportProgress(40);
             foreach (DataGridViewRow dr in dgvSelectLayers.Rows)
@@ -77,7 +73,7 @@ namespace LineSiterSitingTool
                                 bdir.buildDirectory(newPath);
                                 //load raster file
                                 IRaster oRaster = Raster.OpenFile(rasterPath);
-                                cwr.createWeightedRasters(newPath, rasterPath, oRaster, MC, bounds);
+                                cwr.createWeightedRasters(newPath, oRaster, MC, bounds);
                             }
                         }
                     }

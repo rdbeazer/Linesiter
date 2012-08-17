@@ -24,7 +24,6 @@ namespace LineSiterSitingTool
             try
             {
                 string[] rasterParameters = null;
-                Extent ext = oRaster.Extent;
                 int len = rasterSaveFN.Length - 4;
                 string rasterSaveFN2 = rasterSaveFN.Insert(len, "PA");
                 IRaster paRaster = Raster.CreateRaster(rasterSaveFN2, "", oRaster.NumColumns, oRaster.NumRows, 1, oRaster.DataType, rasterParameters);
@@ -151,7 +150,7 @@ namespace LineSiterSitingTool
                     {
                         divFinal.Value[oRows, oCols] = div1.Value[oRows, oCols] / div2.Value[oRows, oCols];
                     }
-                    double val3 = divFinal.Value[oRows, oCols];
+                    //double result = divFinal.Value[oRows, oCols];
                 }
                 divFinal.Save();
             }

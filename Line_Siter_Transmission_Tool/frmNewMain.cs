@@ -109,7 +109,7 @@ namespace LineSiterSitingTool
             }
             else if (mpMain.Layers.SelectedLayer as MapLineLayer != null)
             {
-                IMapLineLayer  currentLayer = (IMapLineLayer)mpMain.Layers.SelectedLayer;
+                IMapLineLayer currentLayer = (IMapLineLayer)mpMain.Layers.SelectedLayer;
                 curLay = currentLayer.DataSet.DataTable;
             }
             else
@@ -132,7 +132,7 @@ namespace LineSiterSitingTool
 
         private void qButReclass_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            frmReclass rcls = new frmReclass(mpMain,projSavePath);
+            frmReclass rcls = new frmReclass(mpMain, projSavePath);
             rcls.ShowDialog();
         }
 
@@ -159,7 +159,7 @@ namespace LineSiterSitingTool
             Coordinate xy = null;
             int seRow = 0;
             int seCol = 0;
-          //  double seCellValue = 0;
+            //  double seCellValue = 0;
             string seLayerText;
             if (mouseUPBool == true)
             {
@@ -185,8 +185,6 @@ namespace LineSiterSitingTool
                     RcIndex rasterXY = DotSpatial.Data.RasterExt.ProjToCell(seRaster, xy);
                     seRow = rasterXY.Row;
                     seCol = rasterXY.Column;
-                    int numCols = seRaster.NumColumns;
-                    int numRows = seRaster.NumRows;
                     if (seCol > 0 & seCol < seRaster.NumColumns & seRow > 0 & seRow < seRaster.NumRows)
                     {
                         if (seInt == 1)
@@ -323,14 +321,14 @@ namespace LineSiterSitingTool
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             fbd.ShowDialog();
-            projSavePath  = fbd.SelectedPath;
+            projSavePath = fbd.SelectedPath;
         }
 
         private void qButBRaster_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
             try
             {
-                frmCreateBoundsRaster frmCBR = new frmCreateBoundsRaster(mpMain,projSavePath);
+                frmCreateBoundsRaster frmCBR = new frmCreateBoundsRaster(mpMain, projSavePath);
                 frmCBR.ShowDialog();
             }
 
@@ -415,7 +413,7 @@ namespace LineSiterSitingTool
 
         private void qButSubtract1_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            frmSubtract sub = new frmSubtract(mpMain,projSavePath);
+            frmSubtract sub = new frmSubtract(mpMain, projSavePath);
             sub.ShowDialog();
         }
 
