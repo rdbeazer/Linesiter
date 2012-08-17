@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Controls;
-using DotSpatial.Analysis;
 using System.IO;
 
 namespace LineSiterSitingTool
