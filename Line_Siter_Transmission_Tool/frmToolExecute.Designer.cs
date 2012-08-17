@@ -305,6 +305,7 @@
             this.btnAbort.TabIndex = 4;
             this.btnAbort.Text = "Cancel";
             this.btnAbort.UseVisualStyleBackColor = true;
+            this.btnAbort.Click += new System.EventHandler(this.btnAbort_Click);
             // 
             // btnBegin
             // 
@@ -370,7 +371,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MinimumSize = new System.Drawing.Size(352, 501);
             this.Name = "frmToolExecute";
-            
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
