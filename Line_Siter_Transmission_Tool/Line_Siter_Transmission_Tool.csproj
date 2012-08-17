@@ -159,12 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsLCPGAT.cs" />
-    <Compile Include="frm1121165.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm1121165.Designer.cs">
-      <DependentUpon>frm1121165.cs</DependentUpon>
-    </Compile>
     <Compile Include="clsBuildDirectory.cs" />
     <Compile Include="clsCostWeight.cs" />
     <Compile Include="clsCreateBackgroundRasters.cs" />
@@ -279,9 +273,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frm1121165.resx">
-      <DependentUpon>frm1121165.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmAboutTool.resx">
       <DependentUpon>frmAboutTool.cs</DependentUpon>
       <SubType>Designer</SubType>
