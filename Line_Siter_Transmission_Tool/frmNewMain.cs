@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using DotSpatial.Controls;
-using DotSpatial.Controls.Docking;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
+using System;
+using System.Data;
 using System.Reflection;
-using System.ComponentModel.Composition;
+using System.Windows.Forms;
+
 //using System.Deployment.Application;
 //using DevExpress.XtraBars;
-using System.IO;
 
 namespace LineSiterSitingTool
 {
     public partial class frmNewMain : Form
     {
-
-
         public frmNewMain()
         {
             InitializeComponent();
@@ -31,21 +22,21 @@ namespace LineSiterSitingTool
             //tspProg1.Visible = false;
         }
 
-        bool mouseUPBool = false;
-        int seInt = 1;
-        double startP = 0;
-        double endP = 0;
-        int endR = 0;
-        int endC = 0;
-        int startR = 0;
-        int startC = 0;
-        clsLCPCoords lc = new clsLCPCoords();
-        string projSaveFile = null;
-        string projSavePath = string.Empty;
-        Coordinate startXY = new Coordinate();
-        Coordinate endXY = new Coordinate();
-        string surveyFile = string.Empty;
-        bool wired = false;
+        private bool mouseUPBool = false;
+        private int seInt = 1;
+        private double startP = 0;
+        private double endP = 0;
+        private int endR = 0;
+        private int endC = 0;
+        private int startR = 0;
+        private int startC = 0;
+        private clsLCPCoords lc = new clsLCPCoords();
+        private string projSaveFile = null;
+        private string projSavePath = string.Empty;
+        private Coordinate startXY = new Coordinate();
+        private Coordinate endXY = new Coordinate();
+        private string surveyFile = string.Empty;
+        private bool wired = false;
 
         #region Ribbon Controls
 
@@ -75,7 +66,6 @@ namespace LineSiterSitingTool
             //DotSpatial.Controls.LayoutForm pp = new LayoutForm();
             //pp.MapControl = mpMain;
             //pp.ShowDialog();
-
         }
 
         private void qButPan_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
@@ -141,7 +131,7 @@ namespace LineSiterSitingTool
             Application.Exit();
         }
 
-        #endregion
+        #endregion Ribbon Controls
 
         private void mpMain_GeoMouseMove(object sender, GeoMouseArgs e)
         {
@@ -163,7 +153,6 @@ namespace LineSiterSitingTool
             string seLayerText;
             if (mouseUPBool == true)
             {
-
                 if (mpMain.Layers.SelectedLayer as MapRasterLayer == null)
                 {
                     MessageBox.Show("Please select a raster layer to select start and end points.", "Wrong Layer Selected", MessageBoxButtons.OK);
@@ -226,7 +215,6 @@ namespace LineSiterSitingTool
                     {
                         MessageBox.Show("Value is outside raster bounds.  Please select an area on the map.", "Error 120: Selection Out of Bounds", MessageBoxButtons.OK);
                     }
-
                 }
                 e = null;
                 xy = null;
@@ -354,6 +342,7 @@ namespace LineSiterSitingTool
             }
 
             #region OLD
+
             //if (mpMain.Layers.SelectedLayer as MapRasterLayer == null)
             //{
             //    MessageBox.Show("Please select a raster layer to test start and end points.", "Wrong Layer Selected", MessageBoxButtons.OK);
@@ -377,7 +366,8 @@ namespace LineSiterSitingTool
             //        }
             //    }
             //}
-            #endregion
+
+            #endregion OLD
         }
 
         private void qButNormal_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)

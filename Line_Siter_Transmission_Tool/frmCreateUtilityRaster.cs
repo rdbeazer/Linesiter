@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
     public partial class frmCreateUtilityRaster : Form
     {
-        IMap _MW = null;
-        clsRasterOps paRaster;
-        string progress = string.Empty;
+        private IMap _MW = null;
+        private clsRasterOps paRaster;
+        private string progress = string.Empty;
 
         public frmCreateUtilityRaster(IMap mapLayer, string projSavePath)
         {
@@ -47,7 +44,6 @@ namespace LineSiterSitingTool
             {
                 MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
             }
         }
 
@@ -68,7 +64,6 @@ namespace LineSiterSitingTool
 
             this.ProgressBar1.Value = e.ProgressPercentage;
             lblprogress.Text = progress;
-
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -88,7 +83,6 @@ namespace LineSiterSitingTool
             tracker.ProgressChanged += new ProgressChangedEventHandler(tracker_ProgressChanged);
             try
             {
-
                 string savePath = txtSaveLocation.Text;
                 if ((savePath == null) || (savePath == "Please Select a Location and Filename"))
                 {
@@ -142,7 +136,6 @@ namespace LineSiterSitingTool
                             MapRasterLayer mras = lay as MapRasterLayer;
                             if (mras == null)
                             {
-
                                 FeatureSet fs = (FeatureSet)lay.DataSet;
                                 string fNameS = @"c:\temp\linesiter\LSProcessing\UTRasters\" + lay.LegendText + ".bgd";
 
@@ -166,7 +159,6 @@ namespace LineSiterSitingTool
                             {
                                 lRaster.Add(mras.DataSet);
                             }
-
                         }
                     }
                 }
@@ -176,17 +168,11 @@ namespace LineSiterSitingTool
                 _MW.Layers.Add(fOutputRaster);
                 MessageBox.Show("Process Complete.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
-
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
-
     }
 }
-
-
-
-

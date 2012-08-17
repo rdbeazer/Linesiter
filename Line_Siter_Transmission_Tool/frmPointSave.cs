@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using DotSpatial.Controls;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
-using DotSpatial.Projections;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
     public partial class frmPointSave : Form
     {
+        private int _startRow = 0, _startCol = 0, _endRow = 0, _endCol = 0;
+        private IMap _MW;
+        private FileInfo pathInfo = null;
+        private List<Coordinate> shCoords = new List<Coordinate>();
+        private FeatureSet startEndPoints = new FeatureSet(FeatureType.Point);
+        private string savedElements = "";
+        private string bndRasterText = string.Empty;
 
-        int _startRow = 0, _startCol = 0, _endRow = 0, _endCol = 0;
-        IMap _MW;
-        FileInfo pathInfo = null;
-        List<Coordinate> shCoords = new List<Coordinate>();
-        FeatureSet startEndPoints = new FeatureSet(FeatureType.Point);
-        string savedElements = "";
-        string bndRasterText = string.Empty;
-        
-                
         public frmPointSave(int startRow, int startCol, int endRow, int endCol, IMap mappingWindow, Coordinate startXY, Coordinate endXY, string projSavePath, string seLayerTxt)
         {
             shCoords.Clear();
@@ -78,7 +72,7 @@ namespace LineSiterSitingTool
             //SaveFileDialog svRas = new SaveFileDialog();
             ////svRas.Filter = "DotSpatial Raster (*.bgd) | *.bgd";
             //svRas.ShowDialog();
-            FileInfo _pathInfo =  new FileInfo(fbd.SelectedPath);
+            FileInfo _pathInfo = new FileInfo(fbd.SelectedPath);
             pathInfo = _pathInfo;
             txtSaveLocation.Text = fbd.SelectedPath;
             //saveShapeFile();

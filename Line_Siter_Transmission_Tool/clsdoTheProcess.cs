@@ -1,42 +1,31 @@
-﻿using System;
+﻿using DotSpatial.Analysis;
+using DotSpatial.Controls;
+using DotSpatial.Data;
+using DotSpatial.Symbology;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using DotSpatial.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Data.OleDb;
 using System.Windows.Forms;
-using System.IO;
-using DotSpatial.Symbology;
-using DotSpatial.Controls;
-using DotSpatial.Topology;
-using DotSpatial.Projections;
-using System.Reflection;
-using GeospatialFiles;
-using System.Threading;
-using System.Diagnostics;
-using DotSpatial.Analysis;
-
 
 namespace LineSiterSitingTool
 {
-    class clsdoTheProcess
+    internal class clsdoTheProcess
     {
         public IRaster additiveCosts { get; set; }
+
         public List<string> finalStatOutput { get; set; }
-        clsMonteCarlo MC = new clsMonteCarlo();
-        double cellSize = 0;
-        int rasterRow = 0;
-        int rasterCol = 0;
-        IRaster backlink = new Raster();
-        IRaster outAccumRaster = new Raster();
-        IRaster outPathRaster = new Raster();
-        string shapefileSavePath;
-        clsMCAssignWeights mcAssign = new clsMCAssignWeights();
-        clsBuildDirectory bdir = new clsBuildDirectory();
-        
+
+        private clsMonteCarlo MC = new clsMonteCarlo();
+        private double cellSize = 0;
+        private int rasterRow = 0;
+        private int rasterCol = 0;
+        private IRaster backlink = new Raster();
+        private IRaster outAccumRaster = new Raster();
+        private IRaster outPathRaster = new Raster();
+        private string shapefileSavePath;
+        private clsMCAssignWeights mcAssign = new clsMCAssignWeights();
+        private clsBuildDirectory bdir = new clsBuildDirectory();
+
         public void doTheProcess(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster bounds, string saveLocation, IMap _mapLayer, int currentPass, DataGridView dgvSelectLayers, IRaster utilityCosts, clsMonteCarlo _MC, string progress, IRaster additivecosts, ref IRaster rasterToConvert, ref string costFileName)
         {
             try
@@ -117,7 +106,6 @@ namespace LineSiterSitingTool
                                 {
                                     MessageBox.Show("All selected rows for analysis must contain a loaded feature layer.  \n Please verify all rows are assigned a feature layer and restart the process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     return;
-
                                 }
                             }
                         }
@@ -140,5 +128,4 @@ namespace LineSiterSitingTool
             }
         }
     }
-    
 }

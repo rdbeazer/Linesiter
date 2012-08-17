@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Controls;
-using System.IO;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
     public partial class frmCreateBoundsRaster : Form
     {
-        IMap _MW;
-        clsRasterOps pa;
-
+        private IMap _MW;
+        private clsRasterOps pa;
 
         public frmCreateBoundsRaster(IMap mapFrame, string projSavePath)
         {
@@ -52,7 +45,6 @@ namespace LineSiterSitingTool
                 MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
         }
 
         private void fillCombo()
@@ -78,7 +70,6 @@ namespace LineSiterSitingTool
         {
             try
             {
-
                 //create raster featureset with project bounds information
                 if (txtSaveLocation.Text == string.Empty)
                 {
@@ -97,7 +88,7 @@ namespace LineSiterSitingTool
                         {
                             FeatureSet projectFS = (FeatureSet)fsLayer.DataSet;
                             IRaster prjOutRS = DotSpatial.Analysis.VectorToRaster.ToRaster(projectFS, projectFS.Extent, cellSize, "FID", txtSaveLocation.Text, null, ras2, null);
-                            pa.createPA(prjOutRS, txtSaveLocation.Text, -99);                        
+                            pa.createPA(prjOutRS, txtSaveLocation.Text, -99);
                         }
                         else if (fsLayer.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
                         {
@@ -111,12 +102,9 @@ namespace LineSiterSitingTool
                     }
                 }
                 IRaster nPrjOutRS = Raster.Open(txtSaveLocation.Text.Substring(0, txtSaveLocation.Text.Length - 4) + "pa.bgd");
-                _MW.Layers.Add(nPrjOutRS);              
+                _MW.Layers.Add(nPrjOutRS);
                 MessageBox.Show("Process Complete. \n Bounding Raster has been added to map frame.", "Bounding Raster Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
-
-                
-
             }
             catch (Exception ex)
             {
@@ -124,6 +112,5 @@ namespace LineSiterSitingTool
                 return;
             }
         }
-
     }
 }

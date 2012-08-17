@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -99,13 +95,12 @@ namespace LineSiterSitingTool
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
+
+        #endregion Assembly Attribute Accessors
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
     }
 }

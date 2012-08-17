@@ -1,37 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Controls;
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
     public partial class frmReclass : Form
     {
-        IMap _MW; 
+        private IMap _MW;
 
         public frmReclass(IMap mapFrame, string projSavePath)
         {
             InitializeComponent();
             _MW = mapFrame;
-            loadRtb();        
+            loadRtb();
         }
 
-        IRaster passingRaster = new Raster();
-        IRaster savingRaster = new Raster();
+        private IRaster passingRaster = new Raster();
+        private IRaster savingRaster = new Raster();
 
         private void btnRasterOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
 
-            ofd.InitialDirectory = @"C:\Users\Robert\Documents\LDRD\Data\Test Data" ;
-            //ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*" 
+            ofd.InitialDirectory = @"C:\Users\Robert\Documents\LDRD\Data\Test Data";
+            //ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -81,7 +76,7 @@ namespace LineSiterSitingTool
         private void btnClassify_Click(object sender, EventArgs e)
         {
             clsRasterOps cro = new clsRasterOps(_MW);
-            Dictionary<string, double> reclassifyDict = new Dictionary<string,double>();
+            Dictionary<string, double> reclassifyDict = new Dictionary<string, double>();
             bool success = false;
             savingRaster.Bounds = passingRaster.Bounds;
             savingRaster.Projection = passingRaster.Projection;

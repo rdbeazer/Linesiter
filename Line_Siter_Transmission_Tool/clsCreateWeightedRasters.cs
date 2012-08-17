@@ -1,25 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using DotSpatial.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Data.OleDb;
-using System.Windows.Forms;
-using System.IO;
-using DotSpatial.Symbology;
-using DotSpatial.Controls;
-using DotSpatial.Topology;
-using DotSpatial.Projections;
-using System.Reflection;
-using GeospatialFiles;
-using System.Threading;
+﻿using DotSpatial.Data;
 
 namespace LineSiterSitingTool
 {
-    class clsCreateWeightedRasters
+    internal class clsCreateWeightedRasters
     {
         public void createWeightedRasters(string newPath, IRaster oRaster, clsMonteCarlo MC, IRaster bounds)
         {

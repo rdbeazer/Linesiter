@@ -1,30 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Data.OleDb;
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using System.IO;
-using DotSpatial.Symbology;
-using DotSpatial.Controls;
-using DotSpatial.Topology;
-using DotSpatial.Projections;
-using System.Reflection;
-using GeospatialFiles;
-using System.Threading;
 
 namespace LineSiterSitingTool
 {
-    class clsCostWeight
+    internal class clsCostWeight
     {
-        IRaster rasterToConvert;
-        string costFileName = "";
+        private IRaster rasterToConvert;
+        private string costFileName = "";
 
-        public void calculate_Cost_Weight(string savePath, IRaster bounds, IMap _mapLayer,int currentPass, IRaster additiveCosts, IRaster utilityCosts)
+        public void calculate_Cost_Weight(string savePath, IRaster bounds, IMap _mapLayer, int currentPass, IRaster additiveCosts, IRaster utilityCosts)
         {
             try
             {

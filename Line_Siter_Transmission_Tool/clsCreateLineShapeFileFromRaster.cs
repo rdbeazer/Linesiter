@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Controls;
 using DotSpatial.Topology;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using System.IO;
 
 namespace LineSiterSitingTool
 {
     // This class is a work in progress...
-    class clsCreateLineShapeFileFromRaster
+    internal class clsCreateLineShapeFileFromRaster
     {
-
         public clsCreateLineShapeFileFromRaster()
         {
-
         }
-        const int NoData = -32768;
-        const double lnOf2 = 0.693147180559945;
-        List<Coordinate> lcpPointsCoords = new List<Coordinate>();
-        FeatureSet lcpPoints = new FeatureSet(FeatureType.Point);
+
+        private const int NoData = -32768;
+        private const double lnOf2 = 0.693147180559945;
+        private List<Coordinate> lcpPointsCoords = new List<Coordinate>();
+        private FeatureSet lcpPoints = new FeatureSet(FeatureType.Point);
 
         public void createShapefile(IRaster rastConvert, int rastVal, string saveLocation, IMap mw, string name)
         {

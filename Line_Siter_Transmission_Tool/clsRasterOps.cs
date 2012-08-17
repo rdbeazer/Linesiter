@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Controls;
-using System.IO;
-using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace LineSiterSitingTool
 {
-    class clsRasterOps
+    internal class clsRasterOps
     {
-        IMap _MW;
+        private IMap _MW;
 
         public clsRasterOps(IMap mapFrame)
         {
@@ -80,7 +77,6 @@ namespace LineSiterSitingTool
             }
         }
 
-
         public void rasterAddition(List<IRaster> lraster, IRaster oRaster)
         {
             foreach (Raster addRaster in lraster)
@@ -91,7 +87,6 @@ namespace LineSiterSitingTool
                     {
                         double oValue = oRaster.Value[oRows, oCols];
                         oRaster.Value[oRows, oCols] = oValue + addRaster.Value[oRows, oCols];
-
                     }
                     oRaster.Save();
                 }
@@ -101,7 +96,6 @@ namespace LineSiterSitingTool
 
         public void rasterMultiplication(List<IRaster> lraster, IRaster oRaster)
         {
-
             foreach (Raster addRaster in lraster)
             {
                 for (int oRows = 0; oRows < oRaster.NumRows - 1; oRows++)
@@ -110,7 +104,6 @@ namespace LineSiterSitingTool
                     {
                         double oValue = oRaster.Value[oRows, oCols];
                         oRaster.Value[oRows, oCols] = oValue * addRaster.Value[oRows, oCols];
-
                     }
                     oRaster.Save();
                 }
@@ -119,14 +112,14 @@ namespace LineSiterSitingTool
 
         public void rasterSubtraction(IRaster S1, IRaster S2, IRaster oRaster)
         {
-                for (int oRows = 0; oRows < oRaster.NumRows - 1; oRows++)
+            for (int oRows = 0; oRows < oRaster.NumRows - 1; oRows++)
+            {
+                for (int oCols = 0; oCols < oRaster.NumColumns - 1; oCols++)
                 {
-                    for (int oCols = 0; oCols < oRaster.NumColumns - 1; oCols++)
-                    {
-                        oRaster.Value[oRows, oCols] = S1.Value[oRows, oCols] - S2.Value[oRows, oCols];
-                    }
+                    oRaster.Value[oRows, oCols] = S1.Value[oRows, oCols] - S2.Value[oRows, oCols];
                 }
-                oRaster.Save();
+            }
+            oRaster.Save();
         }
 
         public void rasterDivision(IRaster div1, IRaster div2, IRaster divFinal)
@@ -181,7 +174,6 @@ namespace LineSiterSitingTool
                         }
                     }
                 }
-
             }
             saveRaster.Save();
             _MW.Layers.Add(saveRaster);
@@ -190,18 +182,16 @@ namespace LineSiterSitingTool
 
         public void removeProcessingFiles()
         {
-                DirectoryInfo df = new DirectoryInfo(@"c:\temp\linesiter");
-                foreach (FileInfo file in df.GetFiles())
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo dir in df.GetDirectories())
-                {
-                    dir.Delete(true);
-                }
-                Directory.Delete(@"c:\temp\linesiter");
+            DirectoryInfo df = new DirectoryInfo(@"c:\temp\linesiter");
+            foreach (FileInfo file in df.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in df.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+            Directory.Delete(@"c:\temp\linesiter");
         }
-
-
     }
 }
