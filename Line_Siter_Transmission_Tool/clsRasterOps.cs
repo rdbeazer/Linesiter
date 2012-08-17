@@ -6,6 +6,7 @@ using DotSpatial.Data;
 using DotSpatial.Controls;
 using System.IO;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LineSiterSitingTool
 {
@@ -74,9 +75,9 @@ namespace LineSiterSitingTool
                 paRaster.Save();
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine(ex);
             }
         }
 

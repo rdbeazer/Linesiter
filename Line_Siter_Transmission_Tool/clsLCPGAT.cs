@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LineSiterSitingTool
 {
@@ -43,9 +44,9 @@ namespace LineSiterSitingTool
                 cp.Execute(_costPathString, worker);
             }
 
-            catch (System.InvalidOperationException)
+            catch (System.InvalidOperationException ex)
             {
-
+                Debug.WriteLine(ex);
             }
         }
     }

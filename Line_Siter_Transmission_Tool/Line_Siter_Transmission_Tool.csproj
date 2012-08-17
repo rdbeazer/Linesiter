@@ -225,12 +225,6 @@
     </Compile>
     <Compile Include="clsMCAssignWeights.cs" />
     <Compile Include="Randomnumber.cs" />
-    <Compile Include="selectionDiag.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="selectionDiag.Designer.cs">
-      <DependentUpon>selectionDiag.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmAboutTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,9 +287,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MCTest.resx">
       <DependentUpon>MCTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="selectionDiag.resx">
-      <DependentUpon>selectionDiag.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="LineSiting.dbml.layout">

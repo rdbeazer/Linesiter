@@ -126,10 +126,5 @@ namespace LineSiterSitingTool
             }
         }
 
-        private void frmCreateBoundsRaster_Load(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
