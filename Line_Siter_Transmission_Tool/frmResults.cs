@@ -1,29 +1,26 @@
-﻿using System;
+﻿using DotSpatial.Data;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
-using DotSpatial.Data;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
     public partial class frmResults : Form
     {
-        IRaster _additive;
-        IRaster _UTCosts;
-        FeatureSet _MTCosts;
-        FeatureSet _StartEndPoints;
-        //FeatureSet _UTPath;
-        IRaster _UTPath;
-        //FeatureSet _MTPath;
-        int _mtPasses;
-        List<string> _results = new List<string>();
-        string _saveLocation;
+        private IRaster _additive;
+        private IRaster _UTCosts;
+        private FeatureSet _MTCosts;
+        private FeatureSet _StartEndPoints;
 
+        //FeatureSet _UTPath;
+        private IRaster _UTPath;
+
+        //FeatureSet _MTPath;
+        private int _mtPasses;
+
+        private List<string> _results = new List<string>();
+        private string _saveLocation;
 
         public frmResults(IRaster UTPath, IRaster additive, IRaster UTCosts, IFeatureSet MTCosts, IFeatureSet startEndPoints, int mtPasses, List<string> results, string saveLocation)
         {

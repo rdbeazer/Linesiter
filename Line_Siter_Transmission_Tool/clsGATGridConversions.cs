@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
+﻿using DotSpatial.Data;
 using GeospatialFiles;
+using System;
 using System.Windows.Forms;
-using DotSpatial.Data;
 
 namespace LineSiterSitingTool
 {
-    class clsGATGridConversions
+    internal class clsGATGridConversions
     {
         public IRaster _rasterToConvert { get; set; }
+
         public string _statusMessage { get; set; }
+
         public string _gridToConvert { get; set; }
+
         public string _conversionRaster { get; set; }
+
         public IRaster _bnds { get; set; }
 
         public IRaster conRaster;
@@ -37,7 +37,7 @@ namespace LineSiterSitingTool
             newRaster.InitializeGrid(_rasterToConvert.NumColumns, _rasterToConvert.NumRows);
             newRaster.WriteHeaderFile();
             newRaster.SetBlockData();
-     //       MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
+            //       MessageBox.Show(Convert.ToString(rasterToConvert.NumRows - 1));
             for (int nRow = 0; nRow < _rasterToConvert.NumRows - 1; nRow++)
             {
                 for (int nCol = 0; nCol < _rasterToConvert.NumColumns - 1; nCol++)
@@ -50,7 +50,6 @@ namespace LineSiterSitingTool
             return;
         }
 
-
         public void convertBGD()
         {
             try
@@ -58,7 +57,7 @@ namespace LineSiterSitingTool
                 GATGrid gt = new GATGrid();
                 gt.HeaderFileName = _gridToConvert + ".dep";
                 gt.DataFileName = _gridToConvert + ".tas";
-                conRaster = Raster.CreateRaster(_conversionRaster.Substring(0, _conversionRaster.Length  -4 ) + "new.bgd", null, gt.NumberColumns, gt.NumberRows, 1, typeof(float), null);
+                conRaster = Raster.CreateRaster(_conversionRaster.Substring(0, _conversionRaster.Length - 4) + "new.bgd", null, gt.NumberColumns, gt.NumberRows, 1, typeof(float), null);
                 conRaster.CellHeight = gt.GridResolution;
                 conRaster.Bounds = _bnds.Bounds;
                 conRaster.NoDataValue = -32768;
@@ -78,7 +77,6 @@ namespace LineSiterSitingTool
             {
                 MessageBox.Show("Unexpected error: " + ex + "\n has occured.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
             }
         }
     }

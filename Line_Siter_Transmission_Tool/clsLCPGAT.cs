@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using GeospatialFiles;
-using System.Reflection;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
-    class clsLCPGAT
+    internal class clsLCPGAT
     {
-        ToolStripStatusLabel _tslStatus = new ToolStripStatusLabel();
-        string[] _paraString;
-        string[] _costPathString;
+        private ToolStripStatusLabel _tslStatus = new ToolStripStatusLabel();
+        private string[] _paraString;
+        private string[] _costPathString;
 
         public clsLCPGAT(ToolStripStatusLabel tslStatus, string[] paraString, string[] costPathString)
         {

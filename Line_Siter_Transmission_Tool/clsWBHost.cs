@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using GISTools;
+﻿using Interfaces;
+using System;
 using System.IO;
-using Interfaces;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
-    class clsWBHost : IHost
+    internal class clsWBHost : IHost
     {
-
-        System.Windows.Forms.ToolStripStatusLabel status = new ToolStripStatusLabel();
+        private System.Windows.Forms.ToolStripStatusLabel status = new ToolStripStatusLabel();
 
         public string[] parameters
         {
@@ -35,14 +30,12 @@ namespace LineSiterSitingTool
             //status.Text = label;
         }
 
-        public void SetParameters( string[] ParameterArray)
+        public void SetParameters(string[] ParameterArray)
         {
-
         }
 
         public void RunPlugin(string PluginClassName)
         {
-
         }
 
         public Boolean RunInSynchronousMode

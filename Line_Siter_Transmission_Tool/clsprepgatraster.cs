@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DotSpatial.Data;
-using System.Linq;
+﻿using DotSpatial.Data;
 using System.Windows.Forms;
-
 
 namespace LineSiterSitingTool
 {
-    class clsprepgatraster
+    internal class clsprepgatraster
     {
-        string backlinkFilename = "";
-        string outputAccumFilename = "";
+        private string backlinkFilename = "";
+        private string outputAccumFilename = "";
 
         public void prepareGATRasters(string savePath, Cursor xcurs, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, string outputPathFilename)
         {
-
             backlinkFilename = savePath + @"\backlink";
             clsGATGridConversions prepareGATs = new clsGATGridConversions();
             prepareGATs._rasterToConvert = backlink;

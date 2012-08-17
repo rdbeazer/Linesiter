@@ -1,28 +1,39 @@
-﻿using System;
+﻿using DotSpatial.Data;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DotSpatial.Data;
 
 namespace LineSiterSitingTool
 {
-    class clsMonteCarlo
+    internal class clsMonteCarlo
     {
-        int timesSaved = 1;
+        private int timesSaved = 1;
 
         #region Properties
+
         public int NumPasses { get; set; }
+
         public double socialWeight { get; set; }
+
         public double[] assignedWeights { get; set; }
+
         public string wRaster { get; set; }
+
         public int oGreaterThanZeroCount { get; set; }
+
         public int mGreaterThanZeroCount { get; set; }
+
         public long numCells { get; set; }
+
         public int changedVals { get; set; }
+
         public int mValueChangedVals { get; set; }
+
         public int oValueChangedVals { get; set; }
+
         public int numZeros { get; set; }
+
         public bool errorCondition { get; set; }
+
         public string passType { get; set; }
 
         # endregion
@@ -63,7 +74,7 @@ namespace LineSiterSitingTool
             }
         }
 
-        public IRaster _calcRaster(IRaster cRaster, IRaster mRaster, string savePath) 
+        public IRaster _calcRaster(IRaster cRaster, IRaster mRaster, string savePath)
         {
             double cValue = 0;
             double wValue = 0;
@@ -85,8 +96,8 @@ namespace LineSiterSitingTool
                 {
                     numCells++;
                     cValue = cRaster.Value[oRows, oCols];
-                    wValue = mRaster.Value[oRows,oCols];
-                    
+                    wValue = mRaster.Value[oRows, oCols];
+
                     if (cValue == 0)
                     {
                         numZeros++;
@@ -133,7 +144,6 @@ namespace LineSiterSitingTool
                 }
             }
 
-
             calcRaster.Save();
             timesSaved++;
             return calcRaster;
@@ -161,6 +171,5 @@ namespace LineSiterSitingTool
             passedRaster.Save();
             return passedRaster;
         }
-
     }
 }

@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Forms;
-using DotSpatial.Controls;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
+using System;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
-    class clsCreateStartEndRasters
+    internal class clsCreateStartEndRasters
     {
-        IFeatureSet fst = new FeatureSet();
+        private IFeatureSet fst = new FeatureSet();
+
         public IRaster startPoint { get; set; }
+
         public IRaster endPoint { get; set; }
 
         public void createRasters(IMap MW, string selectedItem, clsLCPCoords LC, IRaster utilCosts)
@@ -93,7 +91,6 @@ namespace LineSiterSitingTool
             }
         }
 
-
         private void GATConversions(IRaster convertRas, IRaster utilityCosts)
         {
             try
@@ -112,7 +109,6 @@ namespace LineSiterSitingTool
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(Convert.ToString(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

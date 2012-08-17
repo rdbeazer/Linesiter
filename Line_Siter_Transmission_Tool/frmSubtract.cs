@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Controls;
 using DotSpatial.Symbology;
-using System.IO;
+using System;
+using System.Windows.Forms;
+
 namespace LineSiterSitingTool
 {
     /// <summary>
@@ -17,7 +11,8 @@ namespace LineSiterSitingTool
     /// </summary>
     public partial class frmSubtract : Form
     {
-        IMap _MW;
+        private IMap _MW;
+
         public frmSubtract(IMap mapframe, string projSavePath)
         {
             InitializeComponent();
@@ -30,10 +25,10 @@ namespace LineSiterSitingTool
             }
         }
 
-        IRaster S1;
-        IRaster S2;
-        IRaster oRaster = new Raster();
-        string saveLocation;
+        private IRaster S1;
+        private IRaster S2;
+        private IRaster oRaster = new Raster();
+        private string saveLocation;
 
         private void fillCombos()
         {

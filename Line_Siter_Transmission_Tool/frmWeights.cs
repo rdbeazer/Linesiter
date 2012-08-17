@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace LineSiterSitingTool
@@ -15,36 +9,30 @@ namespace LineSiterSitingTool
         {
             InitializeComponent();
         }
-        
+
         private void trkHigh_Scroll(object sender, EventArgs e)
         {
-            
             txtHigh.Text = Convert.ToString(trkHigh.Value * 0.1);
-           
         }
 
         private void trkMedHigh_Scroll(object sender, EventArgs e)
         {
             txtMedHigh.Text = Convert.ToString(trkMedHigh.Value * 0.1);
-           
         }
 
         private void trkMedium_Scroll(object sender, EventArgs e)
         {
             txtMedium.Text = Convert.ToString(trkMedium.Value * 0.1);
-            
         }
 
         private void trkMedLow_Scroll(object sender, EventArgs e)
         {
             txtMedLow.Text = Convert.ToString(trkMedLow.Value * 0.1);
-           
         }
 
         private void trkLow_Scroll(object sender, EventArgs e)
         {
             txtLow.Text = Convert.ToString(trkLow.Value * 0.1);
-           
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -60,7 +48,6 @@ namespace LineSiterSitingTool
             public double LSMedLow;
             public double LSLow;
         }
-
 
         public assignedWeights getWeight
         {
@@ -83,8 +70,6 @@ namespace LineSiterSitingTool
                 txtHigh.Text = Convert.ToString(0.9);
                 MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-           
-            
         }
 
         private void txtMedHigh_TextChanged(object sender, EventArgs e)
@@ -93,7 +78,6 @@ namespace LineSiterSitingTool
             {
                 txtMedHigh.Text = Convert.ToString(0.7);
                 MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
         }
 
@@ -103,7 +87,6 @@ namespace LineSiterSitingTool
             {
                 txtMedium.Text = Convert.ToString(0.5);
                 MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
         }
 
@@ -113,7 +96,6 @@ namespace LineSiterSitingTool
             {
                 txtMedLow.Text = Convert.ToString(0.3);
                 MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
         }
 
@@ -123,9 +105,7 @@ namespace LineSiterSitingTool
             {
                 txtLow.Text = Convert.ToString(0.1);
                 MessageBox.Show("Since the value is above 1, The value is set to its default value.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
         }
-
     }
 }

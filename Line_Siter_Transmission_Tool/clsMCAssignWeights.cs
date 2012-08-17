@@ -1,44 +1,34 @@
-﻿using System;
+﻿using DotSpatial.Controls;
+using DotSpatial.Data;
+using DotSpatial.Topology;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using DotSpatial.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Data.OleDb;
-using System.Windows.Forms;
 using System.IO;
-using DotSpatial.Symbology;
-using DotSpatial.Controls;
-using DotSpatial.Topology;
-using DotSpatial.Projections;
-using System.Reflection;
-using GeospatialFiles;
-using System.Threading;
-
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
-    class clsMCAssignWeights
+    internal class clsMCAssignWeights
     {
         public IRaster additiveCosts { get; set; }
+
         public List<string> finalStatOutput { get; set; }
-        Cursor curs = Cursors.Arrow;
-        FeatureSet pathLines = new FeatureSet(FeatureType.Line);
-        clsMonteCarlo MC = new clsMonteCarlo();
-        clsCreateWeightedRasters cwr = new clsCreateWeightedRasters();
-        Randomnumber r1 = new Randomnumber();
-        double rv = 0;
-        string currentQuesPath = "";
-        List<IRaster> mcRasterList = new List<IRaster>();
-        clsCostWeight costWeight = new clsCostWeight();
-        clsprepgatraster gr = new clsprepgatraster();
-        clsBuildDirectory bdir = new clsBuildDirectory();
+
+        private Cursor curs = Cursors.Arrow;
+        private FeatureSet pathLines = new FeatureSet(FeatureType.Line);
+        private clsMonteCarlo MC = new clsMonteCarlo();
+        private clsCreateWeightedRasters cwr = new clsCreateWeightedRasters();
+        private Randomnumber r1 = new Randomnumber();
+        private double rv = 0;
+        private string currentQuesPath = "";
+        private List<IRaster> mcRasterList = new List<IRaster>();
+        private clsCostWeight costWeight = new clsCostWeight();
+        private clsprepgatraster gr = new clsprepgatraster();
+        private clsBuildDirectory bdir = new clsBuildDirectory();
 
         public void MCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts)
         {
-
             MC = _mc;
             tslStatus.Visible = false;
             finalStatOutput.Add("Monte Carlo Pass: " + Convert.ToString(currentPass));
@@ -143,10 +133,5 @@ namespace LineSiterSitingTool
             }
             gr.prepareGATRasters(mcRasSavePath, curs, backlink, outAccumRaster, outPathRaster, outputPathFilename);
         }
-
-
     }
-
 }
-
-

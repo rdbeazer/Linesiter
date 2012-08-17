@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-
 
 namespace LineSiterSitingTool
 {
     public partial class MCTest : Form
     {
-        string _surveypath = string.Empty;
-
+        private string _surveypath = string.Empty;
 
         public MCTest(string surveyPath)
         {
@@ -26,7 +20,7 @@ namespace LineSiterSitingTool
             chart1.Invalidate();
         }
 
-        Random random = new Random();
+        private Random random = new Random();
 
         private void btnBegin_Click(object sender, EventArgs e)
         {
@@ -45,7 +39,7 @@ namespace LineSiterSitingTool
             chart3.ChartAreas[0].AxisX.Minimum = 1;
             //chart3.ChartAreas[0].AxisY.Maximum = 1;
             clsMonteCarlo mc = new clsMonteCarlo();
-            double[] asWeight = new double[5] {0,0,0,0,0};
+            double[] asWeight = new double[5] { 0, 0, 0, 0, 0 };
             mc.assignedWeights = asWeight;
             int mcHigh = 0;
             int mcMedHigh = 0;
@@ -102,7 +96,7 @@ namespace LineSiterSitingTool
             }
             while (currentPass <= mc.NumPasses);
             chart3.Series[0].Points.Clear();
-            double mcH = Convert.ToDouble(mcHigh)/Convert.ToDouble(mc.NumPasses);
+            double mcH = Convert.ToDouble(mcHigh) / Convert.ToDouble(mc.NumPasses);
             double mcMH = Convert.ToDouble(mcMedHigh) / Convert.ToDouble(mc.NumPasses);
             double mcM = Convert.ToDouble(mcMedium) / Convert.ToDouble(mc.NumPasses);
             double mcML = Convert.ToDouble(mcMedLow) / Convert.ToDouble(mc.NumPasses);
@@ -239,11 +233,11 @@ namespace LineSiterSitingTool
                 {
                     median = sList[mx];
                 }
-                mean+=sList[mx];
+                mean += sList[mx];
                 mx++;
             }
             //Array.Sort(modeArray);
-            mode = (Array.IndexOf(modeArray, modeArray.Max()))+1;
+            mode = (Array.IndexOf(modeArray, modeArray.Max())) + 1;
             //mode = modeArray[4];
             mean = mean / s;
             mx = 0;
@@ -270,7 +264,7 @@ namespace LineSiterSitingTool
             chart1.Invalidate();
             chart1.Series[0].Points.Clear();
             //chart1.ChartAreas.Clear();
-          // string seriesName = "Series1";
+            // string seriesName = "Series1";
             chart1.Series[0].ChartType = SeriesChartType.Column;
             chart1.Series[0].Color = System.Drawing.Color.DarkRed;
             chart1.Series[0].Points.AddXY(1, a);
@@ -289,12 +283,12 @@ namespace LineSiterSitingTool
             lblStDev.Text = "Standard Deviation: " + standardDeviation;
             lblSkew.Text = "Skewness: " + skewness;
 
-
             ////Calculate Mean
             lblMean.Text = "Mean: " + Convert.ToString(mean);
             lblMedian.Text = "Median: " + median;
 
             #region striplines
+
             //Set Strip line item
             StripLine stripLineStdev = new StripLine();
             StripLine stripLineMedian = new StripLine();
@@ -324,7 +318,8 @@ namespace LineSiterSitingTool
             stripLineMean.TextAlignment = System.Drawing.StringAlignment.Near;
             stripLineMean.StripWidth = 0.001;
             chart1.ChartAreas[0].AxisX.StripLines.Add(stripLineMean);
-            #endregion
+
+            #endregion striplines
         }
 
         private void txtE_TextChanged(object sender, EventArgs e)

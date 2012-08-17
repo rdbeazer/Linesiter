@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using DotSpatial.Controls;
-using DotSpatial.Symbology;
+﻿using DotSpatial.Controls;
 using DotSpatial.Data;
-using System.Collections;
+using DotSpatial.Symbology;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace LineSiterSitingTool
 {
@@ -17,8 +12,8 @@ namespace LineSiterSitingTool
     {
         public bool okToProceed { get; set; }
 
-        IMap mapLayers = null;
-        public Dictionary <string, string> layerList = new Dictionary<string, string>();
+        private IMap mapLayers = null;
+        public Dictionary<string, string> layerList = new Dictionary<string, string>();
 
         public frmAssignLayerCosts(IMap mlayers)
         {
@@ -44,14 +39,12 @@ namespace LineSiterSitingTool
                 MessageBox.Show("Error: " + ex + " has occured.", "Generic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
         }
 
         private void loadLayersDV()
         {
             try
             {
-
                 int rowNum = 0;
                 DataGridViewCheckBoxColumn dgvcheck = new DataGridViewCheckBoxColumn();
                 DataGridViewTextBoxColumn fLayer = new DataGridViewTextBoxColumn();
@@ -62,7 +55,6 @@ namespace LineSiterSitingTool
                 dgvSelectLayers.Columns.Add(dgvcheck);
                 dgvSelectLayers.Columns.Add(fLayer);
                 dgvSelectLayers.Columns.Add(layerAtts);
-
 
                 foreach (Layer lay in mapLayers.Layers)
                 {
@@ -84,7 +76,7 @@ namespace LineSiterSitingTool
                         dgvSelectLayers.Rows.Add(newLayerRow);
                         rowNum++;
                     }
-                    
+
                     if (lay.GetType() == typeof(DotSpatial.Controls.MapRasterLayer))
                     {
                         DataGridViewTextBoxCell layerNameText = new DataGridViewTextBoxCell();
@@ -92,7 +84,7 @@ namespace LineSiterSitingTool
                         DataGridViewCheckBoxCell layChecks = new DataGridViewCheckBoxCell();
                         DataGridViewRow newLayerRow = new DataGridViewRow();
                         layerNameText.Value = lay.LegendText;
-                        rasterIdText.Value = "N/A--Is Raster"; 
+                        rasterIdText.Value = "N/A--Is Raster";
                         newLayerRow.Cells.Add(layChecks);
                         newLayerRow.Cells.Add(layerNameText);
                         newLayerRow.Cells.Add(rasterIdText);
@@ -134,7 +126,5 @@ namespace LineSiterSitingTool
         {
             okToProceed = false;
         }
-
-
     }
 }

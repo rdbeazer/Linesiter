@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace LineSiterSitingTool
 {
-    class Randomnumber
+    internal class Randomnumber
     {
-        Random random = new Random();
+        private Random random = new Random();
 
         public double RandomNumber()
         {
