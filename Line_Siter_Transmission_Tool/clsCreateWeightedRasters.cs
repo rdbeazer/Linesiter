@@ -1,4 +1,5 @@
 ﻿using DotSpatial.Data;
+using LineSiterSitingTool.MonteCarlo;
 
 namespace LineSiterSitingTool
 {

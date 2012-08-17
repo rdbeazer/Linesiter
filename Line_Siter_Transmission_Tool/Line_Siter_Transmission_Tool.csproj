@@ -147,14 +147,14 @@
     <Compile Include="clsCreateBackgroundRasters.cs" />
     <Compile Include="clsCreateWeightedRasters.cs" />
     <Compile Include="clsdoTheProcess.cs" />
-    <Compile Include="clsGATGridConversions.cs" />
+    <Compile Include="Whitebox\clsGATGridConversions.cs" />
     <Compile Include="clsLCPCoords.cs" />
-    <Compile Include="clsMonteCarlo.cs" />
+    <Compile Include="MonteCarlo\clsMonteCarlo.cs" />
     <Compile Include="clsPass.cs" />
     <Compile Include="clsprepgatraster.cs" />
     <Compile Include="clsRasterOps.cs" />
     <Compile Include="clsUtilityCosts.cs" />
-    <Compile Include="clsWBHost.cs" />
+    <Compile Include="Whitebox\clsWBHost.cs" />
     <Compile Include="clsCreateLineShapeFileFromRaster.cs" />
     <Compile Include="clsCreateStartEndRasters.cs" />
     <Compile Include="frmAssignLayerCosts.cs">
@@ -205,19 +205,13 @@
     <Compile Include="frmSubtract.Designer.cs">
       <DependentUpon>frmSubtract.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTest.Designer.cs">
-      <DependentUpon>frmTest.cs</DependentUpon>
-    </Compile>
     <Compile Include="MCTest.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MCTest.Designer.cs">
       <DependentUpon>MCTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="clsMCAssignWeights.cs" />
+    <Compile Include="MonteCarlo\clsMCAssignWeights.cs" />
     <Compile Include="Randomnumber.cs" />
     <Compile Include="frmAboutTool.cs">
       <SubType>Form</SubType>
@@ -236,11 +230,6 @@
     </Compile>
     <Compile Include="frmWeights.Designer.cs">
       <DependentUpon>frmWeights.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LineSiting.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LineSiting.dbml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,16 +262,9 @@
     <EmbeddedResource Include="frmSubtract.resx">
       <DependentUpon>frmSubtract.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTest.resx">
-      <DependentUpon>frmTest.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MCTest.resx">
       <DependentUpon>MCTest.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="LineSiting.dbml.layout">
-      <DependentUpon>LineSiting.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="frmToolExecute.resx">
       <DependentUpon>frmToolExecute.cs</DependentUpon>
     </EmbeddedResource>
@@ -300,11 +282,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="LineSiting.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>LineSiting.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -397,6 +374,7 @@
   <ItemGroup>
     <Content Include="pwLine.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

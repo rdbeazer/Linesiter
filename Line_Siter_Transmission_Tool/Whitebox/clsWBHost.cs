@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace LineSiterSitingTool
+namespace LineSiterSitingTool.Whitebox
 {
     internal class clsWBHost : IHost
     {

@@ -3,7 +3,7 @@ using GeospatialFiles;
 using System;
 using System.Windows.Forms;
 
-namespace LineSiterSitingTool
+namespace LineSiterSitingTool.Whitebox
 {
     internal class clsGATGridConversions
     {
