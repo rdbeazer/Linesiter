@@ -27,7 +27,19 @@ namespace LineSiterSitingTool.MonteCarlo
         private clsprepgatraster gr = new clsprepgatraster();
         private clsBuildDirectory bdir = new clsBuildDirectory();
 
-        public void MCAssignWeights(ToolStripStatusLabel tslStatus, BackgroundWorker tracker, IRaster backlink, IRaster outAccumRaster, IRaster outPathRaster, int currentPass, clsMonteCarlo _mc, DataGridView dgvSelectLayers, IRaster bounds, string saveLocation, IMap _mapLayer, string progress, ref string outputPathFilename, IRaster utilityCosts)
+        public void MCAssignWeights(ToolStripStatusLabel tslStatus, 
+            BackgroundWorker tracker, 
+            IRaster backlink, 
+            IRaster outAccumRaster, 
+            IRaster outPathRaster, 
+            int currentPass, 
+            clsMonteCarlo _mc, 
+            DataGridView dgvSelectLayers, 
+            IRaster bounds, 
+            string saveLocation, 
+            IMap _mapLayer, 
+            ref string outputPathFilename, 
+            IRaster utilityCosts)
         {
             MC = _mc;
             tslStatus.Visible = false;
@@ -40,8 +52,7 @@ namespace LineSiterSitingTool.MonteCarlo
             mcRaster = null;
             mcRaster = Raster.Open(mcRasSavePath + @"\mcRaster.bgd");
             double[] AnswerPercents = new double[5];
-            progress = "Current Pass " + Convert.ToString(currentPass);
-            tracker.ReportProgress(40);
+            tracker.ReportProgress(40, "Current Pass " + Convert.ToString(currentPass));
             foreach (DataGridViewRow dr in dgvSelectLayers.Rows)
             {
                 if (Convert.ToString(dr.Cells[0].Value) == "True")
@@ -108,7 +119,7 @@ namespace LineSiterSitingTool.MonteCarlo
                         AnswerPercents[4] = AnswerPercents[3] + (double)dr.Cells[9].Value;
                     }
                     MC.calculateWeight(rv, AnswerPercents);
-                    tracker.ReportProgress(50);
+                    tracker.ReportProgress(50, "Splines reticulated.");
                     finalStatOutput.Add("LSHigh: " + Convert.ToString(AnswerPercents[0]) + " | LSMedHigh: " + Convert.ToString(AnswerPercents[1]) + " | LSMed: " + Convert.ToString(AnswerPercents[2]) + " | LSMedLow: " + Convert.ToString(AnswerPercents[3]) + " | LSLow: " + Convert.ToString(AnswerPercents[4]));
                     finalStatOutput.Add("Weight: " + (Convert.ToString(MC.socialWeight)));
                     finalStatOutput.Add(MC.wRaster);
@@ -120,12 +131,11 @@ namespace LineSiterSitingTool.MonteCarlo
                     questNum++;
                     MC.calcRaster2(mcRasterList, mcRaster);
                     mcRaster.Save();
-                    tracker.ReportProgress(70);
+                    tracker.ReportProgress(70, "moving on");
                 }
             }
             costWeight.calculate_Cost_Weight(mcRasSavePath, bounds, _mapLayer, currentPass, additiveCosts, utilityCosts);
-            progress = "Pass " + Convert.ToString(currentPass) + " is complete.";
-            tracker.ReportProgress(90);
+            tracker.ReportProgress(90, "Pass " + Convert.ToString(currentPass) + " is complete.");
             if (MC.passType == "Monte Carlo")
             {
                 outputPathFilename = saveLocation + @"\linesiter\LSProcessing\Pass_" + Convert.ToString(currentPass) + @"\outputPathRaster";
