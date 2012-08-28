@@ -115,9 +115,11 @@ namespace LineSiterSitingTool
                 tracker.ReportProgress(30, "Raster template saved");
                 IRaster outputRaster = new Raster();
                 progress = "Creating temp directory";
-                if (!Directory.Exists(@"c:\temp\linesiter\LSProcessing\UTRasters\"))
+                //if (!Directory.Exists(@"c:\temp\linesiter\LSProcessing\UTRasters\"))
+                if (!Directory.Exists(txtSaveLocation.Text))
                 {
-                    Directory.CreateDirectory(@"c:\temp\linesiter\LSProcessing\UTRasters\");
+                    //Directory.CreateDirectory(@"c:\temp\linesiter\LSProcessing\UTRasters\");
+                    Directory.CreateDirectory(txtSaveLocation.Text);
                 }
 
                 foreach (KeyValuePair<string, string> dL in frmalc.layerList)
@@ -134,13 +136,13 @@ namespace LineSiterSitingTool
                             if (mras == null)
                             {
                                 FeatureSet fs = (FeatureSet)lay.DataSet;
-                                string fNameS = @"c:\temp\linesiter\LSProcessing\UTRasters\" + lay.LegendText + ".bgd";
+                                string fNameS = txtSaveLocation.Text + @"\" + lay.LegendText + ".bgd";
 
                                 outputRaster = DotSpatial.Analysis.VectorToRaster.ToRaster(fs, boundingExtent, cellSize, dL.Value, fNameS, "", ras1, null);
                                 outputRaster.Bounds = boundingRaster.Bounds;
-                                paRaster.createPA(outputRaster, @"c:\temp\linesiter\LSProcessing\UTRasters\" + lay.LegendText + ".bgd", -98);
+                                paRaster.createPA(outputRaster, txtSaveLocation.Text + @"\" + lay.LegendText + ".bgd", -98);
                                 //create method to add rasters together
-                                IRaster sendRaster = Raster.Open(@"c:\temp\linesiter\LSProcessing\UTRasters\" + lay.LegendText + "pa.bgd");
+                                IRaster sendRaster = Raster.Open(txtSaveLocation.Text + @"\" + lay.LegendText + "pa.bgd");
                                 sendRaster.Projection = _MW.Projection;
                                 sendRaster.Save();
                                 fOutputRaster.Bounds = sendRaster.Bounds;
