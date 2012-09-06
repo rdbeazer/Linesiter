@@ -93,6 +93,10 @@
             this.tsslXCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslYCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.appManager1 = new DotSpatial.Controls.AppManager();
+            this.qRibHelp = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
+            this.qPanelHelp = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.qButHelp = new Qios.DevSuite.Components.QCompositeButton();
+            this.qButAbout = new Qios.DevSuite.Components.QCompositeButton();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).BeginInit();
             this.qRibbon1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qRibHome)).BeginInit();
@@ -111,6 +115,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAttributes)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.qRibHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // qRibbon1
@@ -119,6 +124,7 @@
             this.qRibbon1.Controls.Add(this.qRibHome);
             this.qRibbon1.Controls.Add(this.qRbPgTools);
             this.qRibbon1.Controls.Add(this.qRbPgFile);
+            this.qRibbon1.Controls.Add(this.qRibHelp);
             this.qRibbon1.Cursor = System.Windows.Forms.Cursors.Default;
             this.qRibbon1.Dock = System.Windows.Forms.DockStyle.Top;
             this.qRibbon1.Form = this;
@@ -127,6 +133,7 @@
             this.qRibbon1.PersistGuid = new System.Guid("46ce0bc0-e733-48b9-ac42-154c3c1cd276");
             this.qRibbon1.Size = new System.Drawing.Size(981, 122);
             this.qRibbon1.TabIndex = 1;
+            this.qRibbon1.TabStripConfiguration.HelpButtonVisible = false;
             this.qRibbon1.Text = "ribMain";
             // 
             // qRibHome
@@ -742,6 +749,58 @@
             this.appManager1.ProgressHandler = null;
             this.appManager1.ShowExtensionsDialog = DotSpatial.Controls.ShowExtensionsDialog.Default;
             // 
+            // qRibHelp
+            // 
+            this.qRibHelp.ButtonOrder = 3;
+            this.qRibHelp.Items.Add(this.qPanelHelp);
+            this.qRibHelp.Location = new System.Drawing.Point(2, 31);
+            this.qRibHelp.Name = "qRibHelp";
+            this.qRibHelp.PersistGuid = new System.Guid("5abcbeef-718d-450d-9e5e-0144a938c723");
+            this.qRibHelp.Size = new System.Drawing.Size(975, 87);
+            this.qRibHelp.Text = "Help";
+            // 
+            // qPanelHelp
+            // 
+            this.qPanelHelp.Items.Add(this.qButHelp);
+            this.qPanelHelp.Items.Add(this.qButAbout);
+            this.qPanelHelp.Title = "";
+            // 
+            // qButHelp
+            // 
+            this.qButHelp.Configuration.AlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButHelp.Configuration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButHelp.Configuration.ControlConfiguration.MinimumSize = new System.Drawing.Size(22, 22);
+            this.qButHelp.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
+            this.qButHelp.Configuration.IconConfiguration.ContentAlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButHelp.Configuration.IconConfiguration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButHelp.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
+            this.qButHelp.Configuration.MinimumSize = new System.Drawing.Size(28, 28);
+            this.qButHelp.Configuration.TitleConfiguration.ContentAlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButHelp.Configuration.TitleConfiguration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButHelp.Configuration.TitleConfiguration.MinimumSize = new System.Drawing.Size(72, 20);
+            this.qButHelp.ControlSize = new System.Drawing.Size(48, 48);
+            this.qButHelp.Icon = ((System.Drawing.Icon)(resources.GetObject("qButHelp.Icon")));
+            this.qButHelp.Title = "Help";
+            this.qButHelp.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButHelp_ItemActivated);
+            // 
+            // qButAbout
+            // 
+            this.qButAbout.Configuration.AlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Far;
+            this.qButAbout.Configuration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.ControlConfiguration.ContentAlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.ControlConfiguration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
+            this.qButAbout.Configuration.IconConfiguration.ContentAlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.IconConfiguration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
+            this.qButAbout.Configuration.TitleConfiguration.ContentAlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.TitleConfiguration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qButAbout.Configuration.TitleConfiguration.MinimumSize = new System.Drawing.Size(72, 20);
+            this.qButAbout.ControlSize = new System.Drawing.Size(48, 48);
+            this.qButAbout.Icon = ((System.Drawing.Icon)(resources.GetObject("qButAbout.Icon")));
+            this.qButAbout.Title = "About LineSiter";
+            this.qButAbout.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.qButAbout_ItemActivated);
+            // 
             // frmNewMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -775,6 +834,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgAttributes)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.qRibHelp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -845,6 +905,10 @@
         private System.Windows.Forms.ToolStripStatusLabel tslSurveyData;
         private Qios.DevSuite.Components.QCompositeButton qButSubtract1;
         private Qios.DevSuite.Components.QCompositeButton qButPrint;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPage qRibHelp;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qPanelHelp;
+        private Qios.DevSuite.Components.QCompositeButton qButHelp;
+        private Qios.DevSuite.Components.QCompositeButton qButAbout;
 
     }
 }

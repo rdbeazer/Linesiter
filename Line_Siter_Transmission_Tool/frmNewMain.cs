@@ -416,5 +416,16 @@ namespace LineSiterSitingTool
             pp.MapControl = mpMain;
             pp.ShowDialog();
         }
+
+        private void qButAbout_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
+        {
+            frmAboutTool frmAT = new frmAboutTool();
+            frmAT.ShowDialog();
+        }
+
+        private void qButHelp_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
+        {
+            MessageBox.Show("Coming Soon...", "LineSiter Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
