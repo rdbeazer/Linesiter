@@ -32,6 +32,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.chkShow = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnOK
@@ -86,6 +87,19 @@
             this.textBoxDescription.Size = new System.Drawing.Size(300, 117);
             this.textBoxDescription.TabIndex = 9;
             // 
+            // chkShow
+            // 
+            this.chkShow.AutoSize = true;
+            this.chkShow.BackColor = System.Drawing.Color.Transparent;
+            this.chkShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkShow.ForeColor = System.Drawing.Color.GhostWhite;
+            this.chkShow.Location = new System.Drawing.Point(302, 403);
+            this.chkShow.Name = "chkShow";
+            this.chkShow.Size = new System.Drawing.Size(259, 20);
+            this.chkShow.TabIndex = 27;
+            this.chkShow.Text = "Show Welcome Dialog On Startup";
+            this.chkShow.UseVisualStyleBackColor = false;
+            // 
             // frmAboutTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +107,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(557, 423);
+            this.Controls.Add(this.chkShow);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.labelCopyright);
@@ -118,6 +133,7 @@
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.CheckBox chkShow;
 
 
     }

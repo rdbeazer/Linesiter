@@ -103,6 +103,11 @@ namespace LineSiterSitingTool
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (chkShow.Checked == true)
+            {
+                Properties.Settings.Default.WelcomeOn = true;
+                Properties.Settings.Default.Save();
+            }
             this.Close();
         }
 
