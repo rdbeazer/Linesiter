@@ -141,6 +141,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmWelcome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWelcome.Designer.cs">
+      <DependentUpon>frmWelcome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Whitebox\clsLCPGAT.cs" />
     <Compile Include="clsBuildDirectory.cs" />
     <Compile Include="clsCostWeight.cs" />
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSubtract.resx">
       <DependentUpon>frmSubtract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWelcome.resx">
+      <DependentUpon>frmWelcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MCTest.resx">
       <DependentUpon>MCTest.cs</DependentUpon>

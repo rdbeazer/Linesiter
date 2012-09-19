@@ -142,6 +142,11 @@ namespace LineSiterSitingTool
         private void frmNewMain_Load(object sender, EventArgs e)
         {
             this.Text = "LineSiter  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            if (Properties.Settings.Default.WelcomeOn == true)
+            {
+                frmWelcome ws = new frmWelcome();
+                ws.ShowDialog();
+            }
         }
 
         public void mpMain_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
