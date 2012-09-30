@@ -42,7 +42,7 @@
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.ForeColor = System.Drawing.Color.White;
-            this.btnOK.Location = new System.Drawing.Point(432, 314);
+            this.btnOK.Location = new System.Drawing.Point(432, 193);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(113, 43);
             this.btnOK.TabIndex = 5;
@@ -92,8 +92,8 @@
             this.chkShow.AutoSize = true;
             this.chkShow.BackColor = System.Drawing.Color.Transparent;
             this.chkShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShow.ForeColor = System.Drawing.Color.GhostWhite;
-            this.chkShow.Location = new System.Drawing.Point(302, 403);
+            this.chkShow.ForeColor = System.Drawing.Color.AliceBlue;
+            this.chkShow.Location = new System.Drawing.Point(301, 329);
             this.chkShow.Name = "chkShow";
             this.chkShow.Size = new System.Drawing.Size(259, 20);
             this.chkShow.TabIndex = 27;

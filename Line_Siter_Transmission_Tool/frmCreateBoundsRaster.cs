@@ -80,6 +80,7 @@ namespace LineSiterSitingTool
                 txtCellSize.Enabled = false;
                 string selectedItem = (string)cboLayers.SelectedItem;
                 string[] ras2 = new string[1];
+                txtSaveLocation.Text = txtSaveLocation.Text /*+ @"\prjBounds.bgd"*/;
                 foreach (Layer fsLayer in _MW.Layers)
                 {
                     if (fsLayer.LegendText == selectedItem)
