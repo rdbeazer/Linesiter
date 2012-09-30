@@ -182,7 +182,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(144, 269);
+            this.btnCancel.Location = new System.Drawing.Point(106, 269);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 26;
@@ -191,11 +191,11 @@
             // 
             // btnBegin
             // 
-            this.btnBegin.Location = new System.Drawing.Point(225, 269);
+            this.btnBegin.Location = new System.Drawing.Point(187, 269);
             this.btnBegin.Name = "btnBegin";
-            this.btnBegin.Size = new System.Drawing.Size(75, 23);
+            this.btnBegin.Size = new System.Drawing.Size(113, 23);
             this.btnBegin.TabIndex = 25;
-            this.btnBegin.Text = "Begin";
+            this.btnBegin.Text = "Assign Layer Costs";
             this.btnBegin.UseVisualStyleBackColor = true;
             this.btnBegin.Click += new System.EventHandler(this.btnBegin_Click);
             // 

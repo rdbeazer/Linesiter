@@ -430,7 +430,8 @@ namespace LineSiterSitingTool
 
         private void qButHelp_ItemActivated(object sender, Qios.DevSuite.Components.QCompositeEventArgs e)
         {
-            MessageBox.Show("Coming Soon...", "LineSiter Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Coming Soon...", "LineSiter Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Help.ShowHelp(this, "LineSiterHelpGuide.chm");
         }
     }
 }
